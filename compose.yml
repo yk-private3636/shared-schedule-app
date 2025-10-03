@@ -1,0 +1,68 @@
+services:
+  api:
+    container_name: api
+    build:
+      dockerfile: Dockerfile
+      context: ./apps/api
+      target: dev
+    ports:
+      - ${API_PORT:-8080}:8080
+    depends_on:
+      db: 
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-i", "http://127.0.0.1:8080/health" ]
+      start_period: 10s
+      interval: 5s
+      timeout: 20s
+      retries: 30
+    volumes:
+      - ./apps/api/app:/var/www/html/api/app
+      - ./shared:/var/www/html/shared
+  
+  web:
+    container_name: web
+    build:
+      dockerfile: Dockerfile
+      context: ./apps/web
+      target: dev
+    ports:
+      - ${WEB_PORT:-3000}:3000
+    depends_on:
+      api: 
+        condition: service_healthy
+    volumes:
+      - ./apps/web/app:/var/www/html/web/app
+      - ./shared:/var/www/html/shared
+
+  db:
+    container_name: db
+    build:
+      context: ./db
+      target: dev
+    environment:
+      POSTGRES_DB: shared-schedule
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: developer
+    ports:
+    - ${DB_PORT:-5432}:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "developer" ]
+      start_period: 3s
+      interval: 5s
+      timeout: 20s
+      retries: 30
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+
+  terraform:
+    container_name: terraform
+    build:
+      context: ./terraform
+    env_file:
+    - ./terraform/.env
+    volumes:
+    - ./terraform:/opt/terrform
+
+volumes:
+  shared-schedule-data:
