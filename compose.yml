@@ -18,7 +18,7 @@ services:
       timeout: 20s
       retries: 30
     volumes:
-      - ./apps/api/app:/var/www/html/api/app
+      - ./apps/api/app:/var/www/html/api
       - ./shared:/var/www/html/shared
   
   web:
@@ -33,7 +33,7 @@ services:
       api: 
         condition: service_healthy
     volumes:
-      - ./apps/web/app:/var/www/html/web/app
+      - ./apps/web/app:/var/www/html/web
       - ./shared:/var/www/html/shared
 
   db:
