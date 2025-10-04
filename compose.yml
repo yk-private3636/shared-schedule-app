@@ -34,6 +34,8 @@ services:
     depends_on:
       api: 
         condition: service_healthy
+    env_file:
+      - ./apps/web/.env
     volumes:
       - ./apps/web/app:/var/www/html/apps/web/app
       - ./shared:/var/www/html/shared
