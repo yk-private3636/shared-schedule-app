@@ -17,6 +17,8 @@ services:
       interval: 3s
       timeout: 20s
       retries: 30
+    env_file:
+      - ./apps/api/.env
     volumes:
       - ./apps/api/app:/var/www/html/apps/api/app
       - ./shared:/var/www/html/shared
@@ -32,6 +34,8 @@ services:
     depends_on:
       api: 
         condition: service_healthy
+    env_file:
+      - ./apps/web/.env
     volumes:
       - ./apps/web/app:/var/www/html/apps/web/app
       - ./shared:/var/www/html/shared
