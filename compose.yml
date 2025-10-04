@@ -17,6 +17,8 @@ services:
       interval: 3s
       timeout: 20s
       retries: 30
+    env_file:
+      - ./apps/api/.env
     volumes:
       - ./apps/api/app:/var/www/html/apps/api/app
       - ./shared:/var/www/html/shared
