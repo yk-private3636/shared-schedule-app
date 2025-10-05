@@ -23,7 +23,6 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["../../../shared/*"]
     }
   },
 }
