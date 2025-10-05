@@ -20,9 +20,9 @@ services:
     env_file:
       - ./apps/api/.env
     volumes:
-      - ./apps/api/app:/var/www/html/apps/api/app
-      - ./shared:/var/www/html/shared
-  
+      - ./apps/api/app:/var/www/html/api
+      - ./shared:/var/www/html/api/src/shared
+
   web:
     container_name: web
     build:
@@ -37,8 +37,8 @@ services:
     env_file:
       - ./apps/web/.env
     volumes:
-      - ./apps/web/app:/var/www/html/apps/web/app
-      - ./shared:/var/www/html/shared
+      - ./apps/web/app:/var/www/html/web
+      - ./shared:/var/www/html/web/src/shared
 
   db:
     container_name: db
