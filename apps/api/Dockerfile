@@ -1,7 +1,11 @@
-FROM node:22.14.0 AS dev
-
-RUN npm i -g @nestjs/cli
+FROM node:22.14.0-alpine AS dev
 
 WORKDIR /var/www/html/api
 
-CMD ["npm", "run", "start:dev"]
+ENV TZ=Asia/Tokyo
+
+COPY ./entry_point_dev.sh /usr/local/bin/entry_point.sh
+
+RUN chmod +x /usr/local/bin/entry_point.sh
+
+ENTRYPOINT [ "entry_point.sh" ]
