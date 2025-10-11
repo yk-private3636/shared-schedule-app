@@ -1,4 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Button from "@/components/Button";
 import DividerWithText from "@/components/DividerWithText";
 import GithubLogoButton from "@/components/GitHubLogoButton";
@@ -8,7 +10,16 @@ import MicrosoftLogoButton from "@/components/MicrosoftLogoButton";
 import i18n from "@/i18n/i18n";
 
 export default function Home() {
-  const { loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      return;
+    }
+
+    router.push("/schedules");
+  }, [isAuthenticated, router]);
 
   function loginEvent() {
     loginWithRedirect();
