@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import Button from "@/components/Button";
 import DividerWithText from "@/components/DividerWithText";
 import GithubLogoButton from "@/components/GitHubLogoButton";
@@ -7,7 +8,11 @@ import MicrosoftLogoButton from "@/components/MicrosoftLogoButton";
 import i18n from "@/i18n/i18n";
 
 export default function Home() {
-  const loginEvent = () => {};
+  const { loginWithRedirect } = useAuth0();
+
+  function loginEvent() {
+    loginWithRedirect();
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
