@@ -21,7 +21,7 @@ services:
       - ./apps/api/.env
     volumes:
       - ./apps/api/app:/var/www/html/api
-      - ./shared:/var/www/html/api/src/shared
+      - ./shared/src:/var/www/html/api/src/shared
 
   web:
     container_name: web
@@ -38,7 +38,16 @@ services:
       - ./apps/web/.env
     volumes:
       - ./apps/web/app:/var/www/html/web
-      - ./shared:/var/www/html/web/src/shared
+      - ./shared/src:/var/www/html/web/src/shared
+
+  shared:
+    container_name: shared
+    image: node:22.14.0-alpine
+    working_dir: /var/www/html/shared
+    entrypoint: >
+      sh -c "tail -f /dev/null"
+    volumes:
+      - ./shared:/var/www/html/shared
 
   db:
     container_name: db
