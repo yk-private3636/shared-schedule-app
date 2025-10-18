@@ -69,6 +69,13 @@ services:
     volumes:
       - ./db/data:/var/lib/postgresql/data
 
+  jaeger:
+    container_name: jaeger
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "4318:4318"
+      - "16686:16686"
+
   terraform:
     container_name: terraform
     build:
