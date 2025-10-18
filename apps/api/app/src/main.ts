@@ -1,11 +1,11 @@
+import '@/instrumentation';
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-
-import '@/instrumentation';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.listen(process.env.APP_PORT ?? 8080);
 }
 
-bootstrap();
+bootstrap(); // eslint-disable-line @typescript-eslint/no-floating-promises

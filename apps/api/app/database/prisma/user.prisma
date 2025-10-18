@@ -1,0 +1,12 @@
+model User {
+    id String @db.Uuid @id /// ユーザーID
+    email String @db.VarChar(255) @unique /// メールアドレス
+    family_name String @db.VarChar(50) /// 苗字
+    given_name String @db.VarChar(50) /// 名前
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+    deleted_at DateTime?
+
+    @@map("users")
+}
