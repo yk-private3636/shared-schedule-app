@@ -1,10 +1,19 @@
 #!/bin/sh
 
-setup() {
-    echo "環境のセットアップが出来ていませんでした。npm installを実行します..."
-    npm install
-    echo "npm run dev 実行中..."
-    npm run dev
-}
+readonly PACKAGE_LIST_FILE_NAME='package.json'
+readonly PACKAGE_LIST_HASH_FILE_NAME='package.json.md5'
 
-npm run dev || setup
+if [ ! -f ${PWD}/${PACKAGE_LIST_HASH_FILE_NAME} ]; then
+    echo > ${PWD}/${PACKAGE_LIST_HASH_FILE_NAME}
+fi
+
+hash=`md5sum ${PWD}/${PACKAGE_LIST_FILE_NAME} | awk '{print $1}' | tr -d '\n'`
+
+diff <(echo `cat ${PWD}/${PACKAGE_LIST_HASH_FILE_NAME}`) <(echo ${hash})
+
+if [ $? != 0 ]; then
+    npm ci
+    echo ${hash} | tr -d '\n' > ${PWD}/${PACKAGE_LIST_HASH_FILE_NAME}
+fi
+
+npm run dev
