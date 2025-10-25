@@ -1,7 +1,6 @@
-FROM hashicorp/terraform:1.13.3
+FROM hashicorp/terraform:1.13.4
 
 ENV TZ=Asia/Tokyo
-
-WORKDIR /opt/terrform
+WORKDIR /opt/terrform/infra/envs
 
 ENTRYPOINT [ "tail", "-f", "/dev/null" ]
