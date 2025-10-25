@@ -23,7 +23,7 @@ variable "project_name" {
 
 # 使用リージョンリスト
 variable "aws_region" {
-    description = "The AWS region in which to deploy resources."
-    type        = list(string)
-    default     = ["ap-northeast-1", "ap-northeast-3"]
+  description = "The AWS region in which to deploy resources."
+  type        = list(string)
+  default     = ["ap-northeast-1", "ap-northeast-3"]
 }
