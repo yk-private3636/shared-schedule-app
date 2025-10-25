@@ -27,3 +27,9 @@ variable "aws_region" {
   type        = list(string)
   default     = ["ap-northeast-1", "ap-northeast-3"]
 }
+
+# apiタグ名
+variable "api_tag_name" {
+  type    = string
+  default = "api-latest"
+}
