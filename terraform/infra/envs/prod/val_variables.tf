@@ -31,11 +31,30 @@ variable "aws_region" {
 # 使用AZリスト
 variable "aws_az" {
   type    = list(string)
-  default = ["ap-northeast-1a", "ap-northeast-1c"]
+  default = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
 }
 
 # apiタグ名
 variable "api_tag_name" {
   type    = string
   default = "api-latest"
+}
+
+# rds インスタンスクラスタイプ
+variable "db_instance_class" {
+  type = string
+}
+
+# rds データベース名
+variable "database_name" {
+  type = string
+}
+
+# rds masterユーザー情報
+variable "rds_master" {
+  type = object({
+    name     = string
+    password = string
+  })
+  sensitive = true
 }

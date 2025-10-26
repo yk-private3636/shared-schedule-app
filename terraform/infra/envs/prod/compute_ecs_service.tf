@@ -16,4 +16,10 @@ module "ecs_service" {
     container_name   = local.ecs_task_api_name
     container_port   = 8080
   }]
+
+  depends_on = [
+    module.private_subnet,
+    module.ecs_cluster,
+    module.ecs_task
+  ]
 }

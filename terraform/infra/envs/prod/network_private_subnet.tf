@@ -1,7 +1,7 @@
 module "private_subnet" {
   source = "../../modules/subnet"
 
-  count = 2
+  count = 3
 
   name                    = local.name
   vpc_id                  = module.vpc.id
