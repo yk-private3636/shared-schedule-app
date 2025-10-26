@@ -8,7 +8,7 @@ module "ecs_task" {
   execution_role_arn = module.ecs_iam.arn
 
   api_task = {
-    name   = "${var.env}-api-task"
+    name   = local.ecs_task_api_name
     image  = "${module.ecr.repository_url}:${var.api_tag_name}"
     cpu    = 1024
     memory = 2048

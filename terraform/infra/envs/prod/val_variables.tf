@@ -28,6 +28,12 @@ variable "aws_region" {
   default     = ["ap-northeast-1", "ap-northeast-3"]
 }
 
+# 使用AZリスト
+variable "aws_az" {
+  type    = list(string)
+  default = ["ap-northeast-1a", "ap-northeast-1c"]
+}
+
 # apiタグ名
 variable "api_tag_name" {
   type    = string
