@@ -7,4 +7,5 @@ locals {
   ecs_task_api_name        = "${var.env}-api-task"            # ecs apiタスク名
   alb_target_name          = "${var.env}-alb-target"          # alb ターゲット名
   rds_instance_name        = "${var.env}-rds-instance"        # rdsインスタンス名
+  s3_bucket_name           = "${var.env}-${var.project_name}" # s3バケット名
 }
