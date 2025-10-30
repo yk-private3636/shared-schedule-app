@@ -8,3 +8,15 @@ variable "cidr_block" {
 variable "name" {
     type = string
 }
+
+# vpc内でのDNSサポート有効/無効
+variable "enable_dns_support" {
+    type = bool
+    default = false
+}
+
+# vpc内でのDNS有効/無効
+variable "enable_dns_hostnames" {
+    type = bool
+    default = false
+}
