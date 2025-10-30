@@ -7,3 +7,8 @@ output "id" {
 output "domain_name" {
     value = aws_s3_bucket.main.bucket_domain_name
 }
+
+# s3バケットARN
+output "arn" {
+    value = aws_s3_bucket.main.arn
+}
