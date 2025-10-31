@@ -22,3 +22,17 @@ variable "actions" {
 variable "bucket_arn" {
     type = string
 }
+
+# 条件
+variable "condition" {
+    type = object({
+        test     = string
+        variable = string
+        values   = list(string)
+    })
+    default = {
+      test = ""
+      variable = ""
+      values = []
+    }
+}

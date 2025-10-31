@@ -12,3 +12,8 @@ output "domain_name" {
 output "arn" {
     value = aws_s3_bucket.main.arn
 }
+
+# s3バケットリージョナルドメイン名
+output "regional_domain_name" {
+    value = aws_s3_bucket.main.bucket_regional_domain_name
+}

@@ -19,4 +19,5 @@ locals {
   vpc_endpoint_cloudwatch_service_name     = "com.amazonaws.${var.aws_region[0]}.logs"           # cloudwatch_vpcエンドポイントサービス名
   vpc_endpoint_secretsmanager_service_name = "com.amazonaws.${var.aws_region[0]}.secretsmanager" # secretsmanager_vpcエンドポイントサービス名
   route_table_public_name                  = "${var.env}-${var.project_name}-public_route_table" # public用ルートテーブル
+  cf_acm_certificate_name                  = "${var.env}-${var.project_name}-cf"                 # cloudfront用acm証明書名前
 }

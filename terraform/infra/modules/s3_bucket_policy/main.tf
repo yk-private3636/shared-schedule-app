@@ -18,5 +18,11 @@ data "aws_iam_policy_document" "main" {
       var.bucket_arn,
       "${var.bucket_arn}/*",
     ]
+
+    condition {
+      test = var.condition.test
+      variable = var.condition.variable
+      values = var.condition.values
+    }
   }
 }
