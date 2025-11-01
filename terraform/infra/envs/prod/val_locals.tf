@@ -23,4 +23,6 @@ locals {
   cf_acm_certificate_name                  = "${var.env}-${var.project_name}-cf"                 # cloudfront用acm証明書名前
   secrets_rds_writer_connection_name       = "${local.name}-rds-writer-connection"               #                              # rds writer接続情報シークレット名
   secrets_rds_reader_connection_name       = "${local.name}-rds-reader-connection"               #                           # rds writer接続情報シークレット名
+
+  auth0_spa_client_name = "${local.name}-spa-client" # auth0 spaクライアント名
 }
