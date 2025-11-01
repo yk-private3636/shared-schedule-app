@@ -6,7 +6,7 @@ module "cloudfront_distribution" {
   default_root_object = "index.html"
 
   origin = {
-    domain_name              = module.s3_bucket.domain_name
+    domain_name              = module.s3_bucket.regional_domain_name
     origin_id                = module.s3_bucket.id
     origin_access_control_id = module.cloudfront_origin_access_control.id
   }

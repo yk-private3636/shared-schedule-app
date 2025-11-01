@@ -8,7 +8,7 @@ module "s3_bucket_policy" {
   actions              = ["s3:GetObject"]
   condition = {
     test     = "StringEquals"
-    variable = "AWS:SourceArn"
+    variable = "aws:SourceArn"
     values   = [module.cloudfront_distribution.arn]
   }
 }
