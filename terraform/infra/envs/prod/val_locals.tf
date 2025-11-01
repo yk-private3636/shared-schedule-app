@@ -7,6 +7,7 @@ locals {
   ecs_task_api_name                        = "${var.env}-api-task"                               # ecs apiタスク名
   alb_target_name                          = "${var.env}-alb-target"                             # alb ターゲット名
   rds_instance_name                        = "${var.env}-rds-instance"                           # rdsインスタンス名
+  rds_subnet_group_name                    = "${var.env}-${var.project_name}-rds-subnet-group"   # rdsサブネットグループ名
   s3_bucket_name                           = "${var.env}-${var.project_name}"                    # s3バケット名
   vpc_endpoint_ecr_dkr_name                = "ecr-dkr-${var.env}-${var.project_name}"            # ecr_dkr_vpcエンドポイント名
   vpc_endpoint_ecr_api_name                = "ecr-api-${var.env}-${var.project_name}"            # ecr_api_vpcエンドポイント名

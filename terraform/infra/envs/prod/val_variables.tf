@@ -50,8 +50,8 @@ variable "database_name" {
   type = string
 }
 
-# rds masterユーザー情報
-variable "rds_master" {
+# rds ユーザー情報
+variable "db_user" {
   type = object({
     name     = string
     password = string
