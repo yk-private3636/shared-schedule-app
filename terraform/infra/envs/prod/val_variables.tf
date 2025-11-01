@@ -50,6 +50,11 @@ variable "database_name" {
   type = string
 }
 
+# rds スキーマ名
+variable "database_schema" {
+  type = string
+}
+
 # rds ユーザー情報
 variable "db_user" {
   type = object({
