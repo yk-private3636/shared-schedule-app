@@ -22,8 +22,8 @@ module "ecs_task" {
       otel_service_name                  = local.name
       otel_exporter_otlp_traces_endpoint = "" # TODO: otlpサービスエンドポイントを指定すること
       otel_exporter_otlp_protocol        = "http/protobuf"
-      auth0_issuer_url                   = "" # TODO: auth0設定値
-      auth0_audience                     = "" # TODO: auth0設定値
+      auth0_issuer_url                   = local.auth0_api_origin
+      auth0_audience                     = local.api_endpoint
     }
     secrets = [{
       name      = "DATABASE_WRITER_URL"

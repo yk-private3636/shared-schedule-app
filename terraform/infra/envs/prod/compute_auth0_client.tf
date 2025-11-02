@@ -30,10 +30,16 @@ module "auth0_spa_client" {
     rotation_type   = "rotating"
     leeway          = 0
     token_lifetime  = 2592000
+    policies = {
+      audience = local.api_endpoint
+      scope    = []
+    }
   }
 
   grant_types = [
     "authorization_code",
     "refresh_token"
   ]
+
+  depends_on = [module.auth0_resource_server]
 }

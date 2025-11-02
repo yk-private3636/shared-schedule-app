@@ -24,5 +24,9 @@ locals {
   secrets_rds_writer_connection_name       = "${local.name}-rds-writer-connection"               #                              # rds writer接続情報シークレット名
   secrets_rds_reader_connection_name       = "${local.name}-rds-reader-connection"               #                           # rds writer接続情報シークレット名
 
-  auth0_spa_client_name = "${local.name}-spa-client" # auth0 spaクライアント名
+  auth0_spa_client_name = "${local.name}-spa-client"    # auth0 spaクライアント名
+  auth0_api_name        = "${local.name}-api"           # auth0 apiリソース名
+  auth0_api_origin      = "https://${var.auth0_domain}" # auth0 apiリソースオリジンURL
+
+  api_endpoint = "http://${module.alb.dns_name}" # api エンドポイントURL
 }

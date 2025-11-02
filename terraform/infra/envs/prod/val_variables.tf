@@ -63,3 +63,8 @@ variable "db_user" {
   })
   sensitive = true
 }
+
+# auth0 ドメイン
+variable "auth0_domain" {
+  type = string
+}

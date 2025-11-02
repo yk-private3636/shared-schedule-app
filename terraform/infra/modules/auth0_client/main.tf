@@ -12,6 +12,7 @@ resource "auth0_client" "main" {
   jwt_configuration {
     lifetime_in_seconds = var.jwt_configuration.lifetime_in_seconds
     secret_encoded      = var.jwt_configuration.secret_encoded
+    alg = var.jwt_configuration.alg
   }
 
   refresh_token {
@@ -19,6 +20,10 @@ resource "auth0_client" "main" {
     token_lifetime  = var.refresh_token.token_lifetime
     rotation_type   = var.refresh_token.rotation_type
     expiration_type = var.refresh_token.expiration_type
+    policies {
+      audience = var.refresh_token.policies.audience
+      scope    = var.refresh_token.policies.scope
+    }
   }
 
   grant_types = var.grant_types

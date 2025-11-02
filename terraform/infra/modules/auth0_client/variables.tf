@@ -62,6 +62,10 @@ variable "refresh_token" {
         token_lifetime  = number
         rotation_type   = string
         expiration_type = string
+        policies = object({
+            audience = string
+            scope    = list(string)
+        })
     })
 }
 
