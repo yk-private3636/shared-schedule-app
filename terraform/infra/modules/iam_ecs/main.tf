@@ -8,7 +8,6 @@ resource "aws_iam_role_policy" "main" {
     name = var.iam_role_policy_name
     role = aws_iam_role.main.id
     policy = data.aws_iam_policy_document.ecs_task_execution.json
-
 }
 
 # 引き受けをecsに指定
@@ -25,17 +24,11 @@ data "aws_iam_policy_document" "ecs_task_trust" {
 
 # ecsのpolicy内容
 data "aws_iam_policy_document" "ecs_task_execution" {
+  
   statement {
     effect = "Allow"
     actions = [
       "ecr:GetAuthorizationToken",
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
       "ecr:BatchGetImage",
       "ecr:GetDownloadUrlForLayer",
     ]

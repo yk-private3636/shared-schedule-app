@@ -8,5 +8,5 @@ module "vpc_endpoint_s3" {
   private_dns_enabled = false
   security_group_ids  = []
   subnet_ids          = []
-  route_table_ids     = [module.public_route_table.id]
+  route_table_ids     = [module.private_route_table.id]
 }
