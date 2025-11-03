@@ -16,7 +16,7 @@ services:
       start_period: 12s
       interval: 3s
       timeout: 20s
-      retries: 30
+      retries: 50
     env_file:
       - ./apps/api/.env
     volumes:

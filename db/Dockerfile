@@ -1,4 +1,4 @@
-FROM postgres:16 AS dev
+FROM postgres:17.6 AS dev
 
 ENV TZ=Asia/Tokyo
 

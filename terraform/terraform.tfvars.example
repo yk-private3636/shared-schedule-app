@@ -1,3 +1,14 @@
-env = ""
+env = "dev"
 project_name = "shared-schedule-app"
 aws_region = ["ap-northeast-1", "ap-northeast-3"]
+aws_az = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
+
+api_tag_name = "api-latest"
+db_instance_class = "db.r6gd.xlarge"
+database_name = "sharedschedule"
+database_schema = "public"
+
+db_user = {
+  name     = "developer"
+  password = "developer"
+}
