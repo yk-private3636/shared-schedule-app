@@ -43,6 +43,7 @@ WORKDIR /tmp
 ENV TZ=Asia/Tokyo
 ENV NODE_ENV=production
 
+# example: nest generate resource(nest g res)
 RUN npm i -g @nestjs/cli
 
 COPY ./app/package*.json ./
