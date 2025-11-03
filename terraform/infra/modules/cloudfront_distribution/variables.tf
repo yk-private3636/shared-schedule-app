@@ -75,3 +75,11 @@ variable "forwarded_values" {
         })
     })
 }
+
+# CloudFront Functionアソシエーション設定
+variable "function_association" {
+    type = object({
+        event_type   = string
+        function_arn = string
+    })
+}

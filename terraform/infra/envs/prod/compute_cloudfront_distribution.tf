@@ -38,4 +38,9 @@ module "cloudfront_distribution" {
     max_ttl                = 86400
     default_ttl            = 86400
   }
+
+  function_association = {
+    event_type   = "viewer-request"
+    function_arn = module.cloudfront_function_ensure_html_extension.arn
+  }
 }

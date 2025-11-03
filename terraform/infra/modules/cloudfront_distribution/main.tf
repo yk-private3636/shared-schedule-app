@@ -18,6 +18,11 @@ resource "aws_cloudfront_distribution" "main" {
         min_ttl                = var.default_cache_behavior.min_ttl
         default_ttl            = var.default_cache_behavior.default_ttl
         max_ttl                = var.default_cache_behavior.max_ttl
+
+        function_association {
+            event_type = var.function_association.event_type
+            function_arn = var.function_association.function_arn
+        }
         
         forwarded_values {
             query_string = var.forwarded_values.query_string
