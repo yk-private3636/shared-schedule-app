@@ -4,7 +4,7 @@
 /build
 /src/shared
 
-package.json.md5
+package-lock.json.md5
 
 # Logs
 logs

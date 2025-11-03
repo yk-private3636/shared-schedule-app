@@ -1,7 +1,7 @@
 #!/bin/sh
 
-readonly PACKAGE_LIST_FILE_NAME='package.json'
-readonly PACKAGE_LIST_HASH_FILE_NAME='package.json.md5'
+readonly PACKAGE_LIST_FILE_NAME='package-lock.json'
+readonly PACKAGE_LIST_HASH_FILE_NAME='package-lock.json.md5'
 
 if [ ! -f ${PWD}/${PACKAGE_LIST_HASH_FILE_NAME} ]; then
     echo > ${PWD}/${PACKAGE_LIST_HASH_FILE_NAME}
