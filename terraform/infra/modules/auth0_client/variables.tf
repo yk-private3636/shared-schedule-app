@@ -46,6 +46,12 @@ variable "oidc_conformant" {
     default     = true
 }
 
+# auth0 クライアントのロゴURI
+variable "logo_uri" {
+    type        = string
+    default     = ""
+}
+
 # auth0 JWT設定
 variable "jwt_configuration" {
     type = object({

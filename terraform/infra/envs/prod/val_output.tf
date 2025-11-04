@@ -1,5 +1,5 @@
-# cloudfrontエンドポイントURL
-output "cloudfront_endpoint_url" {
+# webエンドポイントURL
+output "web_endpoint_url" {
   value = "https://${module.cloudfront_distribution.domain_name}"
 }
 
