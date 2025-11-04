@@ -12,3 +12,5 @@ db_user = {
   name     = "developer"
   password = "developer"
 }
+
+auth0_domain = ""
