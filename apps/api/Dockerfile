@@ -65,4 +65,4 @@ ENV NODE_ENV=production
 
 COPY --from=build --exclude=src --exclude=test --exclude=node-compile-cache --exclude=*.json --exclude=*.mjs --exclude=*.md* --exclude=.* /tmp ./
 
-ENTRYPOINT [ "node", "./dist/main" ]
+ENTRYPOINT [ "node", "./dist/src/main" ]
