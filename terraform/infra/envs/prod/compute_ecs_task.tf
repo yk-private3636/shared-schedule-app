@@ -32,5 +32,15 @@ module "ecs_task" {
       name      = "DATABASE_READER_URL"
       valueFrom = module.secrets_rds_reader_connection.arn
     }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogsCreateGroup  = "true"
+        awslogsGroup        = local.cloudwatch_ecr_api_log_group_name
+        awslogsStreamPrefix = "app"
+        awslogsRegion       = var.aws_region[0]
+        mode                = "non-blocking"
+      }
+    }
   }
 }
