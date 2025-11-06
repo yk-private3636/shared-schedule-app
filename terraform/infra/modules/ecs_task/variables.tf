@@ -23,6 +23,11 @@ variable "execution_role_arn" {
   type = string
 }
 
+# ecsタスクロールARN
+variable "task_role_arn" {
+  type = string
+}
+
 # apiタスク設定
 variable "api_task" {
   type = object({
@@ -54,6 +59,9 @@ variable "api_task" {
         awslogsRegion = string # awslogs-region
         mode = string # モード
       })
+    })
+    linuxParameters = object({
+      initProcessEnabled = bool # initプロセス有効化
     })
   })
 }

@@ -1,10 +1,8 @@
 module "ngw" {
   source = "../../modules/ngw"
 
-  count = length(module.public_subnet)
-
-  name              = "${local.name}-${count.index + 1}"
-  subnet_id         = module.public_subnet[count.index].id
-  eip_allocation_id = module.eip[count.index].allocation_id
+  name              = local.name
+  subnet_id         = module.public_subnet[0].id
+  eip_allocation_id = module.eip[0].allocation_id
   connectivity_type = "public"
 }

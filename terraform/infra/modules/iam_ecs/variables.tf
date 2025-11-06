@@ -1,9 +1,19 @@
-# iam role名
-variable "iam_role_name" {
+# タスク実行ロール名
+variable "iam_role_task_execution_name" {
     type = string
 }
 
-# iam role policy名
-variable "iam_role_policy_name" {
+# タスクロール名
+variable "iam_role_task_name" {
+    type = string
+}
+
+# タスク実行ポリシー名
+variable "iam_role_policy_task_execution_name" {
+    type = string
+}
+
+# SSMメッセージ用ポリシー名
+variable "iam_role_policy_ssmmessage_name" {
     type = string
 }
