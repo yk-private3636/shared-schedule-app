@@ -64,6 +64,17 @@ variable "db_user" {
   sensitive = true
 }
 
+# auth0 クライアントID
+variable "auth0_client_id" {
+  type = string
+}
+
+# auth0 クライアントシークレット
+variable "auth0_client_secret" {
+  type      = string
+  sensitive = true
+}
+
 # auth0 ドメイン
 variable "auth0_domain" {
   type = string

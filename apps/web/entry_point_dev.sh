@@ -16,4 +16,4 @@ if [ $? != 0 ]; then
     echo ${hash} | tr -d '\n' > ${PWD}/${PACKAGE_LIST_HASH_FILE_NAME}
 fi
 
-npm run dev
+npm run watch & npm run dev

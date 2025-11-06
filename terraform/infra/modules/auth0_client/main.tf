@@ -8,6 +8,7 @@ resource "auth0_client" "main" {
   web_origins = var.web_origins
   is_first_party = var.is_first_party
   oidc_conformant = var.oidc_conformant
+  logo_uri = var.logo_uri
 
   jwt_configuration {
     lifetime_in_seconds = var.jwt_configuration.lifetime_in_seconds
@@ -25,6 +26,6 @@ resource "auth0_client" "main" {
       scope    = var.refresh_token.policies.scope
     }
   }
-
+  
   grant_types = var.grant_types
 }

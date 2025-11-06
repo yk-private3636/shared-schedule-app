@@ -23,6 +23,11 @@ variable "execution_role_arn" {
   type = string
 }
 
+# ecsタスクロールARN
+variable "task_role_arn" {
+  type = string
+}
+
 # apiタスク設定
 variable "api_task" {
   type = object({
@@ -40,6 +45,23 @@ variable "api_task" {
       otel_exporter_otlp_protocol = string # OpenTelemetry エクスポータープロトコル
       auth0_issuer_url = string # JWT発行auth0 URL
       auth0_audience = string # auth0 audience
+    })
+    secrets = list(object({
+      name = string # シークレット名
+      valueFrom = string # シークレットARN
+    }))
+    logConfiguration = object({
+      logDriver = string # ログドライバー
+      options = object({
+        awslogsCreateGroup = string # awslogs-create-group
+        awslogsGroup = string # awslogs-group
+        awslogsStreamPrefix = string # awslogs-stream-prefix
+        awslogsRegion = string # awslogs-region
+        mode = string # モード
+      })
+    })
+    linuxParameters = object({
+      initProcessEnabled = bool # initプロセス有効化
     })
   })
 }

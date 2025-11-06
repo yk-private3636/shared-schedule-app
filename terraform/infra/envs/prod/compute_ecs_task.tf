@@ -5,7 +5,8 @@ module "ecs_task" {
   app_env            = var.env
   tasks_cpu          = 1024
   tasks_memory       = 2048
-  execution_role_arn = module.ecs_iam.arn
+  execution_role_arn = module.ecs_iam.task_execution_role_arn
+  task_role_arn      = module.ecs_iam.task_role_arn
 
   api_task = {
     name   = local.ecs_task_api_name
@@ -32,5 +33,18 @@ module "ecs_task" {
       name      = "DATABASE_READER_URL"
       valueFrom = module.secrets_rds_reader_connection.arn
     }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogsCreateGroup  = "true"
+        awslogsGroup        = local.cloudwatch_ecr_api_log_group_name
+        awslogsStreamPrefix = "app"
+        awslogsRegion       = var.aws_region[0]
+        mode                = "non-blocking"
+      }
+    }
+    linuxParameters = {
+      initProcessEnabled = true
+    }
   }
 }

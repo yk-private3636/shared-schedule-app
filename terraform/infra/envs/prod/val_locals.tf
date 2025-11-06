@@ -2,8 +2,10 @@ locals {
   name                                     = "${var.env}-${var.project_name}"                     # 共通リソース名
   ecs_service_name                         = "${var.env}-service"                                 # ecsサービス名
   ecs_tasks_name                           = "${var.env}-tasks"                                   # ecsタスク名
-  ecs_iam_role_name                        = "${var.env}EcsRole"                                  # ecsロール名
-  ecs_iam_role_policy_name                 = "${var.env}EcsRolePolicy"                            # ecsポリシー名
+  ecs_iam_role_task_execution_name         = "${var.project_name}-ecs-task-execution-role"       # ecsタスク実行ロール名
+  ecs_iam_role_policy_task_execution_name  = "${var.project_name}-ecs-task-execution-role-policy"      # ecsポリシー名
+  ecs_iam_role_task_name                   = "${var.project_name}-ecs-task-role"                  # ecsタスクロール名
+  ecs_iam_role_policy_ssmmessage_name      = "${var.project_name}-ecs-task-ssmmessages-role-policy"    # ecs ssmmessageポリシー名
   ecs_task_api_name                        = "${var.env}-api-task"                                # ecs apiタスク名
   alb_target_name                          = "${var.env}-alb-target"                              # alb ターゲット名
   rds_instance_name                        = "${var.env}-rds-instance"                            # rdsインスタンス名
@@ -24,6 +26,8 @@ locals {
   cf_acm_certificate_name                  = "${var.env}-${var.project_name}-cf"                  # cloudfront用acm証明書名前
   secrets_rds_writer_connection_name       = "${local.name}-rds-writer-connection"                #                              # rds writer接続情報シークレット名
   secrets_rds_reader_connection_name       = "${local.name}-rds-reader-connection"                #                           # rds writer接続情報シークレット名
+  cloudwatch_ecr_api_log_group_name        = "/aws/ecs/${var.env}/${var.project_name}/api"        # apiコンテナ用cloudwatchロググループ名
+  ngw_eip_name                             = "${local.name}-ngw-eip"                              # nat gateway用eip名前 
 
   auth0_spa_client_name = "${local.name}-spa-client"    # auth0 spaクライアント名
   auth0_api_name        = "${local.name}-api"           # auth0 apiリソース名

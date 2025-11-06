@@ -7,10 +7,17 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "watch": "npm-watch",
+    "graphql:codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@apollo/client": "^4.0.9",
     "@auth0/auth0-react": "^2.5.0",
+    "@graphql-codegen/cli": "^6.0.1",
+    "@graphql-codegen/client-preset": "^5.1.1",
+    "@graphql-codegen/typescript-resolvers": "^5.1.0",
+    "graphql-request": "^7.3.1",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"
@@ -22,7 +29,18 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "i18n-js": "^4.5.1",
+    "npm-watch": "^0.13.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "watch": {
+    "graphql:codegen": {
+      "patterns": [
+        "src/pages",
+        "src/components"
+      ],
+      "extensions": "ts,tsx",
+      "runOnChangeOnly": true
+    }
   }
 }

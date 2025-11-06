@@ -5,6 +5,7 @@ resource "aws_ecs_task_definition" "main" {
     cpu = var.tasks_cpu
     memory = var.tasks_memory
     execution_role_arn = var.execution_role_arn
+    task_role_arn = var.task_role_arn
 
     container_definitions = jsonencode([{
         name = var.api_task.name
@@ -16,6 +17,9 @@ resource "aws_ecs_task_definition" "main" {
             containerPort = var.api_task.port.container
             hostPort      = var.api_task.port.host
         }]
+        linuxParameters = {
+            initProcessEnabled = var.api_task.linuxParameters.initProcessEnabled
+        }
 
         environment = [{
             name = "APP_ENV"
@@ -39,6 +43,22 @@ resource "aws_ecs_task_definition" "main" {
             name = "AUTH0_AUDIENCE"
             value = var.api_task.environment.auth0_audience
         }]
+        secrets = [
+            for secret in var.api_task.secrets : {
+                name      = secret.name
+                valueFrom = secret.valueFrom
+            }
+        ]
+        logConfiguration = {
+            logDriver = var.api_task.logConfiguration.logDriver
+            options = {
+                "awslogs-create-group"  = var.api_task.logConfiguration.options.awslogsCreateGroup
+                "awslogs-group"         = var.api_task.logConfiguration.options.awslogsGroup
+                "awslogs-stream-prefix" = var.api_task.logConfiguration.options.awslogsStreamPrefix
+                "awslogs-region"        = var.api_task.logConfiguration.options.awslogsRegion
+                "mode"                  = var.api_task.logConfiguration.options.mode
+            }
+        }
     }])
 
     tags = {
