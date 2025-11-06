@@ -5,7 +5,8 @@ module "ecs_task" {
   app_env            = var.env
   tasks_cpu          = 1024
   tasks_memory       = 2048
-  execution_role_arn = module.ecs_iam.arn
+  execution_role_arn = module.ecs_iam.task_execution_role_arn
+  task_role_arn      = module.ecs_iam.task_role_arn
 
   api_task = {
     name   = local.ecs_task_api_name
@@ -41,6 +42,9 @@ module "ecs_task" {
         awslogsRegion       = var.aws_region[0]
         mode                = "non-blocking"
       }
+    }
+    linuxParameters = {
+      initProcessEnabled = true
     }
   }
 }

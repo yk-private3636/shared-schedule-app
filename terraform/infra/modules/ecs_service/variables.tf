@@ -33,6 +33,12 @@ variable "force_new_deployment" {
     default = false
 }
 
+# ECS Execコマンド有効化
+variable "enable_execute_command" {
+    type = bool
+    default = false
+}
+
 # 割り当てサブネットID
 variable "subnet_ids" {
     type = list(string)
