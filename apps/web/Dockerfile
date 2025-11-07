@@ -3,7 +3,7 @@ ARG BASE_IMAGE=node:22.14.0-alpine
 # 開発環境
 FROM ${BASE_IMAGE} AS dev
 
-WORKDIR /var/www/html/web
+WORKDIR /var/www/html/apps/web/app
 
 ENV TZ=Asia/Tokyo
 
