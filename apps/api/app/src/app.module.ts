@@ -3,7 +3,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { HealthController } from '@/healthz/health.controller';
 import { AuthzModule } from './authz/authz.module';
-import { join } from 'path';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -11,7 +10,7 @@ import { UsersModule } from './users/users.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       include: [],
-      autoSchemaFile: join(process.cwd(), 'src/shared/graphql/schema.gql'),
+      autoSchemaFile: '../../shared/graphql/schema.gql',
       graphiql: false,
     }),
     AuthzModule,

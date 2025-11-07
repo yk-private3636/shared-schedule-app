@@ -5,16 +5,16 @@ ARG BASE_IMAGE=node:22.14.0-alpine
 # 開発環境
 FROM ${BASE_IMAGE} AS dev
 
-WORKDIR /var/www/html/api
+WORKDIR /var/www/html/apps/api/app
 ENV TZ=Asia/Tokyo
 
 RUN npm i -g @nestjs/cli
 
-COPY ./entry_point_dev.sh /usr/local/bin/entry_point.sh
+COPY ../entry_point_dev.sh /usr/local/bin/entry_point.sh
 
 RUN chmod +x /usr/local/bin/entry_point.sh
 
-ENTRYPOINT [ "entry_point.sh" ]
+ENTRYPOINT [ "entry_point.sh", "api", "npm run start:dev" ]
 
 
 # CI環境

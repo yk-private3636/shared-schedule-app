@@ -3,15 +3,15 @@ ARG BASE_IMAGE=node:22.14.0-alpine
 # 開発環境
 FROM ${BASE_IMAGE} AS dev
 
-WORKDIR /var/www/html/web
+WORKDIR /var/www/html/apps/web/app
 
 ENV TZ=Asia/Tokyo
 
-COPY ./entry_point_dev.sh /usr/local/bin/entry_point.sh
+COPY ../entry_point_dev.sh /usr/local/bin/entry_point.sh
 
 RUN chmod +x /usr/local/bin/entry_point.sh
 
-ENTRYPOINT [ "entry_point.sh" ]
+ENTRYPOINT [ "entry_point.sh", "web", "npm run dev" ]
 
 
 # CI環境

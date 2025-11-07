@@ -3,8 +3,8 @@ services:
   api:
     container_name: api
     build:
-      dockerfile: Dockerfile
-      context: ./apps/api
+      dockerfile: api/Dockerfile
+      context: ./apps
       target: dev
     ports:
       - ${API_PORT:-8080}:8080
@@ -20,14 +20,13 @@ services:
     env_file:
       - ./apps/api/.env
     volumes:
-      - ./apps/api/app:/var/www/html/api
-      - ./shared/src:/var/www/html/api/src/shared
+      - ./apps:/var/www/html/apps
 
   web:
     container_name: web
     build:
-      dockerfile: Dockerfile
-      context: ./apps/web
+      dockerfile: web/Dockerfile
+      context: ./apps
       target: dev
     ports:
       - ${WEB_PORT:-3000}:3000
@@ -37,17 +36,7 @@ services:
     env_file:
       - ./apps/web/.env
     volumes:
-      - ./apps/web/app:/var/www/html/web
-      - ./shared/src:/var/www/html/web/src/shared
-
-  shared:
-    container_name: shared
-    image: node:22.14.0-alpine
-    working_dir: /var/www/html/shared
-    entrypoint: >
-      sh -c "tail -f /dev/null"
-    volumes:
-      - ./shared:/var/www/html/shared
+      - ./apps:/var/www/html/apps
 
   db:
     container_name: db

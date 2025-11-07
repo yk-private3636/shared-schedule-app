@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "codegen.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "gql_codegen.ts"],
   "exclude": ["node_modules"]
 }

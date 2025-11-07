@@ -8,7 +8,7 @@ import GoogleLogoButton from "@/components/GoogleLogoButton";
 import LinkUnderLine from "@/components/LinkUnderLine";
 import Loading from "@/components/Loading";
 import MicrosoftLogoButton from "@/components/MicrosoftLogoButton";
-import i18n from "@/shared/i18n/i18n";
+import { i18n } from 'shared';
 
 export default function Home() {
   const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
