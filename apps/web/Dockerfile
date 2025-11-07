@@ -11,7 +11,7 @@ COPY ../entry_point_dev.sh /usr/local/bin/entry_point.sh
 
 RUN chmod +x /usr/local/bin/entry_point.sh
 
-ENTRYPOINT [ "entry_point.sh", "web", "npm run dev" ]
+ENTRYPOINT [ "entry_point.sh", "web", "npm run watch & npm run dev" ]
 
 
 # CI環境

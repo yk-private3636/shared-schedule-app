@@ -20,6 +20,7 @@ module "ecs_task" {
     environment = {
       app_env                            = var.env
       app_port                           = "8080"
+      client_origin                      = local.web_endpoint
       otel_service_name                  = local.name
       otel_exporter_otlp_traces_endpoint = "" # TODO: otlpサービスエンドポイントを指定すること
       otel_exporter_otlp_protocol        = "http/protobuf"

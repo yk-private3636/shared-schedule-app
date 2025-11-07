@@ -1,6 +1,6 @@
 # webエンドポイントURL
 output "web_endpoint_url" {
-  value = "https://${module.cloudfront_distribution.domain_name}"
+  value = local.web_endpoint
 }
 
 # apiエンドポイントURL

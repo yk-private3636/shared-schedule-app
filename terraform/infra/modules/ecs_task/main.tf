@@ -28,6 +28,9 @@ resource "aws_ecs_task_definition" "main" {
             name = "APP_PORT"
             value = tostring(var.api_task.port.container)
         }, {
+            name = "CLIENT_ORIGIN"
+            value = var.api_task.environment.client_origin
+        } , {
             name = "OTEL_SERVICE_NAME"
             value = var.api_task.environment.otel_service_name
         }, {
