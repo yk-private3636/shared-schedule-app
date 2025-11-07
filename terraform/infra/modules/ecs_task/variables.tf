@@ -40,6 +40,7 @@ variable "api_task" {
       host = number # ホスト側
     })
     environment = object({
+      client_origin = string
       otel_service_name = string # OpenTelemetry apiサービス名
       otel_exporter_otlp_traces_endpoint = string # OpenTelemetry エクスポーターエンドポイント
       otel_exporter_otlp_protocol = string # OpenTelemetry エクスポータープロトコル
