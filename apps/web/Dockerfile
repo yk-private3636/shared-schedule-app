@@ -7,11 +7,11 @@ WORKDIR /var/www/html/apps/web/app
 
 ENV TZ=Asia/Tokyo
 
-COPY ./entry_point_dev.sh /usr/local/bin/entry_point.sh
+COPY ../entry_point_dev.sh /usr/local/bin/entry_point.sh
 
 RUN chmod +x /usr/local/bin/entry_point.sh
 
-ENTRYPOINT [ "entry_point.sh" ]
+ENTRYPOINT [ "entry_point.sh", "web", "npm run dev" ]
 
 
 # CI環境
