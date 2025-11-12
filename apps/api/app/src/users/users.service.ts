@@ -4,42 +4,28 @@ import { TYPES } from './types/di-token';
 import { type IUsersRepository } from './interfaces/users.repository.interface';
 import { PrismaClient } from '@prisma/client';
 import { type IDatabaseClientService } from '@/shared/interfaces/database.client.service.interface';
-import { generateUUID } from '@/shared/helpers/uuid';
-import { User } from './entities/user.entity';
 import { UserDTO } from './dto/user.dto';
+import { UserFactory } from './factories/user-entity.factory';
 
 @Injectable()
 export class UsersService {
 
   constructor(
-    @Inject(TYPES.UsersRepository) private readonly users: IUsersRepository<PrismaClient>,
-    @Inject(TYPES.DatabaseClientService) private readonly dbClient: IDatabaseClientService 
+    @Inject(TYPES.UsersRepository)
+    private readonly users: IUsersRepository<PrismaClient>,
+    @Inject(TYPES.DatabaseClientService)
+    private readonly dbClient: IDatabaseClientService
   ) {}
 
   async create(d: CreateUserDTO): Promise<UserDTO> {
 
-    const uuid = generateUUID();
-
     const tx = this.dbClient.getWriteClient();
 
-    const user = new User(
-      uuid,
-      d.getSub(),
-      d.getEmail(),
-      d.getFamilyName(),
-      d.getGivenName()
-    );
+    const userEntity = UserFactory.toEntityFromCreateDTO(d);
 
-    await this.users.createUser(user, tx);
+    await this.users.createUser(userEntity, tx);
 
-    const rd = new UserDTO(
-      user.getId(),
-      user.getEmail(),
-      user.getFamilyName(),
-      user.getGivenName()
-    );
-
-    return rd;
+    return UserFactory.toDtoFromEntity(userEntity);
   }
 
   findAll() {

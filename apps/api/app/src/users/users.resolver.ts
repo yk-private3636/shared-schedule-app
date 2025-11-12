@@ -1,16 +1,16 @@
-import { Resolver, Query, Mutation, Args, Int, Context, GqlExecutionContext } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './types/graphql/user';
 import { Inject } from '@nestjs/common';
 import { type IIdpService } from '@/authz/interfaces/idp.service.interface';
-import { Auth0UserProfile } from '@/authz/types/auth0.type';
 import { TYPES } from '@/authz/constants/di-token';
-import { CreateUserDTO } from './dto/create.user.dto';
+import { CreateUserDTOFactory } from './factories/create-user-dto.factory';
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(
-    @Inject(TYPES.Auth0Service) private readonly idpService: IIdpService<Auth0UserProfile>,
+    @Inject(TYPES.IdpService)
+    private readonly idpService: IIdpService,
     private readonly usersService: UsersService
   ) {}
 
@@ -19,18 +19,13 @@ export class UsersResolver {
     try {
       const req: Request = ctx.req;
 
-      const accessToken: string = req.headers['authorization']?.replace('Bearer ', '');
+      const accessToken = req.headers['authorization']?.replace('Bearer ', '') as string;
 
-      const idpUser = await this.idpService.getUserInfo(accessToken);
+      const idpUserProfile = await this.idpService.getUserProfile(accessToken);
 
-      const createDTO = new CreateUserDTO(
-        idpUser.sub,
-        idpUser.email,
-        idpUser.family_name,
-        idpUser.given_name
-      );
+      const createUserDTO = CreateUserDTOFactory.fromIdpProfile(idpUserProfile);
 
-      const userDTO = await this.usersService.create(createDTO);
+      const userDTO = await this.usersService.create(createUserDTO);
 
       return {
         id: userDTO.getId(),
@@ -38,7 +33,7 @@ export class UsersResolver {
         familyName: userDTO.getFamilyName(),
         givenName: userDTO.getGivenName()
       };
-      
+
     } catch (err: unknown) {
       throw err;
     }

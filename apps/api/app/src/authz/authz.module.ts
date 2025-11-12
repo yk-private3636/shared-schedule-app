@@ -22,12 +22,12 @@ export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
       useClass: GqlAuthGuard,
     },
     {
-      provide: TYPES.Auth0Service,
+      provide: TYPES.IdpService,
       useClass: Auth0Service,
     },
     Auth0Service,
     String
   ],
-  exports: [PassportModule, Auth0Service, TYPES.Auth0Service],
+  exports: [PassportModule, Auth0Service, TYPES.IdpService],
 })
 export class AuthzModule {}
