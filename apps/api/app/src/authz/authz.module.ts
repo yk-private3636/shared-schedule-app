@@ -1,21 +1,33 @@
 import { Module, SetMetadata } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
+import { HttpModule } from '@nestjs/axios';
+import { APP_GUARD } from '@nestjs/core';
 import { JwtStrategy } from './jwt.strategy';
 import { GqlAuthGuard } from './gql-auth.guard';
-import { APP_GUARD } from '@nestjs/core';
+import { Auth0Service } from './auth0.service';
+import { TYPES } from './constants/di-token';
 
 export const IS_PUBLIC_KEY = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 
 @Module({
-  imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
+  imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    HttpModule,
+  ],
   providers: [
     JwtStrategy,
     {
       provide: APP_GUARD,
       useClass: GqlAuthGuard,
     },
+    {
+      provide: TYPES.Auth0Service,
+      useClass: Auth0Service,
+    },
+    Auth0Service,
+    String
   ],
-  exports: [PassportModule],
+  exports: [PassportModule, Auth0Service, TYPES.Auth0Service],
 })
 export class AuthzModule {}

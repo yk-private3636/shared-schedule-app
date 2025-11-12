@@ -1,16 +1,47 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context, GqlExecutionContext } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import { User } from './types/graphql/user';
+import { Inject } from '@nestjs/common';
+import { type IIdpService } from '@/authz/interfaces/idp.service.interface';
+import { Auth0UserProfile } from '@/authz/types/auth0.type';
+import { TYPES } from '@/authz/constants/di-token';
+import { CreateUserDTO } from './dto/create.user.dto';
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    @Inject(TYPES.Auth0Service) private readonly idpService: IIdpService<Auth0UserProfile>,
+    private readonly usersService: UsersService
+  ) {}
 
   @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
+  async createUser(@Context() ctx): Promise<User> {
+    try {
+      const req: Request = ctx.req;
+
+      const accessToken: string = req.headers['authorization']?.replace('Bearer ', '');
+
+      const idpUser = await this.idpService.getUserInfo(accessToken);
+
+      const createDTO = new CreateUserDTO(
+        idpUser.sub,
+        idpUser.email,
+        idpUser.family_name,
+        idpUser.given_name
+      );
+
+      const userDTO = await this.usersService.create(createDTO);
+
+      return {
+        id: userDTO.getId(),
+        email: userDTO.getEmail(),
+        familyName: userDTO.getFamilyName(),
+        givenName: userDTO.getGivenName()
+      };
+      
+    } catch (err: unknown) {
+      throw err;
+    }
   }
 
   @Query(() => [User], { name: 'users' })
@@ -21,15 +52,5 @@ export class UsersResolver {
   @Query(() => User, { name: 'user' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.usersService.findOne(id);
-  }
-
-  @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
-  }
-
-  @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
-    return this.usersService.remove(id);
   }
 }
