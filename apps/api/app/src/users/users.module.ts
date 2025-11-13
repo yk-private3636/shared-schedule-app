@@ -5,7 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 import { AuthzModule } from '@/authz/authz.module';
 import { TYPES } from './types/di-token';
 import { UsersRepository } from './users.repository';
-import { PrismaClientService } from '@/shared/services/prisma.client.service';
+import { PrismaClientService } from '@/shared/services/database-client.service';
 
 @Module({
   imports: [

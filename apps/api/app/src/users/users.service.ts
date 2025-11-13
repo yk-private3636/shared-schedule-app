@@ -17,22 +17,22 @@ export class UsersService {
     private readonly dbClient: IDatabaseClientService
   ) {}
 
-  async create(d: CreateUserDTO): Promise<UserDTO> {
-
-    const tx = this.dbClient.getWriteClient();
-
-    const userEntity = UserFactory.toEntityFromCreateDTO(d);
-
-    await this.users.createUser(userEntity, tx);
-
-    return UserFactory.toDtoFromEntity(userEntity);
-  }
-
   findAll() {
     return `This action returns all users`;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} user`;
+  }
+
+  async create(d: CreateUserDTO): Promise<UserDTO> {
+
+    const userEntity = UserFactory.toEntityFromCreateDTO(d);
+
+    this.dbClient.writer(async (c) => {
+      await this.users.createUser(userEntity, c);
+    });
+
+    return UserFactory.toDtoFromEntity(userEntity);
   }
 }

@@ -15,11 +15,9 @@ export class UsersResolver {
   ) {}
 
   @Mutation(() => User)
-  async createUser(@Context() ctx): Promise<User> {
+  async createUser(@Context() ctx: {req: Request}): Promise<User> {
     try {
-      const req: Request = ctx.req;
-
-      const accessToken = req.headers['authorization']?.replace('Bearer ', '') as string;
+      const accessToken = ctx.req.headers['authorization']?.replace('Bearer ', '') as string;
 
       const idpUserProfile = await this.idpService.getUserProfile(accessToken);
 
