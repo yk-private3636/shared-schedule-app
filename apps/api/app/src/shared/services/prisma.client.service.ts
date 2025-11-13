@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { IDatabaseClientService } from "../interfaces/database.client.service.interface";
+import { IDatabaseClientService } from "../interfaces/database-client.service.interface";
 import { PrismaTx } from "../types/prisma.type";
 import { Injectable } from "@nestjs/common";
 

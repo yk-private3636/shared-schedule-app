@@ -3,7 +3,7 @@ import { CreateUserDTO } from './dto/create.user.dto';
 import { TYPES } from './types/di-token';
 import { type IUsersRepository } from './interfaces/users.repository.interface';
 import { PrismaClient } from '@prisma/client';
-import { type IDatabaseClientService } from '@/shared/interfaces/database.client.service.interface';
+import { type IDatabaseClientService } from '@/shared/interfaces/database-client.service.interface';
 import { UserDTO } from './dto/user.dto';
 import { UserFactory } from './factories/user-entity.factory';
 
