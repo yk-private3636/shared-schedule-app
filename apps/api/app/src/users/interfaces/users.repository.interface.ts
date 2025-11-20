@@ -1,5 +1,5 @@
 import { User } from "../entities/user.entity";
 
-export interface IUsersRepository<T> {
-    createUser(user: User, tx: T): Promise<void>;
+export interface IUsersRepository {
+    create(user: User, tx: unknown): Promise<void>;
 }

@@ -2,8 +2,8 @@ import { User } from "./entities/user.entity";
 import { IUsersRepository } from "./interfaces/users.repository.interface";
 import { PrismaClient } from '@prisma/client'
 
-export class UsersRepository implements IUsersRepository<PrismaClient> {
-    async createUser(user: User, tx: PrismaClient): Promise<void> {
+export class UsersRepository implements IUsersRepository {
+    async create(user: User, tx: PrismaClient): Promise<void> {
         await tx.user.create({
             data: {
                 id: user.getId(),
