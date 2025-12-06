@@ -4,7 +4,7 @@ import { User } from './types/graphql/user';
 import { Inject } from '@nestjs/common';
 import { type IIdpService } from '@/authz/interfaces/idp.service.interface';
 import { TYPES } from '@/authz/constants/di-token';
-import { CreateUserDTOFactory } from './factories/create-user-dto.factory';
+import { UserDTOFactory } from './factories/user-dto.factory';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -21,8 +21,7 @@ export class UsersResolver {
 
       const idpUserProfile = await this.idpService.getUserProfile(accessToken);
 
-      const createUserDTO = CreateUserDTOFactory.fromIdpProfile(idpUserProfile);
-
+      const createUserDTO = UserDTOFactory.toCreateDtoFromIdpProfile(idpUserProfile);
       const userDTO = await this.usersService.create(createUserDTO);
 
       return {

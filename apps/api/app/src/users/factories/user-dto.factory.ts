@@ -1,8 +1,8 @@
 import { IdpUserProfile } from "@/authz/types/idp-profile.type";
 import { CreateUserDTO } from "../dto/create.user.dto";
 
-export class CreateUserDTOFactory {
-    static fromIdpProfile(profile: IdpUserProfile): CreateUserDTO {
+export class UserDTOFactory {
+    static toCreateDtoFromIdpProfile(profile: IdpUserProfile): CreateUserDTO {
         return new CreateUserDTO(
             profile.sub,
             profile.email,
