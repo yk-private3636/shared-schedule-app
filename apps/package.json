@@ -9,7 +9,8 @@
     "shared"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "api:build": "npm run build -w api",
+    "web:build": "npm run build -w web"
   },
   "keywords": [],
   "author": "",

@@ -8,9 +8,10 @@ FROM ${BASE_IMAGE} AS dev
 WORKDIR /var/www/html/apps/api/app
 ENV TZ=Asia/Tokyo
 
+# example: nest generate resource(nest g res)
 RUN npm i -g @nestjs/cli
 
-COPY ../entry_point_dev.sh /usr/local/bin/entry_point.sh
+COPY ./entry_point_dev.sh /usr/local/bin/entry_point.sh
 
 RUN chmod +x /usr/local/bin/entry_point.sh
 
@@ -25,12 +26,13 @@ ENV TZ=Asia/Tokyo
 
 RUN npm i -g @nestjs/cli
 
-COPY ./app/package*.json ./
+COPY ./api/app ./api/app
 
-RUN npm ci
+COPY ./package*.json ./
 
-COPY ./app ./
+RUN npm ci -w api
 
+# TODO: 追加予定(api-testing.sh)
 RUN chmod +x ./testing.sh
 
 ENTRYPOINT [ "./testing.sh" ]
@@ -43,16 +45,15 @@ WORKDIR /tmp
 ENV TZ=Asia/Tokyo
 ENV NODE_ENV=production
 
-# example: nest generate resource(nest g res)
 RUN npm i -g @nestjs/cli
 
-COPY ./app/package*.json ./
+COPY ./api/app ./api/app
 
-RUN npm ci
+COPY ./package*.json ./
 
-COPY ./app ./
+RUN npm ci -w api
 
-RUN npm run build
+RUN npm run api:build
 
 
 # 本番環境
@@ -63,6 +64,14 @@ WORKDIR /var/www/html/api
 ENV TZ=Asia/Tokyo
 ENV NODE_ENV=production
 
-COPY --from=build --exclude=src --exclude=test --exclude=node-compile-cache --exclude=*.json --exclude=*.mjs --exclude=*.md* --exclude=.* /tmp ./
+COPY --from=build \ 
+--exclude=src \ 
+--exclude=test \
+--exclude=node-compile-cache \
+--exclude=*.json \
+--exclude=*.mjs \
+--exclude=*.md* \
+--exclude=.* \
+/tmp/api/app ./
 
 ENTRYPOINT [ "node", "./dist/src/main" ]
