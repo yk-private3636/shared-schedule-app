@@ -48,7 +48,7 @@ RUN npm i -g @nestjs/cli
 
 COPY ./app/package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY ./app ./
 

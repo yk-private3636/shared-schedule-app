@@ -22,7 +22,7 @@ ENV TZ=Asia/Tokyo
 
 COPY ./app/package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY ./app ./
 
