@@ -1,16 +1,14 @@
+import { InputType } from '@nestjs/graphql';
 
-export class User {
+@InputType()
+export class SaveUserDTO {
+  
   constructor(
-    private readonly id: string,
     private readonly sub: string,
     private readonly email: string,
     private readonly familyName: string,
     private readonly givenName: string,
   ) {}
-
-  public getId(): string {
-    return this.id;
-  }
 
   public getSub(): string {
     return this.sub;

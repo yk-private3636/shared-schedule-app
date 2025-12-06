@@ -32,6 +32,7 @@
     "@apollo/server": "^5.0.0",
     "@as-integrations/express5": "^1.1.2",
     "@nestjs/apollo": "^13.2.1",
+    "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/graphql": "^13.2.0",
@@ -44,6 +45,7 @@
     "@opentelemetry/semantic-conventions": "^1.37.0",
     "@prisma/client": "^6.17.1",
     "@prisma/instrumentation": "^6.17.1",
+    "axios": "^1.13.2",
     "dotenv": "^17.2.3",
     "graphql": "^16.11.0",
     "jwks-rsa": "^3.2.0",
@@ -51,7 +53,8 @@
     "passport-jwt": "^4.0.1",
     "prisma": "^6.17.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

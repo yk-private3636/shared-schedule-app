@@ -16,31 +16,9 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type CreateUserInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int']['input'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser: User;
-  removeUser: User;
-  updateUser: User;
-};
-
-
-export type MutationCreateUserArgs = {
-  createUserInput: CreateUserInput;
-};
-
-
-export type MutationRemoveUserArgs = {
-  id: Scalars['Int']['input'];
-};
-
-
-export type MutationUpdateUserArgs = {
-  updateUserInput: UpdateUserInput;
+  saveUser: User;
 };
 
 export type Query = {
@@ -54,16 +32,12 @@ export type QueryUserArgs = {
   id: Scalars['Int']['input'];
 };
 
-export type UpdateUserInput = {
-  /** Example field (placeholder) */
-  exampleField?: InputMaybe<Scalars['Int']['input']>;
-  id: Scalars['Int']['input'];
-};
-
 export type User = {
   __typename?: 'User';
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int']['output'];
+  email: Scalars['String']['output'];
+  familyName: Scalars['String']['output'];
+  givenName: Scalars['String']['output'];
+  id: Scalars['String']['output'];
 };
 
 
@@ -140,31 +114,25 @@ export type DirectiveResolverFn<TResult = Record<PropertyKey, never>, TParent = 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  CreateUserInput: CreateUserInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  UpdateUserInput: UpdateUserInput;
   User: ResolverTypeWrapper<User>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
-  CreateUserInput: CreateUserInput;
   Int: Scalars['Int']['output'];
   Mutation: Record<PropertyKey, never>;
   Query: Record<PropertyKey, never>;
   String: Scalars['String']['output'];
-  UpdateUserInput: UpdateUserInput;
   User: User;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'createUserInput'>>;
-  removeUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRemoveUserArgs, 'id'>>;
-  updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'updateUserInput'>>;
+  saveUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -173,7 +141,10 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  exampleField?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  familyName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  givenName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
