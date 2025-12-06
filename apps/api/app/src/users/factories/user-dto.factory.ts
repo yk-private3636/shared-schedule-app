@@ -1,9 +1,9 @@
 import { IdpUserProfile } from "@/authz/types/idp-profile.type";
-import { CreateUserDTO } from "../dto/create.user.dto";
+import { SaveUserDTO } from "../dto/save.user.dto";
 
 export class UserDTOFactory {
-    static toCreateDtoFromIdpProfile(profile: IdpUserProfile): CreateUserDTO {
-        return new CreateUserDTO(
+    static toSaveDtoFromIdpProfile(profile: IdpUserProfile): SaveUserDTO {
+        return new SaveUserDTO(
             profile.sub,
             profile.email,
             profile.family_name,

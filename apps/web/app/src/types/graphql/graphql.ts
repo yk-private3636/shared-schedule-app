@@ -15,31 +15,9 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type CreateUserInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int']['input'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser: User;
-  removeUser: User;
-  updateUser: User;
-};
-
-
-export type MutationCreateUserArgs = {
-  createUserInput: CreateUserInput;
-};
-
-
-export type MutationRemoveUserArgs = {
-  id: Scalars['Int']['input'];
-};
-
-
-export type MutationUpdateUserArgs = {
-  updateUserInput: UpdateUserInput;
+  saveUser: User;
 };
 
 export type Query = {
@@ -53,14 +31,10 @@ export type QueryUserArgs = {
   id: Scalars['Int']['input'];
 };
 
-export type UpdateUserInput = {
-  /** Example field (placeholder) */
-  exampleField?: InputMaybe<Scalars['Int']['input']>;
-  id: Scalars['Int']['input'];
-};
-
 export type User = {
   __typename?: 'User';
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int']['output'];
+  email: Scalars['String']['output'];
+  familyName: Scalars['String']['output'];
+  givenName: Scalars['String']['output'];
+  id: Scalars['String']['output'];
 };

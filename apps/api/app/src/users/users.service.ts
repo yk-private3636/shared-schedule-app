@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserDTO } from './dto/create.user.dto';
+import { SaveUserDTO } from './dto/save.user.dto';
 import { TYPES } from './types/di-token';
 import { type IUsersRepository } from './interfaces/users.repository.interface';
 import { type IDatabaseClientService } from '@/shared/interfaces/database-client.service.interface';
@@ -24,12 +24,22 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
-  async create(d: CreateUserDTO): Promise<UserDTO> {
+  public async save(d: SaveUserDTO): Promise<UserDTO> {
 
-    const userEntity = UserFactory.toEntityFromCreateDTO(d);
+    let userEntity = UserFactory.toEntityFromSaveDTO(d);
 
-    this.dbClient.writer(async (c) => {
-      await this.users.create(userEntity, c);
+    userEntity = await this.dbClient.writer(async (c) => {
+      
+      const user = await this.users.findBySub(userEntity.getSub(), c);
+
+      if(user === null) {
+        await this.users.create(userEntity, c);
+      } else {
+        userEntity = UserFactory.toEntityFromSaveDTOWithId(userEntity, user.getId());
+        await this.users.update(userEntity, c);
+      }
+
+      return userEntity;
     });
 
     return UserFactory.toDtoFromEntity(userEntity);

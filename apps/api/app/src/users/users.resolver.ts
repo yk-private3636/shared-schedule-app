@@ -15,14 +15,14 @@ export class UsersResolver {
   ) {}
 
   @Mutation(() => User)
-  async createUser(@Context() ctx: {req: Request}): Promise<User> {
+  async saveUser(@Context() ctx: {req: Request}): Promise<User> {
     try {
-      const accessToken = ctx.req.headers['authorization']?.replace('Bearer ', '') as string;
+      const accessToken = (ctx.req.headers['authorization'] as string).replace('Bearer ', '');
 
       const idpUserProfile = await this.idpService.getUserProfile(accessToken);
 
-      const createUserDTO = UserDTOFactory.toCreateDtoFromIdpProfile(idpUserProfile);
-      const userDTO = await this.usersService.create(createUserDTO);
+      const saveUserDTO = UserDTOFactory.toSaveDtoFromIdpProfile(idpUserProfile);
+      const userDTO = await this.usersService.save(saveUserDTO);
 
       return {
         id: userDTO.getId(),
