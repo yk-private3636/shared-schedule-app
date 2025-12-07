@@ -20,6 +20,17 @@ resource "aws_lb_target_group" "main" {
     port = var.port
     vpc_id = var.vpc_id
     target_type = "ip"
+    health_check {
+      enabled = true
+      protocol = var.health_check.protocol
+      port = var.health_check.port
+      path = var.health_check.path
+      matcher = var.health_check.matcher
+      interval = var.health_check.interval
+      timeout = var.health_check.timeout
+      healthy_threshold = var.health_check.healthy_threshold
+      unhealthy_threshold = var.health_check.unhealthy_threshold
+    }
 
     tags = {
       Name = var.alb_target_name

@@ -37,3 +37,17 @@ variable "port" {
 variable "vpc_id" {
     type = string
 }
+
+# ヘルスチェック設定
+variable "health_check" {
+    type = object({
+        protocol          = string
+        port              = string
+        path              = string
+        matcher           = string
+        interval          = number
+        timeout           = number
+        healthy_threshold   = number
+        unhealthy_threshold = number
+    })
+}

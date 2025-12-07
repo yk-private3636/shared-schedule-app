@@ -5,7 +5,7 @@ module "private_route_table" {
   vpc_id = module.vpc.id
 
   routes = [{
-    cidr_block = "0.0.0.0/0"
+    cidr_block             = "0.0.0.0/0"
     gateway_id             = module.ngw.id
     egress_only_gateway_id = ""
   }]
