@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "api:build": "npm run build -w api",
-    "web:build": "npm run build -w web"
+    "web:build": "npm run build -w web",
+    "prisma:generate": "npm run prisma:generate -w api"
   },
   "keywords": [],
   "author": "",

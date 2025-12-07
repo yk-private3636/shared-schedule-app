@@ -53,6 +53,8 @@ COPY ./package*.json ./
 
 RUN npm ci -w api
 
+RUN npm run prisma:generate
+
 RUN npm run api:build
 
 
@@ -60,7 +62,7 @@ RUN npm run api:build
 FROM ${BASE_IMAGE} AS prod
 
 EXPOSE 8080
-WORKDIR /var/www/html/api
+WORKDIR /var/www/html
 ENV TZ=Asia/Tokyo
 ENV NODE_ENV=production
 
@@ -72,6 +74,6 @@ COPY --from=build \
 --exclude=*.mjs \
 --exclude=*.md* \
 --exclude=.* \
-/tmp/api/app ./
+/tmp ./
 
-ENTRYPOINT [ "node", "./dist/src/main" ]
+ENTRYPOINT [ "node", "./api/app/dist/src/main" ]

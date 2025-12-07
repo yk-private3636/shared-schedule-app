@@ -1,0 +1,7 @@
+api/app/node_modules
+api/app/dist
+api/app/.env
+web/app/node_modules
+web/app/.next
+web/app/out
+web/app/.env
