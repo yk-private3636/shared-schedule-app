@@ -9,7 +9,7 @@ module "ecs_service" {
   enable_execute_command = true
 
   subnet_ids         = [for subnet in module.private_subnet : subnet.id]
-  security_group_ids = [module.security_group.id]
+  security_group_ids = [module.ecs_security_group.id]
   assign_public_ip   = false
 
   load_balancers = [{

@@ -24,16 +24,40 @@ variable "alb_target_name" {
 }
 
 # alb リスニングプロトコル
-variable "protocol" {
+variable "lisen_protocol" {
     type = string
 }
 
 # alb リスニングポート番号
-variable "port" {
+variable "lisen_port" {
+    type = number
+}
+
+# alb ターゲットプロトコル
+variable "target_protocol" {
+    type = string
+}
+
+# alb ターゲットポート番号
+variable "target_port" {
     type = number
 }
 
 # vpc id
 variable "vpc_id" {
     type = string
+}
+
+# ヘルスチェック設定
+variable "health_check" {
+    type = object({
+        protocol          = string
+        port              = string
+        path              = string
+        matcher           = string
+        interval          = number
+        timeout           = number
+        healthy_threshold   = number
+        unhealthy_threshold = number
+    })
 }

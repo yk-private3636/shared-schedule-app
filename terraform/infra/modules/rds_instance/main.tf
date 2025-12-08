@@ -11,6 +11,7 @@ resource "aws_db_instance" "main" {
   skip_final_snapshot = var.skip_final_snapshot
   availability_zone = var.availability_zone
   db_subnet_group_name = var.db_subnet_group_name
+  vpc_security_group_ids = var.vpc_security_group_ids
 
   tags = {
     Name = var.name
