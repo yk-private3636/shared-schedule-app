@@ -16,8 +16,8 @@ resource "aws_lb" "main" {
 
 resource "aws_lb_target_group" "main" {
     name = var.alb_target_name
-    protocol = upper(var.protocol)
-    port = var.port
+    protocol = upper(var.target_protocol)
+    port = var.target_port
     vpc_id = var.vpc_id
     target_type = "ip"
     health_check {
@@ -39,8 +39,8 @@ resource "aws_lb_target_group" "main" {
 
 resource "aws_lb_listener" "main" {
     load_balancer_arn = aws_lb.main.arn
-    protocol = upper(var.protocol)
-    port = var.port
+    protocol = upper(var.lisen_protocol)
+    port = var.lisen_port
     # ssl_policy = 
     # certificate_arn = 
 

@@ -4,10 +4,12 @@ module "alb" {
   vpc_id             = module.vpc.id
   alb_name           = local.name
   alb_target_name    = local.alb_target_name
-  protocol           = "HTTP"
-  port               = 80
+  lisen_protocol     = "HTTP"
+  lisen_port         = 80
+  target_protocol    = "HTTP"
+  target_port        = 8080
   internal           = false
-  security_group_ids = [module.security_group.id]
+  security_group_ids = [module.alb_security_group.id]
   subnet_ids         = [for subnet in module.public_subnet : subnet.id]
   health_check = {
     protocol            = "HTTP"

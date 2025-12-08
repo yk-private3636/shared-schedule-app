@@ -24,12 +24,22 @@ variable "alb_target_name" {
 }
 
 # alb リスニングプロトコル
-variable "protocol" {
+variable "lisen_protocol" {
     type = string
 }
 
 # alb リスニングポート番号
-variable "port" {
+variable "lisen_port" {
+    type = number
+}
+
+# alb ターゲットプロトコル
+variable "target_protocol" {
+    type = string
+}
+
+# alb ターゲットポート番号
+variable "target_port" {
     type = number
 }
 

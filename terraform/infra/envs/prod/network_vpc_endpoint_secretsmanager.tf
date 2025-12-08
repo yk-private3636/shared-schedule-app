@@ -6,6 +6,6 @@ module "vpc_endpoint_secretsmanager" {
   service_name        = local.vpc_endpoint_secretsmanager_service_name
   endpoint_type       = "Interface"
   private_dns_enabled = true
-  security_group_ids  = [module.security_group.id]
+  security_group_ids  = [module.vpc_endpoint_security_group.id]
   subnet_ids          = [for subnet in module.private_subnet : subnet.id]
 }
