@@ -16,3 +16,4 @@ db_user = {
 auth0_client_id = ""
 auth0_client_secret = ""
 auth0_domain = ""
+collector_task_image = ""

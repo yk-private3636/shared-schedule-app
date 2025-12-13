@@ -62,6 +62,27 @@ resource "aws_ecs_task_definition" "main" {
                 "mode"                  = var.api_task.logConfiguration.options.mode
             }
         }
+    }, {
+        name = var.collector_task.name
+        image = var.collector_task.image
+        cpu = var.collector_task.cpu
+        memory = var.collector_task.memory
+        essential = true
+        portMappings = [
+            for port in var.collector_task.ports : {
+                containerPort = port.container
+                hostPort      = port.host
+            }
+        ]
+        linuxParameters = {
+            initProcessEnabled = var.collector_task.linuxParameters.initProcessEnabled
+        }
+        secrets = [
+            for secret in var.collector_task.secrets : {
+                name      = secret.name
+                valueFrom = secret.valueFrom
+            }
+        ]
     }])
 
     tags = {

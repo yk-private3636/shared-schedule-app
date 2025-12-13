@@ -4,7 +4,7 @@ module "ecs_service" {
   name                   = local.ecs_service_name
   cluster_id             = module.ecs_cluster.id
   task_definition_arn    = module.ecs_task.arn
-  desired_count          = 1
+  desired_count          = 2
   force_new_deployment   = false
   enable_execute_command = true
 

@@ -79,3 +79,8 @@ variable "auth0_client_secret" {
 variable "auth0_domain" {
   type = string
 }
+
+# ecs collectorタスクイメージ
+variable "collector_task_image" {
+  type = string
+}
