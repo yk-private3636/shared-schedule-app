@@ -40,6 +40,11 @@ variable "api_tag_name" {
   default = "api-latest"
 }
 
+# collectorタグ名
+variable "collector_tag_name" {
+  type = string
+}
+
 # rds インスタンスクラスタイプ
 variable "db_instance_class" {
   type = string
@@ -77,10 +82,5 @@ variable "auth0_client_secret" {
 
 # auth0 ドメイン
 variable "auth0_domain" {
-  type = string
-}
-
-# ecs collectorタスクイメージ
-variable "collector_task_image" {
   type = string
 }

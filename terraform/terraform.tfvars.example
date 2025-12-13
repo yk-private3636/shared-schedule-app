@@ -4,6 +4,7 @@ aws_region = ["ap-northeast-1", "ap-northeast-3"]
 aws_az = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
 
 api_tag_name = "api-latest"
+collector_tag_name = "collector-latest"
 db_instance_class = "db.r6gd.xlarge"
 database_name = "sharedschedule"
 database_schema = "public"
@@ -16,4 +17,3 @@ db_user = {
 auth0_client_id = ""
 auth0_client_secret = ""
 auth0_domain = ""
-collector_task_image = ""

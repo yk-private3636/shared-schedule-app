@@ -51,7 +51,7 @@ module "ecs_task" {
 
   collector_task = {
     name   = local.ecs_task_collector_name
-    image  = var.collector_task_image
+    image  = "${module.ecr.repository_url}:${var.collector_tag_name}"
     cpu    = 1024
     memory = 2048
     ports = [{
