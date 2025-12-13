@@ -84,3 +84,15 @@ variable "auth0_client_secret" {
 variable "auth0_domain" {
   type = string
 }
+
+# datadog APIキー
+variable "datadog_api_key" {
+  type      = string
+  sensitive = true
+}
+
+# datadog APPキー
+variable "datadog_app_key" {
+  type      = string
+  sensitive = true
+}

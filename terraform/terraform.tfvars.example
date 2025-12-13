@@ -17,3 +17,6 @@ db_user = {
 auth0_client_id = ""
 auth0_client_secret = ""
 auth0_domain = ""
+
+datadog_api_key = ""
+datadog_app_key = ""
