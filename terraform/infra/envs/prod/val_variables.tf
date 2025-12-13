@@ -40,6 +40,11 @@ variable "api_tag_name" {
   default = "api-latest"
 }
 
+# collectorタグ名
+variable "collector_tag_name" {
+  type = string
+}
+
 # rds インスタンスクラスタイプ
 variable "db_instance_class" {
   type = string

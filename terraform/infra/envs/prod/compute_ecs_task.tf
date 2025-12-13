@@ -3,8 +3,8 @@ module "ecs_task" {
 
   tasks_name         = local.ecs_tasks_name
   app_env            = var.env
-  tasks_cpu          = 1024
-  tasks_memory       = 2048
+  tasks_cpu          = 2048
+  tasks_memory       = 4096
   execution_role_arn = module.ecs_iam.task_execution_role_arn
   task_role_arn      = module.ecs_iam.task_role_arn
 
@@ -22,7 +22,7 @@ module "ecs_task" {
       app_port                           = "8080"
       client_origin                      = local.web_endpoint
       otel_service_name                  = local.name
-      otel_exporter_otlp_traces_endpoint = "" # TODO: otlpサービスエンドポイントを指定すること
+      otel_exporter_otlp_traces_endpoint = "http://localhost:4318"
       otel_exporter_otlp_protocol        = "http/protobuf"
       auth0_issuer_url                   = local.auth0_api_origin
       auth0_audience                     = local.api_endpoint
@@ -44,6 +44,24 @@ module "ecs_task" {
         mode                = "non-blocking"
       }
     }
+    linuxParameters = {
+      initProcessEnabled = true
+    }
+  }
+
+  collector_task = {
+    name   = local.ecs_task_collector_name
+    image  = "${module.ecr.repository_url}:${var.collector_tag_name}"
+    cpu    = 1024
+    memory = 2048
+    ports = [{
+      container = 4318
+      host      = 4318
+      }, {
+      container = 13133
+      host      = 13133
+    }]
+    secrets = []
     linuxParameters = {
       initProcessEnabled = true
     }

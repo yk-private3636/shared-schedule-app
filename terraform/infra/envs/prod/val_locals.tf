@@ -7,6 +7,7 @@ locals {
   ecs_iam_role_task_name                   = "${var.project_name}-ecs-task-role"                    # ecsタスクロール名
   ecs_iam_role_policy_ssmmessage_name      = "${var.project_name}-ecs-task-ssmmessages-role-policy" # ecs ssmmessageポリシー名
   ecs_task_api_name                        = "${var.env}-api-task"                                  # ecs apiタスク名
+  ecs_task_collector_name                  = "${var.env}-collector-task"                            # ecs collectorタスク名
   alb_target_name                          = "${var.env}-alb-target"                                # alb ターゲット名
   rds_instance_name                        = "${var.env}-rds-instance"                              # rdsインスタンス名
   rds_subnet_group_name                    = "${local.name}-rds-subnet-group"                       # rdsサブネットグループ名

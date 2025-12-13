@@ -66,3 +66,24 @@ variable "api_task" {
     })
   })
 }
+
+# collectorタスク設定
+variable "collector_task" {
+  type = object({
+    name = string # collectorタスク名
+    image = string # collectorタスクイメージ
+    cpu = number # collectorタスクCPU(1vCPU = 1024)
+    memory = number # collectorタスクメモリ(1GB = 1024)
+    ports =  list(object({
+      container = number # コンテナ側
+      host = number # ホスト側
+    }))
+    secrets = list(object({
+      name = string # シークレット名
+      valueFrom = string # シークレットARN
+    }))
+    linuxParameters = object({
+      initProcessEnabled = bool # initプロセス有効化
+    })
+  })
+}
