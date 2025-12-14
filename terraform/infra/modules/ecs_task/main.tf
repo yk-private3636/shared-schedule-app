@@ -83,6 +83,16 @@ resource "aws_ecs_task_definition" "main" {
                 valueFrom = secret.valueFrom
             }
         ]
+         logConfiguration = {
+            logDriver = var.collector_task.logConfiguration.logDriver
+            options = {
+                "awslogs-create-group"  = var.collector_task.logConfiguration.options.awslogsCreateGroup
+                "awslogs-group"         = var.collector_task.logConfiguration.options.awslogsGroup
+                "awslogs-stream-prefix" = var.collector_task.logConfiguration.options.awslogsStreamPrefix
+                "awslogs-region"        = var.collector_task.logConfiguration.options.awslogsRegion
+                "mode"                  = var.collector_task.logConfiguration.options.mode
+            }
+        }
     }])
 
     tags = {

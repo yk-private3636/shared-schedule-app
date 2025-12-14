@@ -65,6 +65,16 @@ module "ecs_task" {
       name      = "DD_API_KEY"
       valueFrom = module.secrets_datadog_api_key.arn
     }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogsCreateGroup  = "true"
+        awslogsGroup        = local.cloudwatch_ecr_collector_log_group_name
+        awslogsStreamPrefix = "app"
+        awslogsRegion       = var.aws_region[0]
+        mode                = "non-blocking"
+      }
+    }
     linuxParameters = {
       initProcessEnabled = true
     }

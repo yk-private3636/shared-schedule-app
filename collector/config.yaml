@@ -18,7 +18,7 @@ connectors:
 exporters:
   datadog/exporter:
     api:
-      site: datadoghq.com
+      site: api.datadoghq.com
       key: ${env:DD_API_KEY}
 
 service:

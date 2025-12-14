@@ -82,6 +82,16 @@ variable "collector_task" {
       name = string # シークレット名
       valueFrom = string # シークレットARN
     }))
+    logConfiguration = object({
+      logDriver = string # ログドライバー
+      options = object({
+        awslogsCreateGroup = string # awslogs-create-group
+        awslogsGroup = string # awslogs-group
+        awslogsStreamPrefix = string # awslogs-stream-prefix
+        awslogsRegion = string # awslogs-region
+        mode = string # モード
+      })
+    })
     linuxParameters = object({
       initProcessEnabled = bool # initプロセス有効化
     })

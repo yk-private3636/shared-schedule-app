@@ -29,6 +29,7 @@ locals {
   secrets_rds_reader_connection_name       = "${local.name}-rds-reader-connection"                  # rds reader接続情報シークレット名
   secrets_datadog_api_key_name             = "${local.name}-datadog-api-key"                        # datadog apiキーシークレット名
   cloudwatch_ecr_api_log_group_name        = "/aws/ecs/${var.env}/${var.project_name}/api"          # apiコンテナ用cloudwatchロググループ名
+  cloudwatch_ecr_collector_log_group_name  = "/aws/ecs/${var.env}/${var.project_name}/collector"    # collectorコンテナ用cloudwatchロググループ名
   ngw_eip_name                             = "${local.name}-ngw-eip"                                # nat gateway用eip名前
   security_group_alb_name                  = "${local.name}-alb"                                    # albセキュリティグループ名
   security_group_ecs_name                  = "${local.name}-ecs"                                    # ecsセキュリティグループ名
