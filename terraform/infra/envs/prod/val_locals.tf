@@ -27,6 +27,7 @@ locals {
   cf_acm_certificate_name                  = "${var.env}-${var.project_name}-cf"                    # cloudfront用acm証明書名前
   secrets_rds_writer_connection_name       = "${local.name}-rds-writer-connection"                  # rds writer接続情報シークレット名
   secrets_rds_reader_connection_name       = "${local.name}-rds-reader-connection"                  # rds reader接続情報シークレット名
+  secrets_datadog_api_key_name             = "${local.name}-datadog-api-key"                        # datadog apiキーシークレット名
   cloudwatch_ecr_api_log_group_name        = "/aws/ecs/${var.env}/${var.project_name}/api"          # apiコンテナ用cloudwatchロググループ名
   ngw_eip_name                             = "${local.name}-ngw-eip"                                # nat gateway用eip名前
   security_group_alb_name                  = "${local.name}-alb"                                    # albセキュリティグループ名
@@ -37,6 +38,8 @@ locals {
   auth0_spa_client_name = "${local.name}-spa-client"    # auth0 spaクライアント名
   auth0_api_name        = "${local.name}-api"           # auth0 apiリソース名
   auth0_api_origin      = "https://${var.auth0_domain}" # auth0 apiリソースオリジンURL
+
+  datadog_api_key_name = "${local.name}-datadog-api-key" # datadog apiキー名
 
   api_endpoint = "http://${module.alb.dns_name}"                         # api エンドポイントURL
   web_endpoint = "https://${module.cloudfront_distribution.domain_name}" # web エンドポイントURL

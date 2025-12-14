@@ -9,6 +9,8 @@ provider "auth0" {
 }
 
 provider "datadog" {
-  api_key = var.datadog_api_key
-  app_key = var.datadog_app_key
+  api_key               = var.datadog_api_key
+  app_key               = var.datadog_app_key
+  api_url               = var.datadog_api_url
+  cloud_provider_region = var.aws_region[0]
 }

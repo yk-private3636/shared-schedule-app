@@ -61,7 +61,10 @@ module "ecs_task" {
       container = 13133
       host      = 13133
     }]
-    secrets = []
+    secrets = [{
+      name      = "DD_API_KEY"
+      valueFrom = module.secrets_datadog_api_key.arn
+    }]
     linuxParameters = {
       initProcessEnabled = true
     }
