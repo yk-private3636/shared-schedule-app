@@ -97,8 +97,8 @@ variable "datadog_app_key" {
   sensitive = true
 }
 
-# datadog API URL
-variable "datadog_api_url" {
+# datadog API ホスト
+variable "datadog_api_host" {
   type    = string
-  default = "https://ap1.datadoghq.com"
+  default = "ap1.datadoghq.com"
 }

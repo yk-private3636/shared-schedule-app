@@ -61,6 +61,9 @@ module "ecs_task" {
       container = 13133
       host      = 13133
     }]
+    environment = {
+      dd_host = var.datadog_api_host
+    }
     secrets = [{
       name      = "DD_API_KEY"
       valueFrom = module.secrets_datadog_api_key.arn

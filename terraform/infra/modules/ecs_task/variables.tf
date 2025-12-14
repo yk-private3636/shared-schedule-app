@@ -78,6 +78,9 @@ variable "collector_task" {
       container = number # コンテナ側
       host = number # ホスト側
     }))
+    environment = object({
+      dd_host = string # Datadog ホスト
+    })
     secrets = list(object({
       name = string # シークレット名
       valueFrom = string # シークレットARN

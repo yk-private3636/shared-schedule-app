@@ -77,6 +77,10 @@ resource "aws_ecs_task_definition" "main" {
         linuxParameters = {
             initProcessEnabled = var.collector_task.linuxParameters.initProcessEnabled
         }
+        environment = [{
+            name = "DD_HOST"
+            value = var.collector_task.environment.dd_host
+        }]
         secrets = [
             for secret in var.collector_task.secrets : {
                 name      = secret.name
