@@ -29,7 +29,9 @@ export default function Home() {
   return (
     <>
       {isLoading || isAuthenticated ? (
-        <Loading />
+        <div className="min-h-screen flex items-center justify-center">
+          <Loading />
+        </div>
       ) : (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
           <div className="w-full max-w-md">

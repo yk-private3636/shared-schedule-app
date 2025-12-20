@@ -12,5 +12,8 @@ export const jaTranslation = {
       privacy: 'プライバシーポリシー',
       suffix: 'に同意したものとみなされます',
     },
+    settingUpAccount: 'アカウントを設定中...',
+    authenticationCompleted: '認証が完了しました。',
+    pleaseWait: '少々お待ちください。',
   },
 };
