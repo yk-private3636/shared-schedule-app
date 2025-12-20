@@ -63,26 +63,42 @@ resource "aws_ecs_task_definition" "main" {
             }
         }
     }, {
-        name = var.collector_task.name
-        image = var.collector_task.image
-        cpu = var.collector_task.cpu
-        memory = var.collector_task.memory
+        name = var.observability_task.name
+        image = var.observability_task.image
+        cpu = var.observability_task.cpu
+        memory = var.observability_task.memory
         essential = true
         portMappings = [
-            for port in var.collector_task.ports : {
+            for port in var.observability_task.ports : {
                 containerPort = port.container
                 hostPort      = port.host
             }
         ]
         linuxParameters = {
-            initProcessEnabled = var.collector_task.linuxParameters.initProcessEnabled
+            initProcessEnabled = var.observability_task.linuxParameters.initProcessEnabled
         }
+        environment = [
+            for env in var.observability_task.environment : {
+                name  = env.name
+                value = env.value
+            }
+        ]
         secrets = [
-            for secret in var.collector_task.secrets : {
+            for secret in var.observability_task.secrets : {
                 name      = secret.name
                 valueFrom = secret.valueFrom
             }
         ]
+         logConfiguration = {
+            logDriver = var.observability_task.logConfiguration.logDriver
+            options = {
+                "awslogs-create-group"  = var.observability_task.logConfiguration.options.awslogsCreateGroup
+                "awslogs-group"         = var.observability_task.logConfiguration.options.awslogsGroup
+                "awslogs-stream-prefix" = var.observability_task.logConfiguration.options.awslogsStreamPrefix
+                "awslogs-region"        = var.observability_task.logConfiguration.options.awslogsRegion
+                "mode"                  = var.observability_task.logConfiguration.options.mode
+            }
+        }
     }])
 
     tags = {

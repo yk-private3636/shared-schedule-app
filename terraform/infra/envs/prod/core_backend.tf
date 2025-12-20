@@ -9,6 +9,9 @@ terraform {
       source  = "auth0/auth0"
       version = ">= 1.0.0"
     }
+    datadog = {
+      source = "DataDog/datadog"
+    }
   }
 
   backend "s3" {

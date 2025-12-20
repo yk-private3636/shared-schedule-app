@@ -67,21 +67,35 @@ variable "api_task" {
   })
 }
 
-# collectorタスク設定
-variable "collector_task" {
+# observabilityタスク設定
+variable "observability_task" {
   type = object({
-    name = string # collectorタスク名
-    image = string # collectorタスクイメージ
-    cpu = number # collectorタスクCPU(1vCPU = 1024)
-    memory = number # collectorタスクメモリ(1GB = 1024)
+    name = string # observabilityタスク名
+    image = string # observabilityタスクイメージ
+    cpu = number # observabilityタスクCPU(1vCPU = 1024)
+    memory = number # observabilityタスクメモリ(1GB = 1024)
     ports =  list(object({
       container = number # コンテナ側
       host = number # ホスト側
+    }))
+    environment = list(object({
+      name = string # 環境変数名
+      value = string # 環境変数値
     }))
     secrets = list(object({
       name = string # シークレット名
       valueFrom = string # シークレットARN
     }))
+    logConfiguration = object({
+      logDriver = string # ログドライバー
+      options = object({
+        awslogsCreateGroup = string # awslogs-create-group
+        awslogsGroup = string # awslogs-group
+        awslogsStreamPrefix = string # awslogs-stream-prefix
+        awslogsRegion = string # awslogs-region
+        mode = string # モード
+      })
+    })
     linuxParameters = object({
       initProcessEnabled = bool # initプロセス有効化
     })
