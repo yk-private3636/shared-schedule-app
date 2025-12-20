@@ -2,9 +2,9 @@ import { graphql } from "@/types/graphql";
 import { gqlClientFactory } from "../client";
 
 export async function saveUser(accessToken: string) {
-    const client = gqlClientFactory(accessToken);
+  const client = gqlClientFactory(accessToken);
 
-    const doc = graphql(`
+  const doc = graphql(`
       mutation SaveUser {
         saveUser {
           id
@@ -14,8 +14,8 @@ export async function saveUser(accessToken: string) {
         }
       }
     `);
-    
-    const res = await client.request(doc);
 
-    return res.saveUser;
+  const res = await client.request(doc);
+
+  return res.saveUser;
 }

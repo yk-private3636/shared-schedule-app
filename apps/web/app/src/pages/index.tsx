@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { i18n } from "shared";
 import Button from "@/components/Button";
 import DividerWithText from "@/components/DividerWithText";
 import GithubLogoButton from "@/components/GitHubLogoButton";
@@ -8,7 +9,6 @@ import GoogleLogoButton from "@/components/GoogleLogoButton";
 import LinkUnderLine from "@/components/LinkUnderLine";
 import Loading from "@/components/Loading";
 import MicrosoftLogoButton from "@/components/MicrosoftLogoButton";
-import { i18n } from 'shared';
 
 export default function Home() {
   const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
