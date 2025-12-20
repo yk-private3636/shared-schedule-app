@@ -11,6 +11,6 @@ provider "auth0" {
 provider "datadog" {
   api_key               = var.datadog_api_key
   app_key               = var.datadog_app_key
-  api_url               = "https://${var.datadog_api_host}"
+  api_url               = "https://${var.datadog_api_site}"
   cloud_provider_region = var.aws_region[0]
 }

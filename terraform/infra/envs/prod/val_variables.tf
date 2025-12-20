@@ -40,8 +40,8 @@ variable "api_tag_name" {
   default = "api-latest"
 }
 
-# collectorタグ名
-variable "collector_tag_name" {
+# observabilityタグ名
+variable "observability_tag_name" {
   type = string
 }
 
@@ -97,8 +97,8 @@ variable "datadog_app_key" {
   sensitive = true
 }
 
-# datadog API ホスト
-variable "datadog_api_host" {
+# datadog API サイト
+variable "datadog_api_site" {
   type    = string
   default = "ap1.datadoghq.com"
 }
