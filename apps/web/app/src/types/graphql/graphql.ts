@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -38,3 +39,11 @@ export type User = {
   givenName: Scalars['String']['output'];
   id: Scalars['String']['output'];
 };
+
+export type SaveUserMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SaveUserMutation = { __typename?: 'Mutation', saveUser: { __typename?: 'User', id: string, email: string, givenName: string, familyName: string } };
+
+
+export const SaveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SaveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"saveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"givenName"}},{"kind":"Field","name":{"kind":"Name","value":"familyName"}}]}}]}}]} as unknown as DocumentNode<SaveUserMutation, SaveUserMutationVariables>;

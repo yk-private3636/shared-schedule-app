@@ -38,7 +38,8 @@
     "graphql:codegen": {
       "patterns": [
         "src/pages",
-        "src/components"
+        "src/components",
+        "src/helpers"
       ],
       "extensions": "ts,tsx",
       "runOnChangeOnly": true
