@@ -1,12 +1,13 @@
-import { HttpService } from '@nestjs/axios';
-import { IIdpService } from './interfaces/idp.service.interface';
-import { IdpUserProfile } from './types/idp-profile.type';
-import { firstValueFrom } from 'rxjs';
-import { Injectable } from '@nestjs/common';
+import { HttpService } from "@nestjs/axios";
+import { Injectable } from "@nestjs/common";
+import { firstValueFrom } from "rxjs";
+import type { IIdpService } from "./interfaces/idp.service.interface";
+import type { IdpUserProfile } from "./types/idp-profile.type";
 
 @Injectable()
 export class Auth0Service implements IIdpService {
-  private readonly userInfoUrl: string = `${process.env.AUTH0_ISSUER_URL}/userinfo`;
+  private readonly userInfoUrl: string =
+    `${process.env.AUTH0_ISSUER_URL}/userinfo`;
 
   constructor(private readonly httpService: HttpService) {}
 

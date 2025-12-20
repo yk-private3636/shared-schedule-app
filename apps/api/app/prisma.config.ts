@@ -1,6 +1,6 @@
-import path from 'path';
-import { defineConfig } from 'prisma/config';
+import path from "node:path";
+import { defineConfig } from "prisma/config";
 
 export default defineConfig({
-    schema: path.join('./database/prisma')
+  schema: path.join("./database/prisma"),
 });

@@ -1,5 +1,5 @@
-import { IdpUserProfile } from '@/authz/types/idp-profile.type';
-import { SaveUserDTO } from '../dto/save.user.dto';
+import type { IdpUserProfile } from "@/authz/types/idp-profile.type";
+import { SaveUserDTO } from "../dto/save.user.dto";
 
 export class UserDTOFactory {
   static toSaveDtoFromIdpProfile(profile: IdpUserProfile): SaveUserDTO {
