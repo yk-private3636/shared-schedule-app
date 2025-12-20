@@ -11,27 +11,31 @@ export class UsersResolver {
   constructor(
     @Inject(TYPES.IdpService)
     private readonly idpService: IIdpService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
   ) {}
 
   @Mutation(() => User)
-  async saveUser(@Context() ctx: {req: Request}): Promise<User> {
+  async saveUser(@Context() ctx: { req: Request }): Promise<User> {
     try {
-      const accessToken = (ctx.req.headers['authorization'] as string).replace('Bearer ', '');
+      const accessToken = (ctx.req.headers['authorization'] as string).replace(
+        'Bearer ',
+        '',
+      );
 
       const idpUserProfile = await this.idpService.getUserProfile(accessToken);
 
-      const saveUserDTO = UserDTOFactory.toSaveDtoFromIdpProfile(idpUserProfile);
+      const saveUserDTO =
+        UserDTOFactory.toSaveDtoFromIdpProfile(idpUserProfile);
       const userDTO = await this.usersService.save(saveUserDTO);
 
       return {
         id: userDTO.getId(),
         email: userDTO.getEmail(),
         familyName: userDTO.getFamilyName(),
-        givenName: userDTO.getGivenName()
+        givenName: userDTO.getGivenName(),
       };
-
     } catch (err: unknown) {
+      console.error('Error in saveUser resolver:', err);
       throw err;
     }
   }

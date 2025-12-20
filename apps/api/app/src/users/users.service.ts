@@ -8,12 +8,11 @@ import { UserFactory } from './factories/user-entity.factory';
 
 @Injectable()
 export class UsersService {
-
   constructor(
     @Inject(TYPES.UsersRepository)
     private readonly users: IUsersRepository,
     @Inject(TYPES.DatabaseClientService)
-    private readonly dbClient: IDatabaseClientService
+    private readonly dbClient: IDatabaseClientService,
   ) {}
 
   findAll() {
@@ -25,17 +24,18 @@ export class UsersService {
   }
 
   public async save(d: SaveUserDTO): Promise<UserDTO> {
-
     let userEntity = UserFactory.toEntityFromSaveDTO(d);
 
     userEntity = await this.dbClient.writer(async (c) => {
-      
       const user = await this.users.findBySub(userEntity.getSub(), c);
 
-      if(user === null) {
+      if (user === null) {
         await this.users.create(userEntity, c);
       } else {
-        userEntity = UserFactory.toEntityFromSaveDTOWithId(userEntity, user.getId());
+        userEntity = UserFactory.toEntityFromSaveDTOWithId(
+          userEntity,
+          user.getId(),
+        );
         await this.users.update(userEntity, c);
       }
 

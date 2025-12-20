@@ -8,21 +8,18 @@ import { UsersRepository } from './users.repository';
 import { PrismaClientService } from '@/shared/services/database-client.service';
 
 @Module({
-  imports: [
-    HttpModule,
-    AuthzModule
-  ],
+  imports: [HttpModule, AuthzModule],
   providers: [
     UsersResolver,
     UsersService,
     {
       provide: TYPES.UsersRepository,
-      useClass: UsersRepository
+      useClass: UsersRepository,
     },
     {
       provide: TYPES.DatabaseClientService,
-      useClass: PrismaClientService
-    }
+      useClass: PrismaClientService,
+    },
   ],
 })
 export class UsersModule {}

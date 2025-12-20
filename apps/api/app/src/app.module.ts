@@ -4,7 +4,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { HealthController } from '@/healthz/health.controller';
 import { AuthzModule } from './authz/authz.module';
 import { UsersModule } from './users/users.module';
-import { HttpModule } from '@nestjs/axios'
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [

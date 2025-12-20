@@ -11,10 +11,7 @@ export const IS_PUBLIC_KEY = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 
 @Module({
-  imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    HttpModule,
-  ],
+  imports: [PassportModule.register({ defaultStrategy: 'jwt' }), HttpModule],
   providers: [
     JwtStrategy,
     {
@@ -26,7 +23,7 @@ export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
       useClass: Auth0Service,
     },
     Auth0Service,
-    String
+    String,
   ],
   exports: [PassportModule, Auth0Service, TYPES.IdpService],
 })
