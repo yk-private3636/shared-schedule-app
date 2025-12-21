@@ -21,10 +21,12 @@ export class UsersResolver {
         (ctx.req.headers["authorization"] ?? "") as string
       ).replace("Bearer ", "");
 
-      const idpUserProfile = await this.idpService.getUserProfile(accessToken);
+      const idpUserProfile =
+        await this.idpService.fetchUserProfile(accessToken);
 
       const saveUserDTO =
         UserDTOFactory.toSaveDtoFromIdpProfile(idpUserProfile);
+
       const userDTO = await this.usersService.save(saveUserDTO);
 
       return {
