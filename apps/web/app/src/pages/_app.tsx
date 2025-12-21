@@ -1,8 +1,24 @@
+import { useAuthStore } from "@/stores/useAuthStore";
 import "@/styles/globals.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const authStore = useAuthStore();
+  const router = useRouter();
+  const publicPaths = ["/", "/oauth/callback"];
+
+  useEffect(() => {
+    if (
+      authStore.isAuthenticated === false &&
+      !publicPaths.includes(router.pathname)
+    ) {
+      router.push("/");
+    }
+  }, [authStore, router]);
+
   return (
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN ?? ""}
