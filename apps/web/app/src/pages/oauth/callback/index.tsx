@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { i18n } from "shared";
 import Loading from "@/components/Loading";
-import { saveUser } from "@/helpers/gql/api/save-user";
+import { saveUser } from "@/helpers/gql/api/saveUser";
 
 export default function Callback() {
   const { getAccessTokenSilently } = useAuth0();
