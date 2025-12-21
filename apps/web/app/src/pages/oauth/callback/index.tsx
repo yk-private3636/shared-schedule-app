@@ -4,23 +4,31 @@ import { useEffect } from "react";
 import { i18n } from "shared";
 import Loading from "@/components/Loading";
 import { saveUser } from "@/helpers/gql/api/saveUser";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function Callback() {
   const { getAccessTokenSilently } = useAuth0();
   const router = useRouter();
+  const authStore = useAuthStore();
 
   useEffect(() => {
     (async () => {
       try {
+        if (authStore.isAuthenticated) {
+          router.push("/schedules");
+          return;
+        }
+
         const accessToken = await getAccessTokenSilently();
 
         await saveUser(accessToken);
 
+        authStore.setIsAuthenticated(true);
+
         router.push("/schedules");
       } catch (_error) {}
     })();
-  }, [getAccessTokenSilently, router]);
-
+  }, [getAccessTokenSilently, router, authStore]);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="text-center space-y-6">
