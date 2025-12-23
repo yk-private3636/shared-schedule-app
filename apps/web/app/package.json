@@ -30,6 +30,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "lucide-react": "^0.562.0",
     "npm-watch": "^0.13.0",
     "tailwindcss": "^4",
     "typescript": "^5"

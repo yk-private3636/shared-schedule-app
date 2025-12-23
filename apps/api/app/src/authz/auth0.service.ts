@@ -24,7 +24,7 @@ export class Auth0Service implements IIdpService {
       }),
     );
 
-    if (res.status === 401) {
+    if (res.status === 400 || res.status === 401) {
       throw new UnauthorizedException("Invalid or expired token");
     }
 

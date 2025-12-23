@@ -1,4 +1,6 @@
-import { useAuthStore } from "@/stores/useAuthStore";
+import ErrorSnackbar from "@/components/ErrorSnackbar";
+import { useAuthStore } from "@/stores/authStore";
+import { useErrMsgStore } from "@/stores/errMsgStore";
 import "@/styles/globals.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import type { AppProps } from "next/app";
@@ -10,6 +12,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const publicPaths = ["/", "/oauth/callback"];
 
+  const errMsgStore = useErrMsgStore();
+
   useEffect(() => {
     if (
       authStore.isAuthenticated === false &&
@@ -18,6 +22,16 @@ export default function App({ Component, pageProps }: AppProps) {
       router.push("/");
     }
   }, [authStore, router]);
+
+  useEffect(() => {
+    if (errMsgStore.value.show === false) {
+      return;
+    }
+
+    /** 必要に応じてタイマー処理 */
+
+    /** TODO: アクセストークンの有効期限切れハンドリング */
+  }, [errMsgStore]);
 
   return (
     <Auth0Provider
@@ -28,6 +42,13 @@ export default function App({ Component, pageProps }: AppProps) {
         audience: process.env.NEXT_PUBLIC_AUTH0_IDENTIFIER_AUD ?? "",
       }}
     >
+      <div className="fixed top-4 right-4 z-50">
+        <ErrorSnackbar
+          isVisible={errMsgStore.value.show}
+          text={errMsgStore.value.msg}
+          onClose={() => errMsgStore.setValue({ show: false, msg: "" })}
+        />
+      </div>
       <Component {...pageProps} />
     </Auth0Provider>
   );
