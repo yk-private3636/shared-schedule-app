@@ -1,5 +1,5 @@
-import { IdpUserProfile } from "../types/idp-profile.type";
+import type { IdpUserProfile } from "../types/idp-profile.type";
 
 export interface IIdpService {
-    getUserProfile(token: string): Promise<IdpUserProfile>;
+  fetchUserProfile(token: string): Promise<IdpUserProfile>;
 }

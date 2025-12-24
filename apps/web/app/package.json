@@ -21,7 +21,8 @@
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "shared": "1.0.0"
+    "shared": "1.0.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
@@ -29,7 +30,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "i18n-js": "^4.5.1",
+    "lucide-react": "^0.562.0",
     "npm-watch": "^0.13.0",
     "tailwindcss": "^4",
     "typescript": "^5"
@@ -38,7 +39,8 @@
     "graphql:codegen": {
       "patterns": [
         "src/pages",
-        "src/components"
+        "src/components",
+        "src/helpers"
       ],
       "extensions": "ts,tsx",
       "runOnChangeOnly": true

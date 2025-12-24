@@ -1,27 +1,39 @@
 import { HttpService } from "@nestjs/axios";
-import { IIdpService } from "./interfaces/idp.service.interface";
-import { IdpUserProfile } from "./types/idp-profile.type";
-import { firstValueFrom } from 'rxjs';
-import { Injectable } from "@nestjs/common";
+import {
+  BadGatewayException,
+  Injectable,
+  UnauthorizedException,
+} from "@nestjs/common";
+import { firstValueFrom } from "rxjs";
+import type { IIdpService } from "./interfaces/idp.service.interface";
+import type { IdpUserProfile } from "./types/idp-profile.type";
 
 @Injectable()
 export class Auth0Service implements IIdpService {
+  private readonly userInfoUrl: string =
+    `${process.env.AUTH0_ISSUER_URL}/userinfo`;
 
-    private readonly userInfoUrl: string = `${process.env.AUTH0_ISSUER_URL}/userinfo`;
+  constructor(private readonly httpService: HttpService) {}
 
-    constructor(
-        private readonly httpService: HttpService,
-    ) {}
+  async fetchUserProfile(token: string): Promise<IdpUserProfile> {
+    const res = await firstValueFrom(
+      this.httpService.get<IdpUserProfile>(this.userInfoUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    );
 
-    async getUserProfile(token: string): Promise<IdpUserProfile> {
-        const res = await firstValueFrom(
-            this.httpService.get<IdpUserProfile>(this.userInfoUrl, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-        );
-
-        return res.data;
+    if (res.status === 400 || res.status === 401) {
+      throw new UnauthorizedException("Invalid or expired token");
     }
+
+    if (res.status !== 200) {
+      throw new BadGatewayException(
+        `Auth0 service error: ${res.status} ${res.statusText}`,
+      );
+    }
+
+    return res.data;
+  }
 }

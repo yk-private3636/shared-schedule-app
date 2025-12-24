@@ -11,8 +11,8 @@ const config: CodegenConfig = {
       plugins: [],
     },
     "src/types/graphql/type.ts": {
-      plugins: ["typescript", "typescript-resolvers"]
-    }
+      plugins: ["typescript", "typescript-resolvers"],
+    },
   },
 };
 

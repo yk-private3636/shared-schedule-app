@@ -1,8 +1,7 @@
-import { InputType } from '@nestjs/graphql';
+import { InputType } from "@nestjs/graphql";
 
 @InputType()
 export class SaveUserDTO {
-  
   constructor(
     private readonly sub: string,
     private readonly email: string,

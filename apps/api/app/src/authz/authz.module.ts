@@ -1,20 +1,17 @@
-import { Module, SetMetadata } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
-import { HttpModule } from '@nestjs/axios';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtStrategy } from './jwt.strategy';
-import { GqlAuthGuard } from './gql-auth.guard';
-import { Auth0Service } from './auth0.service';
-import { TYPES } from './constants/di-token';
+import { HttpModule } from "@nestjs/axios";
+import { Module, SetMetadata } from "@nestjs/common";
+import { APP_GUARD } from "@nestjs/core";
+import { PassportModule } from "@nestjs/passport";
+import { Auth0Service } from "./auth0.service";
+import { TYPES } from "./constants/di-token";
+import { GqlAuthGuard } from "./gql-auth.guard";
+import { JwtStrategy } from "./jwt.strategy";
 
-export const IS_PUBLIC_KEY = 'isPublic';
+export const IS_PUBLIC_KEY = "isPublic";
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 
 @Module({
-  imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    HttpModule,
-  ],
+  imports: [PassportModule.register({ defaultStrategy: "jwt" }), HttpModule],
   providers: [
     JwtStrategy,
     {
@@ -26,7 +23,7 @@ export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
       useClass: Auth0Service,
     },
     Auth0Service,
-    String
+    String,
   ],
   exports: [PassportModule, Auth0Service, TYPES.IdpService],
 })

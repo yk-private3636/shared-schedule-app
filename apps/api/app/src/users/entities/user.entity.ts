@@ -1,4 +1,3 @@
-
 export class User {
   constructor(
     private readonly id: string,

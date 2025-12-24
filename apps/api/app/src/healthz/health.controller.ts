@@ -1,15 +1,13 @@
-import { Public } from '@/authz/authz.module';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get } from "@nestjs/common";
+import { Public } from "@/authz/authz.module";
 
-@Controller('/api/v1/health')
+@Controller("/api/v1/health")
 export class HealthController {
-  constructor() {}
-
   @Public()
   @Get()
   check() {
     return {
-      text: 'health check ok',
+      text: "health check ok",
     };
   }
 }
