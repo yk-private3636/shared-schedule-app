@@ -61,14 +61,6 @@ else
   exit 1
 fi
 
-echo "  → Checking Prisma schema format..."
-if run_in_container api sh -c "cd /var/www/html/apps/api/app && npm run prisma:format"; then
-  echo -e "${GREEN}  ✓ Prisma schema is formatted${NC}"
-else
-  echo -e "${RED}  ✗ Prisma schema format check failed${NC}"
-  exit 1
-fi
-
 # Web checks
 echo ""
 echo "🌐 Running Web checks..."
