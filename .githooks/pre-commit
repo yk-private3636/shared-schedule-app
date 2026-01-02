@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Pre-commit hook for shared-schedule-app
 # This script runs various checks before allowing a commit
 
-set -e
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
 
 echo "🔍 Running pre-commit checks..."
 
