@@ -38,7 +38,7 @@ export default function Home() {
             <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
               <div className="text-center space-y-2">
                 <h1 className="text-2xl font-bold text-gray-900">
-                  {i18n.t("welcomeTo", { place: "TimeConnect" })}
+                  {i18n.t("welcomeTo", { place: i18n.t("appTitle") })}
                 </h1>
                 <p className="text-gray-600">
                   {i18n.t("auth.safeLoginPrompt")}

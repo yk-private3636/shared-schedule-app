@@ -1,4 +1,5 @@
 export const jaTranslation = {
+  appTitle: 'TimeConnect',
   welcomeTo: '%{place}へようこそ',
   auth: {
     login: 'ログイン',
