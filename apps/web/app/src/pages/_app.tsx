@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
         }
         break;
     }
-  }, [authStore, router]);
+  }, [authStore.status]);
 
   useEffect(() => {
     if (errMsgStore.value.show === false) {

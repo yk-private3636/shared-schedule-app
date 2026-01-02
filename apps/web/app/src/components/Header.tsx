@@ -5,6 +5,7 @@ import Tooltip from "./Tooltip";
 export default function Header(
   pr: Readonly<{
     title: string;
+    pictureUrl?: string | null;
     logoutClick: () => void;
   }>,
 ) {
@@ -24,17 +25,26 @@ export default function Header(
             </button>
 
             {/* ユーザーアイコン(ログアウト) */}
-            <div className="relative group">
-              <button
-                type="button"
-                className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200 cursor-pointer"
-                onClick={pr.logoutClick}
-              >
-                <UserCircle size={24} />
-              </button>
+            <button
+              type="button"
+              className="relative group cursor-pointer p-2 hover:bg-blue-50 rounded-full transition-colors duration-200"
+              onClick={pr.logoutClick}
+            >
+              {pr.pictureUrl ? (
+                <img
+                  src={pr.pictureUrl}
+                  alt="User"
+                  className="w-6 h-6 rounded-full"
+                />
+              ) : (
+                <UserCircle
+                  size={24}
+                  className="text-gray-600 hover:text-blue-600"
+                />
+              )}
               {/* ツールチップ */}
               <Tooltip text={i18n.t("auth.logout")} />
-            </div>
+            </button>
           </div>
         </div>
       </div>

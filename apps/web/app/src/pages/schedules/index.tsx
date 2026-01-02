@@ -6,7 +6,7 @@ import { useAuthStore } from "@/stores/authStore";
 
 export default function Schedules() {
   const authStore = useAuthStore();
-  const { logout } = useAuth0();
+  const { user, logout } = useAuth0();
 
   async function handleLogout() {
     await logout();
@@ -16,7 +16,11 @@ export default function Schedules() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* ヘッダー */}
-      <Header title={i18n.t("appTitle")} logoutClick={handleLogout} />
+      <Header
+        title={i18n.t("appTitle")}
+        pictureUrl={user?.picture}
+        logoutClick={handleLogout}
+      />
 
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

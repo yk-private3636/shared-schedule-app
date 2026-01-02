@@ -27,6 +27,12 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
       }
     },
     "domains": {

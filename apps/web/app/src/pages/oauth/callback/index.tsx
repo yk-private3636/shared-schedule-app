@@ -16,7 +16,6 @@ export default function Callback() {
   const errMsgStore = useErrMsgStore();
   const [hasError, setHasError] = useState(false);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: 常に1回だけの実行を保証するため
   useEffect(() => {
     (async () => {
       try {
