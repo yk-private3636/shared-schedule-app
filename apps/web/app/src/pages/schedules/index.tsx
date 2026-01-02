@@ -1,12 +1,12 @@
 import {
   Bell,
+  Briefcase,
   Calendar,
+  Heart,
+  Lock,
   Share2,
   UserCircle,
   Users,
-  Briefcase,
-  Heart,
-  Lock,
 } from "lucide-react";
 
 export default function Schedules() {
@@ -171,7 +171,9 @@ export default function Schedules() {
                   <p className="text-lg font-semibold">
                     カレンダーはまだ実装されていません
                   </p>
-                  <p className="text-sm mt-2">今後のアップデートをお待ちください</p>
+                  <p className="text-sm mt-2">
+                    今後のアップデートをお待ちください
+                  </p>
                 </div>
               </div>
             </div>
