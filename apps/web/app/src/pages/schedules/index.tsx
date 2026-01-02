@@ -1,12 +1,22 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { Briefcase, Calendar, Heart, Lock, Share2, Users } from "lucide-react";
 import { i18n } from "shared";
 import Header from "@/components/Header";
+import { useAuthStore } from "@/stores/authStore";
 
 export default function Schedules() {
+  const authStore = useAuthStore();
+  const { logout } = useAuth0();
+
+  async function handleLogout() {
+    await logout();
+    authStore.setStatus("UNAUTHENTICATED");
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* ヘッダー */}
-      <Header title={i18n.t("appTitle")} />
+      <Header title={i18n.t("appTitle")} logoutClick={handleLogout} />
 
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

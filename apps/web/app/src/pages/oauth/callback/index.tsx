@@ -20,7 +20,7 @@ export default function Callback() {
   useEffect(() => {
     (async () => {
       try {
-        if (authStore.isAuthenticated) {
+        if (authStore.status === "AUTHENTICATED") {
           router.push("/schedules");
           return;
         }
@@ -29,7 +29,7 @@ export default function Callback() {
 
         await saveUser(accessToken);
 
-        authStore.setIsAuthenticated(true);
+        authStore.setStatus("AUTHENTICATED");
 
         router.push("/schedules");
       } catch (_err: unknown) {

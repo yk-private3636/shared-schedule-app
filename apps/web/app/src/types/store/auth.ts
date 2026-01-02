@@ -1,4 +1,6 @@
+export type AuthStatus = "INITIAL" | "AUTHENTICATED" | "UNAUTHENTICATED";
+
 export interface AuthStore {
-  isAuthenticated: boolean;
-  setIsAuthenticated: (value: boolean) => void;
+  status: AuthStatus;
+  setStatus: (status: AuthStatus) => void;
 }

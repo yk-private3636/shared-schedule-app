@@ -5,6 +5,7 @@ import Tooltip from "./Tooltip";
 export default function Header(
   pr: Readonly<{
     title: string;
+    logoutClick: () => void;
   }>,
 ) {
   return (
@@ -27,6 +28,7 @@ export default function Header(
               <button
                 type="button"
                 className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200 cursor-pointer"
+                onClick={pr.logoutClick}
               >
                 <UserCircle size={24} />
               </button>

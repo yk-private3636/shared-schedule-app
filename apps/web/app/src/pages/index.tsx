@@ -1,6 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { i18n } from "shared";
 import Button from "@/components/Button";
 import DividerWithText from "@/components/DividerWithText";
@@ -12,17 +10,8 @@ import MicrosoftLogoButton from "@/components/MicrosoftLogoButton";
 
 export default function Home() {
   const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (isAuthenticated === false) {
-      return;
-    }
-
-    router.push("/schedules");
-  }, [isAuthenticated, router]);
-
-  function loginEvent() {
+  function handleLogin() {
     loginWithRedirect();
   }
 
@@ -46,7 +35,7 @@ export default function Home() {
               </div>
 
               <div className="space-y-4">
-                <Button text={i18n.t("auth.login")} onClick={loginEvent} />
+                <Button text={i18n.t("auth.login")} onClick={handleLogin} />
 
                 <DividerWithText text={i18n.t("auth.availableLoginMethods")} />
 
