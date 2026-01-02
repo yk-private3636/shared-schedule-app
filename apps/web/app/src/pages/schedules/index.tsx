@@ -1,43 +1,26 @@
-import {
-  Bell,
-  Briefcase,
-  Calendar,
-  Heart,
-  Lock,
-  Share2,
-  UserCircle,
-  Users,
-} from "lucide-react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Briefcase, Calendar, Heart, Lock, Share2, Users } from "lucide-react";
+import { i18n } from "shared";
+import Header from "@/components/Header";
+import { useAuthStore } from "@/stores/authStore";
 
 export default function Schedules() {
+  const authStore = useAuthStore();
+  const { user, logout } = useAuth0();
+
+  async function handleLogout() {
+    await logout();
+    authStore.setStatus("UNAUTHENTICATED");
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* ヘッダー */}
-      <header className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">TimeConnect</h1>
-            <div className="flex items-center gap-4">
-              {/* 通知アイコン */}
-              <button
-                type="button"
-                className="relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200"
-              >
-                <Bell size={24} />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-              </button>
-
-              {/* ユーザー管理アイコン */}
-              <button
-                type="button"
-                className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200"
-              >
-                <UserCircle size={24} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header
+        title={i18n.t("appTitle")}
+        pictureUrl={user?.picture}
+        logoutClick={handleLogout}
+      />
 
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

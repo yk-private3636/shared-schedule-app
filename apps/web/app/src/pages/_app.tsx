@@ -10,18 +10,23 @@ import { useEffect } from "react";
 export default function App({ Component, pageProps }: AppProps) {
   const authStore = useAuthStore();
   const router = useRouter();
+  const errMsgStore = useErrMsgStore();
   const publicPaths = ["/", "/oauth/callback"];
 
-  const errMsgStore = useErrMsgStore();
-
   useEffect(() => {
-    if (
-      authStore.isAuthenticated === false &&
-      !publicPaths.includes(router.pathname)
-    ) {
-      router.push("/");
+    switch (authStore.status) {
+      case "INITIAL":
+        break;
+      case "AUTHENTICATED":
+        router.push("/schedules");
+        break;
+      case "UNAUTHENTICATED":
+        if (!publicPaths.includes(router.pathname)) {
+          router.push("/");
+        }
+        break;
     }
-  }, [authStore, router]);
+  }, [authStore.status]);
 
   useEffect(() => {
     if (errMsgStore.value.show === false) {

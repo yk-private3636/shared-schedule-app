@@ -5,8 +5,9 @@ import type { AuthStore } from "@/types/store/auth";
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
-      isAuthenticated: false,
-      setIsAuthenticated: (value: boolean) => set({ isAuthenticated: value }),
+      status: "INITIAL",
+      setStatus: (value: "INITIAL" | "AUTHENTICATED" | "UNAUTHENTICATED") =>
+        set({ status: value }),
     }),
     {
       name: "auth-storage",
@@ -15,15 +16,15 @@ export const useAuthStore = create<AuthStore>()(
         const json = localStorage.getItem("auth-storage");
 
         if (json === null) {
-          state.isAuthenticated = false;
+          state.status = "INITIAL";
           return;
         }
 
         try {
           const store = JSON.parse(json);
-          state.isAuthenticated = store.state.isAuthenticated;
+          state.status = store.state.status;
         } catch (_error) {
-          state.isAuthenticated = false;
+          state.status = "INITIAL";
         }
       },
     },

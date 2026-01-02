@@ -16,11 +16,10 @@ export default function Callback() {
   const errMsgStore = useErrMsgStore();
   const [hasError, setHasError] = useState(false);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: 常に1回だけの実行を保証するため
   useEffect(() => {
     (async () => {
       try {
-        if (authStore.isAuthenticated) {
+        if (authStore.status === "AUTHENTICATED") {
           router.push("/schedules");
           return;
         }
@@ -29,7 +28,7 @@ export default function Callback() {
 
         await saveUser(accessToken);
 
-        authStore.setIsAuthenticated(true);
+        authStore.setStatus("AUTHENTICATED");
 
         router.push("/schedules");
       } catch (_err: unknown) {
