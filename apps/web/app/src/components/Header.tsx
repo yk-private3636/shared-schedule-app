@@ -1,4 +1,6 @@
 import { Bell, UserCircle } from "lucide-react";
+import { i18n } from "shared";
+import Tooltip from "./Tooltip";
 
 export default function Header(
   pr: Readonly<{
@@ -20,13 +22,17 @@ export default function Header(
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
             </button>
 
-            {/* ユーザー管理アイコン */}
-            <button
-              type="button"
-              className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200"
-            >
-              <UserCircle size={24} />
-            </button>
+            {/* ユーザーアイコン(ログアウト) */}
+            <div className="relative group">
+              <button
+                type="button"
+                className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200 cursor-pointer"
+              >
+                <UserCircle size={24} />
+              </button>
+              {/* ツールチップ */}
+              <Tooltip text={i18n.t("auth.logout")} />
+            </div>
           </div>
         </div>
       </div>
