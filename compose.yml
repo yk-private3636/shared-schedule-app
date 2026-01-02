@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: api.dockerfile
       context: ./apps
-      target: dev
+      target: local
     image: shared-schedule-api:local
     ports:
       - ${API_PORT:-8080}:8080
@@ -28,7 +28,7 @@ services:
     build:
       dockerfile: web.dockerfile
       context: ./apps
-      target: dev
+      target: local
     image: shared-schedule-web:local
     ports:
       - ${WEB_PORT:-3000}:3000
@@ -44,7 +44,7 @@ services:
     container_name: db
     build:
       context: ./db
-      target: dev
+      target: local
     image: shared-schedule-db:local
     environment:
       POSTGRES_DB: shared-schedule

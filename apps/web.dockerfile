@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=node:22.14.0-alpine
 
 # 開発環境
-FROM ${BASE_IMAGE} AS dev
+FROM ${BASE_IMAGE} AS local
 
 WORKDIR /var/www/html/apps/web/app
 
