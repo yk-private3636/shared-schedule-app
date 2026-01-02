@@ -78,5 +78,5 @@ services:
     volumes:
     - ./terraform/infra:/opt/terrform/infra
 
-volumes:
-  shared-schedule-data:
+# volumes:
+#   shared-schedule-data:
