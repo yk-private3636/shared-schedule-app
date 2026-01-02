@@ -68,15 +68,15 @@ services:
       - "4318:4318"
       - "16686:16686"
 
-  terraform:
-    container_name: terraform
+  infra:
+    container_name: infra
     build:
-      context: ./terraform
-    image: shared-schedule-terraform:local
+      context: ./infra
+    image: shared-schedule-infra:local
     env_file:
-    - ./terraform/.env
+    - ./infra/.env
     volumes:
-    - ./terraform/infra:/opt/terrform/infra
+    - ./infra/src:/home/terraform/infra
 
 # volumes:
 #   shared-schedule-data:
