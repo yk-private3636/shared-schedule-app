@@ -6,6 +6,7 @@ services:
       dockerfile: api.dockerfile
       context: ./apps
       target: dev
+    image: shared-schedule-api:local
     ports:
       - ${API_PORT:-8080}:8080
     depends_on:
@@ -28,6 +29,7 @@ services:
       dockerfile: web.dockerfile
       context: ./apps
       target: dev
+    image: shared-schedule-web:local
     ports:
       - ${WEB_PORT:-3000}:3000
     depends_on:
@@ -43,6 +45,7 @@ services:
     build:
       context: ./db
       target: dev
+    image: shared-schedule-db:local
     environment:
       POSTGRES_DB: shared-schedule
       POSTGRES_USER: developer
@@ -69,10 +72,11 @@ services:
     container_name: terraform
     build:
       context: ./terraform
+    image: shared-schedule-terraform:local
     env_file:
     - ./terraform/.env
     volumes:
     - ./terraform/infra:/opt/terrform/infra
 
-volumes:
-  shared-schedule-data:
+# volumes:
+#   shared-schedule-data:
