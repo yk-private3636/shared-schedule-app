@@ -1,3 +1,4 @@
-ARG BASE_IMAGE=datadog/agent:7.73.1
+FROM jaegertracing/all-in-one:latest AS local
 
-FROM ${BASE_IMAGE} AS prod
+
+FROM datadog/agent:7.73.1 AS prod

@@ -61,12 +61,15 @@ services:
     volumes:
       - ./db/data:/var/lib/postgresql/data
 
-  jaeger:
-    container_name: jaeger
-    image: jaegertracing/all-in-one:latest
+  observability:
+    container_name: observability
+    build:
+      context: ./observability
+      target: local
+    image: shared-schedule-observability:local
     ports:
-      - "4318:4318"
-      - "16686:16686"
+      - ${OBSERVABILITY_OTLP_PORT:-4318}:4318
+      - ${OBSERVABILITY_UI_PORT:-16686}:16686
 
   infra:
     container_name: infra
