@@ -2,9 +2,11 @@ import { Inject, Injectable } from "@nestjs/common";
 import type { IDatabaseClientService } from "@/shared/interfaces/database-client.service";
 import type { SaveUserDTO } from "./dto/save.user.dto";
 import type { UserDTO } from "./dto/user.dto";
-import { UserFactory } from "./factories/user-entity.factory";
+import { UserFactory } from "./factories/user.entity.factory";
 import type { IUsersRepository } from "./interfaces/users.repository";
 import { TYPES } from "./types/di-token";
+import { User } from "./domain/entities/user.entity";
+import { generateUUID } from "@/shared/helpers/uuid";
 
 @Injectable()
 export class UsersService {
@@ -24,22 +26,24 @@ export class UsersService {
   }
 
   public async save(d: SaveUserDTO): Promise<UserDTO> {
-    let userEntity = UserFactory.toEntityFromSaveDTO(d);
-
-    userEntity = await this.dbClient.writer(async (c) => {
-      const user = await this.users.findBySub(userEntity.getSub(), c);
+    const userEntity = await this.dbClient.writer(async (c): Promise<User> => {
+      const user = await this.users.findBySub(d.getSub(), c);
 
       if (user === null) {
-        await this.users.create(userEntity, c);
-      } else {
-        userEntity = UserFactory.toEntityFromSaveDTOWithId(
-          userEntity,
-          user.getId(),
+        const newEntity = UserFactory.toEntityFromSaveDTOWithId(
+          generateUUID(),
+          d,
         );
-        await this.users.update(userEntity, c);
+        await this.users.create(newEntity, c);
+        return newEntity;
+      } else {
+        const updateEntity = UserFactory.toEntityFromSaveDTOWithId(
+          user.getId(),
+          d,
+        );
+        await this.users.update(updateEntity, c);
+        return updateEntity;
       }
-
-      return userEntity;
     });
 
     return UserFactory.toDtoFromEntity(userEntity);

@@ -2,7 +2,7 @@ import { Inject } from "@nestjs/common";
 import { Args, Context, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { TYPES } from "@/authz/constants/di-token";
 import type { IIdpService } from "@/authz/interfaces/idp.service";
-import { UserDTOFactory } from "./factories/user-dto.factory";
+import { UserDTOFactory } from "./factories/user.dto.factory";
 import { User } from "./types/user.gql";
 import { UsersService } from "./users.service";
 
