@@ -1,4 +1,13 @@
-import { Briefcase, Calendar, Heart, Lock, Share2, Users } from "lucide-react";
+import {
+  Briefcase,
+  Calendar,
+  Heart,
+  Lock,
+  Plus,
+  Settings,
+  Share2,
+  Users,
+} from "lucide-react";
 import Header from "@/components/Header";
 
 export default function Schedules() {
@@ -10,8 +19,8 @@ export default function Schedules() {
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* タブナビゲーション */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2">
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 relative">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 pr-14">
             {/* 家族タブ */}
             <button
               type="button"
@@ -47,7 +56,24 @@ export default function Schedules() {
               <Lock size={18} />
               プライベート
             </button>
+            {/* タブ追加ボタン */}
+            <button
+              type="button"
+              className="flex items-center justify-center w-10 h-10 shrink-0 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200"
+              title="スケジュールグループを追加"
+            >
+              <Plus size={20} />
+            </button>
           </div>
+
+          {/* 設定ボタン（右下固定） */}
+          <button
+            type="button"
+            className="absolute bottom-1 right-4 flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200 shadow-sm"
+            title="スケジュール設定"
+          >
+            <Settings size={20} />
+          </button>
         </div>
 
         {/* アクション＆カレンダーエリア */}
