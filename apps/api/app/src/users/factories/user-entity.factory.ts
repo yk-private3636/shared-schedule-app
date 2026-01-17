@@ -1,7 +1,7 @@
 import { generateUUID } from "@/shared/helpers/uuid";
 import type { SaveUserDTO } from "../dto/save.user.dto";
 import { UserDTO } from "../dto/user.dto";
-import { User } from "../entities/user.entity";
+import { User } from "../domain/entities/user.entity";
 
 export class UserFactory {
   static toDtoFromEntity(user: User): UserDTO {

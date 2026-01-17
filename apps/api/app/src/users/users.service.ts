@@ -1,9 +1,9 @@
 import { Inject, Injectable } from "@nestjs/common";
-import type { IDatabaseClientService } from "@/shared/interfaces/database-client.service.interface";
+import type { IDatabaseClientService } from "@/shared/interfaces/database-client.service";
 import type { SaveUserDTO } from "./dto/save.user.dto";
 import type { UserDTO } from "./dto/user.dto";
 import { UserFactory } from "./factories/user-entity.factory";
-import type { IUsersRepository } from "./interfaces/users.repository.interface";
+import type { IUsersRepository } from "./interfaces/users.repository";
 import { TYPES } from "./types/di-token";
 
 @Injectable()

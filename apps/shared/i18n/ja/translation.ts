@@ -4,6 +4,7 @@ export const jaTranslation = {
   auth: {
     login: 'ログイン',
     logout: 'ログアウト',
+    settings: '設定',
     safeLoginPrompt: '安全にログインして始めましょう',
     availableLoginMethods: '利用可能なログイン方法',
     auth0SecureLogin: 'Auth0による安全な認証',
