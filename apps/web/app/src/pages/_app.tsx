@@ -25,6 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
           router.push("/");
         }
         break;
+      case "PENDING":
+        router.push("/oauth/callback");
+        break;
     }
   }, [authStore.status]);
 

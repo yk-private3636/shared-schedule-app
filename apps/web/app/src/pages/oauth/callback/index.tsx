@@ -10,7 +10,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { useErrMsgStore } from "@/stores/errMsgStore";
 
 export default function Callback() {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, logout } = useAuth0();
   const router = useRouter();
   const authStore = useAuthStore();
   const errMsgStore = useErrMsgStore();
@@ -23,6 +23,8 @@ export default function Callback() {
           router.push("/schedules");
           return;
         }
+
+        authStore.setStatus("PENDING");
 
         const accessToken = await getAccessTokenSilently();
 
@@ -43,6 +45,12 @@ export default function Callback() {
     })();
   }, []);
 
+  async function handleBackToLogin() {
+    await logout();
+    authStore.setStatus("UNAUTHENTICATED");
+    router.push("/");
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="text-center space-y-6">
@@ -60,7 +68,7 @@ export default function Callback() {
                 />
                 <Button
                   text={i18n.t("auth.backToLogin")}
-                  onClick={() => router.push("/")}
+                  onClick={() => handleBackToLogin()}
                   className="bg-gray-400 hover:bg-gray-500"
                 />
               </div>

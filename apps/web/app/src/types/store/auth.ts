@@ -1,4 +1,8 @@
-export type AuthStatus = "INITIAL" | "AUTHENTICATED" | "UNAUTHENTICATED";
+export type AuthStatus =
+  | "INITIAL"
+  | "AUTHENTICATED"
+  | "UNAUTHENTICATED"
+  | "PENDING";
 
 export interface AuthStore {
   status: AuthStatus;
