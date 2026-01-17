@@ -1,6 +1,6 @@
 import type { PrismaClient } from "@prisma/client";
-import { User } from "./entities/user.entity";
-import type { IUsersRepository } from "./interfaces/users.repository.interface";
+import { User } from "./domain/entities/user.entity";
+import type { IUsersRepository } from "./interfaces/users.repository";
 
 export class UsersRepository implements IUsersRepository {
   public async findBySub(sub: string, tx: PrismaClient): Promise<User | null> {

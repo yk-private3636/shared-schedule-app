@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { firstValueFrom } from "rxjs";
-import type { IIdpService } from "./interfaces/idp.service.interface";
+import type { IIdpService } from "./interfaces/idp.service";
 import type { IdpUserProfile } from "./types/idp-profile.type";
 
 @Injectable()
