@@ -40,10 +40,9 @@ check_container "api" || exit 1
 check_container "web" || exit 1
 echo -e "${GREEN}✓ All containers are running${NC}"
 
-# API checks
+# Running API checks
 echo ""
 echo "🔧 Running API checks..."
-
 echo "  → Running biome lint check (API)..."
 if run_in_container api sh -c "cd /var/www/html/apps/api/app && npm run lint"; then
   echo -e "${GREEN}  ✓ API lint check passed${NC}"
@@ -53,6 +52,7 @@ else
   exit 1
 fi
 
+# Running Prisma schema validation
 echo "  → Validating Prisma schema..."
 if run_in_container api sh -c "cd /var/www/html/apps/api/app && npm run prisma:validate"; then
   echo -e "${GREEN}  ✓ Prisma schema is valid${NC}"
@@ -61,10 +61,9 @@ else
   exit 1
 fi
 
-# Web checks
+# Running Web checks
 echo ""
 echo "🌐 Running Web checks..."
-
 echo "  → Running biome lint check (Web)..."
 if run_in_container web sh -c "cd /var/www/html/apps/web/app && npm run lint"; then
   echo -e "${GREEN}  ✓ Web lint check passed${NC}"
@@ -74,17 +73,16 @@ else
   exit 1
 fi
 
-# Optional: Run tests (commented out by default as it can be slow)
-# Uncomment the following lines to enable test execution on pre-commit
-# echo ""
-# echo "🧪 Running tests..."
-# echo "  → Running API tests..."
-# if run_in_container api sh -c "cd /var/www/html/apps/api/app && npm run test"; then
-#   echo -e "${GREEN}  ✓ API tests passed${NC}"
-# else
-#   echo -e "${RED}  ✗ API tests failed${NC}"
-#   exit 1
-# fi
+# Running tests
+echo ""
+echo "🧪 Running tests..."
+echo "  → Running API tests..."
+if run_in_container api sh -c "cd /var/www/html/apps/api/app && npm run test"; then
+  echo -e "${GREEN}  ✓ API tests passed${NC}"
+else
+  echo -e "${RED}  ✗ API tests failed${NC}"
+  exit 1
+fi
 
 echo ""
 echo -e "${GREEN}✅ All pre-commit checks passed!${NC}"

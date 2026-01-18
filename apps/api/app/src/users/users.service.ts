@@ -30,19 +30,17 @@ export class UsersService {
       const user = await this.users.findBySub(d.getSub(), c);
 
       if (user === null) {
-        const newEntity = UserFactory.toEntityFromSaveDTOWithId(
+        const newEntity = UserFactory.toEntityFromSaveDTOWithIdStatus(
           generateUUID(),
+          "ACTIVE",
           d,
         );
         await this.users.create(newEntity, c);
         return newEntity;
       } else {
-        const updateEntity = UserFactory.toEntityFromSaveDTOWithId(
-          user.getId(),
-          d,
-        );
-        await this.users.update(updateEntity, c);
-        return updateEntity;
+        user.updateProfile(d.getEmail(), d.getFamilyName(), d.getGivenName());
+        await this.users.update(user, c);
+        return user;
       }
     });
 

@@ -38,12 +38,21 @@ export type User = {
   familyName: Scalars['String']['output'];
   givenName: Scalars['String']['output'];
   id: Scalars['String']['output'];
+  status: UserStatus;
 };
+
+/** The status of a user. */
+export enum UserStatus {
+  Active = 'ACTIVE',
+  Banned = 'BANNED',
+  Deleted = 'DELETED',
+  Suspended = 'SUSPENDED'
+}
 
 export type SaveUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SaveUserMutation = { __typename?: 'Mutation', saveUser: { __typename?: 'User', id: string, email: string, givenName: string, familyName: string } };
+export type SaveUserMutation = { __typename?: 'Mutation', saveUser: { __typename?: 'User', id: string, email: string, givenName: string, familyName: string, status: UserStatus } };
 
 
-export const SaveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SaveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"saveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"givenName"}},{"kind":"Field","name":{"kind":"Name","value":"familyName"}}]}}]}}]} as unknown as DocumentNode<SaveUserMutation, SaveUserMutationVariables>;
+export const SaveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SaveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"saveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"givenName"}},{"kind":"Field","name":{"kind":"Name","value":"familyName"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<SaveUserMutation, SaveUserMutationVariables>;

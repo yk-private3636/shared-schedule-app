@@ -34,6 +34,7 @@ export class UsersResolver {
         email: userDTO.getEmail(),
         familyName: userDTO.getFamilyName(),
         givenName: userDTO.getGivenName(),
+        status: userDTO.getStatus(),
       };
     } catch (err: unknown) {
       console.error("Error in saveUser resolver:", err);

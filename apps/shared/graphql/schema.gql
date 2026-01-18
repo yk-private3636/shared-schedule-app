@@ -7,6 +7,15 @@ type User {
   email: String!
   familyName: String!
   givenName: String!
+  status: UserStatus!
+}
+
+"""The status of a user."""
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+  DELETED
 }
 
 type Query {
