@@ -16,5 +16,4 @@ if [ $? != 0 ]; then
     echo ${hash} | tr -d '\n' > ${APPS_DIR}/${PACKAGE_LIST_HASH_FILE_NAME}
 fi
 
-sh -c "$2"
-# exec "$2"
+exec sh -c "$2"
