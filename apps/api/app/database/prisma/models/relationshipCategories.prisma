@@ -1,0 +1,20 @@
+model RelationshipCategories {
+  id      Int                        @id @default(autoincrement()) /// カテゴリID
+  name    String                     @db.VarChar(30) /// カテゴリ名
+  user_id String                     @db.Uuid /// ユーザーID
+  status  RelationshipCategoryStatus @default(ACTIVE) /// ステータス
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt()
+
+  user                       User                         @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
+  relationshipUserCategories RelationshipUserCategories[]
+
+  @@map("relationship_categories")
+}
+
+enum RelationshipCategoryStatus {
+  ACTIVE   @map("0") // 有効
+  INACTIVE @map("1") // 一時無効
+  DELETED  @map("2") // 無効
+}

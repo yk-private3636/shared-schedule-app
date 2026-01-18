@@ -6,8 +6,10 @@ model User {
   given_name  String     @db.VarChar(50) /// 名前
   status      UserStatus @default(ACTIVE) /// ステータス
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at                 DateTime                     @default(now())
+  updated_at                 DateTime                     @updatedAt
+  relationshipUserCategories RelationshipUserCategories[]
+  relationshipCategories     RelationshipCategories[]
 
   @@map("users")
 }
