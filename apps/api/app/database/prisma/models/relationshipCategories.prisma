@@ -9,6 +9,7 @@ model RelationshipCategories {
 
   user                       User                         @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
   relationshipUserCategories RelationshipUserCategories[]
+  sharingRelationships       SharingRelationships[]
 
   @@map("relationship_categories")
 }

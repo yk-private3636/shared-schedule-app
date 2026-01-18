@@ -12,6 +12,9 @@ model User {
   relationshipUserCategories RelationshipUserCategories[]
   relationshipCategories     RelationshipCategories[]
 
+  sharingRelationshipsUser      SharingRelationships[] @relation("SharingRelationshipsUser")
+  sharingRelationshipsShareUser SharingRelationships[] @relation("SharingRelationshipsShareUser")
+
   @@map("users")
 }
 
