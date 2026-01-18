@@ -16,5 +16,5 @@ model RelationshipCategories {
 enum RelationshipCategoryStatus {
   ACTIVE   @map("0") // 有効
   INACTIVE @map("1") // 一時無効
-  DELETED  @map("2") // 無効
+  ARCHIVED @map("2") // アーカイブ
 }

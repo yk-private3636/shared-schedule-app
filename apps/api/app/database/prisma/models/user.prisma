@@ -6,8 +6,9 @@ model User {
   given_name  String     @db.VarChar(50) /// 名前
   status      UserStatus @default(ACTIVE) /// ステータス
 
-  created_at                 DateTime                     @default(now())
-  updated_at                 DateTime                     @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt()
+
   relationshipUserCategories RelationshipUserCategories[]
   relationshipCategories     RelationshipCategories[]
 
@@ -18,5 +19,5 @@ enum UserStatus {
   ACTIVE    @map("0") // 有効
   SUSPENDED @map("1") // 停止
   BANNED    @map("2") // 強制停止
-  DELETED   @map("3") // 退会
+  WITHDRAWN @map("3") // 退会
 }
