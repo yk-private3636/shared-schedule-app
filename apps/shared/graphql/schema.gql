@@ -15,7 +15,7 @@ enum UserStatus {
   ACTIVE
   SUSPENDED
   BANNED
-  DELETED
+  WITHDRAWN
 }
 
 type Query {

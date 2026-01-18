@@ -7,7 +7,12 @@ model User {
   status      UserStatus @default(ACTIVE) /// ステータス
 
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime @updatedAt()
+
+  relationshipCategories RelationshipCategories[]
+
+  sharingRelationshipsUser      SharingRelationships[] @relation("SharingRelationshipsUser")
+  sharingRelationshipsShareUser SharingRelationships[] @relation("SharingRelationshipsShareUser")
 
   @@map("users")
 }
@@ -16,5 +21,5 @@ enum UserStatus {
   ACTIVE    @map("0") // 有効
   SUSPENDED @map("1") // 停止
   BANNED    @map("2") // 強制停止
-  DELETED   @map("3") // 退会
+  WITHDRAWN @map("3") // 退会
 }
