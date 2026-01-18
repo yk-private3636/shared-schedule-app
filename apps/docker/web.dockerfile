@@ -7,7 +7,7 @@ WORKDIR /var/www/html/apps/web/app
 
 ENV TZ=Asia/Tokyo
 
-COPY ./entry_point_dev.sh /usr/local/bin/entry_point.sh
+COPY ./entry_point_local.sh /usr/local/bin/entry_point.sh
 
 RUN chmod +x /usr/local/bin/entry_point.sh
 

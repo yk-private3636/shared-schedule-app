@@ -11,7 +11,7 @@ ENV TZ=Asia/Tokyo
 # example: nest generate resource(nest g res)
 RUN npm i -g @nestjs/cli
 
-COPY ./entry_point_dev.sh /usr/local/bin/entry_point.sh
+COPY ./entry_point_local.sh /usr/local/bin/entry_point.sh
 
 RUN chmod +x /usr/local/bin/entry_point.sh
 
