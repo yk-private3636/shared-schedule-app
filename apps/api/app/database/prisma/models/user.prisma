@@ -1,13 +1,20 @@
 model User {
-  id          String @id @db.Uuid /// ユーザーID
-  sub         String @unique @db.VarChar(255) /// Auth0のsub
-  email       String @unique @db.VarChar(255) /// メールアドレス
-  family_name String @db.VarChar(50) /// 苗字
-  given_name  String @db.VarChar(50) /// 名前
+  id          String     @id @db.Uuid /// ユーザーID
+  sub         String     @unique @db.VarChar(255) /// Auth0のsub
+  email       String     @unique @db.VarChar(255) /// メールアドレス
+  family_name String     @db.VarChar(50) /// 苗字
+  given_name  String     @db.VarChar(50) /// 名前
+  status      UserStatus @default(ACTIVE) /// ステータス
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@map("users")
+}
+
+enum UserStatus {
+  ACTIVE    @map("0") // 有効
+  SUSPENDED @map("1") // 停止
+  BANNED    @map("2") // 強制停止
+  DELETED   @map("3") // 退会
 }

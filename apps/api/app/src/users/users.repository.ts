@@ -20,6 +20,7 @@ export class UsersRepository implements IUsersRepository {
       userRecord.email,
       userRecord.family_name,
       userRecord.given_name,
+      userRecord.status,
     );
   }
 
@@ -31,6 +32,7 @@ export class UsersRepository implements IUsersRepository {
         email: user.getEmail(),
         family_name: user.getFamilyName(),
         given_name: user.getGivenName(),
+        status: user.getStatus(),
       },
     });
   }
@@ -45,6 +47,7 @@ export class UsersRepository implements IUsersRepository {
         email: user.getEmail(),
         family_name: user.getFamilyName(),
         given_name: user.getGivenName(),
+        status: user.getStatus(),
       },
     });
   }

@@ -38,7 +38,16 @@ export type User = {
   familyName: Scalars['String']['output'];
   givenName: Scalars['String']['output'];
   id: Scalars['String']['output'];
+  status: UserStatus;
 };
+
+/** The status of a user. */
+export enum UserStatus {
+  Active = 'ACTIVE',
+  Banned = 'BANNED',
+  Deleted = 'DELETED',
+  Suspended = 'SUSPENDED'
+}
 
 
 
@@ -119,6 +128,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<User>;
+  UserStatus: UserStatus;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -145,6 +155,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   familyName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   givenName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['UserStatus'], ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
