@@ -9,8 +9,7 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt()
 
-  relationshipUserCategories RelationshipUserCategories[]
-  relationshipCategories     RelationshipCategories[]
+  relationshipCategories RelationshipCategories[]
 
   sharingRelationshipsUser      SharingRelationships[] @relation("SharingRelationshipsUser")
   sharingRelationshipsShareUser SharingRelationships[] @relation("SharingRelationshipsShareUser")

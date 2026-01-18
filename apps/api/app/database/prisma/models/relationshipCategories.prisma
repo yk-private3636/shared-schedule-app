@@ -1,15 +1,14 @@
 model RelationshipCategories {
   id      Int                        @id @default(autoincrement()) /// カテゴリID
-  name    String                     @db.VarChar(30) /// カテゴリ名
   user_id String                     @db.Uuid /// ユーザーID
+  name    String                     @db.VarChar(30) /// カテゴリ名
   status  RelationshipCategoryStatus @default(ACTIVE) /// ステータス
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt()
 
-  user                       User                         @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
-  relationshipUserCategories RelationshipUserCategories[]
-  sharingRelationships       SharingRelationships[]
+  user                 User                   @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
+  sharingRelationships SharingRelationships[]
 
   @@map("relationship_categories")
 }
