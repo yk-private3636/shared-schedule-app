@@ -1,5 +1,5 @@
 export class UserCannotBeUpdatedError extends Error {
-  constructor() {
-    super("User cannot be updated");
+  constructor(userId: string) {
+    super(`User(${userId}) cannot be updated`);
   }
 }
