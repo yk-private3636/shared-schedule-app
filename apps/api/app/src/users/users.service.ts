@@ -38,8 +38,17 @@ export class UsersService {
         await this.users.create(newEntity, c);
         return newEntity;
       } else {
+        if (user.isSuspended()) {
+          return user;
+        }
+
+        if (user.isWithdrawn()) {
+          user.activate();
+        }
+
         user.updateProfile(d.getEmail(), d.getFamilyName(), d.getGivenName());
         await this.users.update(user, c);
+
         return user;
       }
     });
