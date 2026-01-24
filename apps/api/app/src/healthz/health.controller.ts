@@ -1,5 +1,5 @@
 import { Controller, Get } from "@nestjs/common";
-import { Public } from "@/authz/authz.module";
+import { Public } from "@/authz/decorators/check";
 
 @Controller("/api/v1/health")
 export class HealthController {
