@@ -1,16 +1,18 @@
 model SharingRelationships {
   user_id       String                      @db.Uuid /// ユーザーID
   share_user_id String                      @db.Uuid /// 共有相手のユーザーID
-  category_id   Int /// カテゴリID
+  category_id   String                      @db.Uuid /// カテゴリID
   position      SharingRelationshipPosition /// 共有役割
   status        SharingRelationshipStatus   @default(PENDING) /// 共有関係のステータス
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt()
 
-  user       User                   @relation("SharingRelationshipsUser", fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
-  share_user User                   @relation("SharingRelationshipsShareUser", fields: [share_user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// 共有相手のユーザーID
-  category   RelationshipCategories @relation(fields: [category_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// カテゴリID
+  user                            User                           @relation("SharingRelationshipsUser", fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
+  share_user                      User                           @relation("SharingRelationshipsShareUser", fields: [share_user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// 共有相手のユーザーID
+  category                        RelationshipCustomCategories   @relation(fields: [category_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// カテゴリID
+  relationshipDefaultCategories   RelationshipDefaultCategories? @relation(fields: [relationshipDefaultCategoriesId], references: [id])
+  relationshipDefaultCategoriesId Int?
 
   @@id([user_id, share_user_id, category_id])
   @@map("sharing_relationships")
