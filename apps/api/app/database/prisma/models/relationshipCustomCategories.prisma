@@ -1,0 +1,20 @@
+model RelationshipCustomCategories {
+  id      Int                              @id @default(autoincrement()) /// カテゴリID
+  user_id String                           @db.Uuid /// ユーザーID
+  name    String                           @db.VarChar(30) /// カテゴリ名
+  status  RelationshipCustomCategoryStatus @default(ACTIVE) /// ステータス
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt()
+
+  user                 User                   @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
+  sharingRelationships SharingRelationships[]
+
+  @@map("relationship_custom_categories")
+}
+
+enum RelationshipCustomCategoryStatus {
+  ACTIVE   @map("0") // 有効
+  INACTIVE @map("1") // 一時無効
+  ARCHIVED @map("2") // アーカイブ
+}

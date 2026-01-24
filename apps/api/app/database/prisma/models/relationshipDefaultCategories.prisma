@@ -1,0 +1,18 @@
+model RelationshipDefaultCategories {
+  id     Int                               @id @default(autoincrement()) /// カテゴリID
+  name   String                            @db.VarChar(30) /// カテゴリ名
+  status RelationshipDefaultCategoryStatus @default(ACTIVE) /// ステータス
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt()
+
+  sharingRelationships SharingRelationships[]
+
+  @@map("relationship_default_categories")
+}
+
+enum RelationshipDefaultCategoryStatus {
+  ACTIVE   @map("0") // 有効
+  INACTIVE @map("1") // 一時無効
+  ARCHIVED @map("2") // アーカイブ
+}
