@@ -1,5 +1,5 @@
 model RelationshipCustomCategories {
-  id      Int                              @id @default(autoincrement()) /// カテゴリID
+  id      String                           @id @db.Uuid /// カテゴリID
   user_id String                           @db.Uuid /// ユーザーID
   name    String                           @db.VarChar(30) /// カテゴリ名
   status  RelationshipCustomCategoryStatus @default(ACTIVE) /// ステータス

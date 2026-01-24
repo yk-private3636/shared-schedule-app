@@ -1,7 +1,7 @@
 model SharingRelationships {
   user_id       String                      @db.Uuid /// ユーザーID
   share_user_id String                      @db.Uuid /// 共有相手のユーザーID
-  category_id   Int /// カテゴリID
+  category_id   String                      @db.Uuid /// カテゴリID
   position      SharingRelationshipPosition /// 共有役割
   status        SharingRelationshipStatus   @default(PENDING) /// 共有関係のステータス
 
