@@ -1,9 +1,10 @@
 import { UserStatus } from "@prisma/client";
 import { User } from "../domain/entities/user.entity";
 import { UserCannotBeUpdatedError } from "../domain/errors/UserCannotBeUpdatedError";
+import { UserActivationError } from "../domain/errors/UserActivationError";
 
 describe("UserEntity", () => {
-  it("スタータスがACTIVEのユーザーはプロフィールを更新できる", () => {
+  it("ステータスがACTIVEのユーザーはプロフィールを更新できる", () => {
     // 準備
     const sut = createUserWithStatus(UserStatus.ACTIVE);
     const newEmail = "test+123@example.com";
@@ -24,7 +25,7 @@ describe("UserEntity", () => {
     status
     ${UserStatus.SUSPENDED}
     ${UserStatus.BANNED}
-    ${UserStatus.DELETED}
+    ${UserStatus.WITHDRAWN}
   `(
     "ステータスが$statusのユーザーはプロフィールを更新できずエラーになる",
     ({ status }: { status: UserStatus }) => {
@@ -43,6 +44,38 @@ describe("UserEntity", () => {
       action.toThrow(UserCannotBeUpdatedError);
     },
   );
+
+  it.each`
+    status
+    ${UserStatus.ACTIVE}
+    ${UserStatus.SUSPENDED}
+    ${UserStatus.WITHDRAWN}
+  `(
+    "ステータスが$statusのユーザーはアクティベートできる",
+    ({ status }: { status: UserStatus }) => {
+      // 準備
+      const sut = createUserWithStatus(status);
+
+      // 実行
+      sut.activate();
+
+      // 検証
+      expect(sut.getStatus()).toBe(UserStatus.ACTIVE);
+    },
+  );
+
+  it("ステータスがBANNEDのユーザーはアクティベートできずエラーになる", () => {
+    // 準備
+    const sut = createUserWithStatus(UserStatus.BANNED);
+
+    // 実行
+    const action = expect(() => {
+      sut.activate();
+    });
+
+    // 検証
+    action.toThrow(UserActivationError);
+  });
 });
 
 function createUserWithStatus(status: UserStatus): User {
