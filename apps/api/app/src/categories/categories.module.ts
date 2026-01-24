@@ -1,0 +1,19 @@
+import { Module } from "@nestjs/common";
+import { CategoriesService } from "./categories.service";
+import { CategoriesResolver } from "./categories.resolver";
+import { UsersModule } from "@/users/users.module";
+import { TYPES } from "./types/di";
+import { CategoriesRepository } from "./categories.repository";
+
+@Module({
+  providers: [
+    CategoriesResolver,
+    CategoriesService,
+    {
+      provide: TYPES.CategoriesRepository,
+      useClass: CategoriesRepository,
+    },
+  ],
+  imports: [UsersModule],
+})
+export class CategoriesModule {}

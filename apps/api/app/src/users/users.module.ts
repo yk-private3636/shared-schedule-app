@@ -9,6 +9,13 @@ import { UsersService } from "./users.service";
 
 @Module({
   imports: [HttpModule, AuthzModule],
+  exports: [
+    UsersService,
+    {
+      provide: TYPES.UsersRepository,
+      useClass: UsersRepository,
+    },
+  ],
   providers: [
     UsersResolver,
     UsersService,

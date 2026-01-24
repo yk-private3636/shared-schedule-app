@@ -25,6 +25,14 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
+  public async findOneBySub(sub: string): Promise<UserDTO | null> {
+    const user = await this.dbClient.reader(async (c): Promise<User | null> => {
+      return await this.users.findBySub(sub, c);
+    });
+
+    return user ? UserFactory.toDtoFromEntity(user) : null;
+  }
+
   public async save(d: SaveUserDTO): Promise<UserDTO> {
     const userEntity = await this.dbClient.writer(async (c): Promise<User> => {
       const user = await this.users.findBySub(d.getSub(), c);

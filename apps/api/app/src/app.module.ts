@@ -5,6 +5,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { HealthController } from "@/healthz/health.controller";
 import { AuthzModule } from "./authz/authz.module";
 import { UsersModule } from "./users/users.module";
+import { CategoriesModule } from "./categories/categories.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UsersModule } from "./users/users.module";
     HttpModule,
     AuthzModule,
     UsersModule,
+    CategoriesModule,
   ],
   controllers: [HealthController],
   providers: [],
