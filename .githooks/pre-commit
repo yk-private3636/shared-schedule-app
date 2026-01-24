@@ -73,6 +73,17 @@ else
   exit 1
 fi
 
+# Running type checks
+echo ""
+echo "🧪 Running type checks..."
+echo "  → Running API type checks..."
+if run_in_container api sh -c "cd /var/www/html/apps/api/app && npm run typecheck"; then
+  echo -e "${GREEN}  ✓ API type checks passed${NC}"
+else
+  echo -e "${RED}  ✗ API type checks failed${NC}"
+  exit 1
+fi
+
 # Running tests
 echo ""
 echo "🧪 Running tests..."
