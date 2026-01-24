@@ -3,7 +3,7 @@ import { Module } from "@nestjs/common";
 import { APP_GUARD } from "@nestjs/core";
 import { PassportModule } from "@nestjs/passport";
 import { Auth0Service } from "./auth0.service";
-import { TYPES } from "./constants/di-token";
+import { TYPES } from "./constants/di";
 import { GqlAuthGuard } from "./gql-auth.guard";
 import { JwtStrategy } from "./jwt.strategy";
 

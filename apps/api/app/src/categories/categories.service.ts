@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { CreateCategoryInput } from "./dto/create-category.input";
 import { UpdateCategoryInput } from "./dto/update-category.input";
 import { type ICategoriesRepository } from "./interfaces/categories.repository";
-import { TYPES } from "./types/di";
+import { TYPES } from "./constants/di";
 
 @Injectable()
 export class CategoriesService {

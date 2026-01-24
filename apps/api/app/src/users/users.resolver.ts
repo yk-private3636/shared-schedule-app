@@ -1,6 +1,6 @@
 import { Inject } from "@nestjs/common";
 import { Args, Context, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { TYPES } from "@/authz/constants/di-token";
+import { TYPES } from "@/authz/constants/di";
 import type { IIdpService } from "@/authz/interfaces/idp.service";
 import { UserDTOFactory } from "./factories/user.dto.factory";
 import { UserGQL } from "./types/gql";

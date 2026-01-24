@@ -4,7 +4,7 @@ import type { SaveUserDTO } from "./dto/save.user.dto";
 import type { UserDTO } from "./dto/user.dto";
 import { UserFactory } from "./factories/user.entity.factory";
 import type { IUsersRepository } from "./interfaces/users.repository";
-import { TYPES } from "./types/di-token";
+import { TYPES } from "./constants/di";
 import { User } from "./domain/entities/user.entity";
 import { generateUUID } from "@/shared/helpers/uuid";
 
