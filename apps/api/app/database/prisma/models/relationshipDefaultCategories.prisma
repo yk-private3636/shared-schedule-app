@@ -6,8 +6,6 @@ model RelationshipDefaultCategories {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt()
 
-  sharingRelationships SharingRelationships[]
-
   @@map("relationship_default_categories")
 }
 

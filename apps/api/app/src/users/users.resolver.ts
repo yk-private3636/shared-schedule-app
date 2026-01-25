@@ -1,12 +1,12 @@
 import { Inject } from "@nestjs/common";
 import { Args, Context, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { TYPES } from "@/authz/constants/di-token";
+import { TYPES } from "@/authz/constants/di";
 import type { IIdpService } from "@/authz/interfaces/idp.service";
 import { UserDTOFactory } from "./factories/user.dto.factory";
-import { User } from "./types/user.gql";
+import { UserGQL } from "./types/gql";
 import { UsersService } from "./users.service";
 
-@Resolver(() => User)
+@Resolver(() => UserGQL)
 export class UsersResolver {
   constructor(
     @Inject(TYPES.IdpService)
@@ -14,8 +14,8 @@ export class UsersResolver {
     private readonly usersService: UsersService,
   ) {}
 
-  @Mutation(() => User)
-  async saveUser(@Context() ctx: { req: Request }): Promise<User> {
+  @Mutation(() => UserGQL)
+  async saveUser(@Context() ctx: { req: Request }): Promise<UserGQL> {
     try {
       const accessToken = (
         (ctx.req.headers["authorization"] ?? "") as string
@@ -42,12 +42,12 @@ export class UsersResolver {
     }
   }
 
-  @Query(() => [User], { name: "users" })
+  @Query(() => [UserGQL], { name: "users" })
   findAll() {
     return this.usersService.findAll();
   }
 
-  @Query(() => User, { name: "user" })
+  @Query(() => UserGQL, { name: "user" })
   findOne(@Args("id", { type: () => Int }) id: number) {
     return this.usersService.findOne(id);
   }

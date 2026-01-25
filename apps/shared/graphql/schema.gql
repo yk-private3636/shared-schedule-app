@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type UserGQL {
   id: String!
   email: String!
   familyName: String!
@@ -18,11 +18,48 @@ enum UserStatus {
   WITHDRAWN
 }
 
+type CategoryGQL {
+  id: String!
+  name: String!
+  userId: String!
+  kind: RelationshipCategoryKind!
+  status: RelationshipCategoryStatus!
+}
+
+"""The kind of a category."""
+enum RelationshipCategoryKind {
+  DEFAULT
+  CUSTOM
+}
+
+"""The status of a category."""
+enum RelationshipCategoryStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
 type Query {
-  users: [User!]!
-  user(id: Int!): User!
+  users: [UserGQL!]!
+  user(id: Int!): UserGQL!
+  categories: [CategoryGQL!]!
+  category(id: Int!): CategoryGQL!
 }
 
 type Mutation {
-  saveUser: User!
+  saveUser: UserGQL!
+  createCategory(createCategoryInput: CreateCategoryInput!): CategoryGQL!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): CategoryGQL!
+  removeCategory(id: Int!): CategoryGQL!
+}
+
+input CreateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }

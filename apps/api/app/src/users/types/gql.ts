@@ -2,7 +2,7 @@ import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { UserStatus } from "@prisma/client";
 
 @ObjectType()
-export class User {
+export class UserGQL {
   @Field()
   id: string;
 
