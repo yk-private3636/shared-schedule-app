@@ -4,16 +4,6 @@ import { User } from "../domain/entities/user.entity";
 import { UserStatus } from "@prisma/client";
 
 export class UserFactory {
-  static toDtoFromEntity(user: User): UserDTO {
-    return new UserDTO(
-      user.getId(),
-      user.getEmail(),
-      user.getFamilyName(),
-      user.getGivenName(),
-      user.getStatus(),
-    );
-  }
-
   static toEntityFromSaveDTOWithIdStatus(
     id: string,
     status: UserStatus,

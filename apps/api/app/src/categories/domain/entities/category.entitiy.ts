@@ -12,6 +12,22 @@ export class Category {
     private status: RelationshipCategoryStatus,
   ) {}
 
+  public isActive(): boolean {
+    return this.status === RelationshipCategoryStatus.ACTIVE;
+  }
+
+  public isInactive(): boolean {
+    return this.status === RelationshipCategoryStatus.INACTIVE;
+  }
+
+  public isArchived(): boolean {
+    return this.status === RelationshipCategoryStatus.ARCHIVED;
+  }
+
+  public isDefault(): boolean {
+    return this.kind === RelationshipCategoryKind.DEFAULT;
+  }
+
   public getId(): string {
     return this.id;
   }

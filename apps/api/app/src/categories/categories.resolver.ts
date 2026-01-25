@@ -5,7 +5,8 @@ import { UpdateCategoryInput } from "./dto/update-category.input";
 import { CategoryGQL } from "./types/gql";
 import { Sub } from "@/authz/decorators/data";
 import { UsersService } from "@/users/users.service";
-import { BadRequestException } from "@nestjs/common";
+import { NotFoundException } from "@nestjs/common";
+import { CategoryGQLFactory } from "./factories/category.gql.factory";
 
 @Resolver(() => CategoryGQL)
 export class CategoriesResolver {
@@ -27,13 +28,16 @@ export class CategoriesResolver {
       const user = await this.usersService.findOneBySub(sub);
 
       if (user === null) {
-        throw new BadRequestException("User not found");
+        throw new NotFoundException("User not found");
       }
 
-      const categories = this.categoriesService.findAll(user.getId());
-    } catch {}
+      const categories = await this.categoriesService.findAll(user.getId());
 
-    return [];
+      return CategoryGQLFactory.fromCategoriesDTO(categories);
+    } catch (e: unknown) {
+      console.error("Error in findAll categories:", e);
+      throw e;
+    }
   }
 
   @Query(() => CategoryGQL, { name: "category" })

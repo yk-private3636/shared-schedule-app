@@ -5,15 +5,17 @@ import type { UserDTO } from "./dto/user.dto";
 import { UserFactory } from "./factories/user.entity.factory";
 import type { IUsersRepository } from "./interfaces/users.repository";
 import { TYPES } from "./constants/di";
+import { TYPES as sharedTYPES } from "@/shared/constants/di";
 import { User } from "./domain/entities/user.entity";
 import { generateUUID } from "@/shared/helpers/uuid";
+import { UserDTOFactory } from "./factories/user.dto.factory";
 
 @Injectable()
 export class UsersService {
   constructor(
     @Inject(TYPES.UsersRepository)
     private readonly users: IUsersRepository,
-    @Inject(TYPES.DatabaseClientService)
+    @Inject(sharedTYPES.DatabaseClientService)
     private readonly dbClient: IDatabaseClientService,
   ) {}
 
@@ -30,7 +32,7 @@ export class UsersService {
       return await this.users.findBySub(sub, c);
     });
 
-    return user ? UserFactory.toDtoFromEntity(user) : null;
+    return user ? UserDTOFactory.toDtoFromEntity(user) : null;
   }
 
   public async save(d: SaveUserDTO): Promise<UserDTO> {
@@ -61,6 +63,6 @@ export class UsersService {
       }
     });
 
-    return UserFactory.toDtoFromEntity(userEntity);
+    return UserDTOFactory.toDtoFromEntity(userEntity);
   }
 }
