@@ -1,10 +1,12 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, OnApplicationShutdown } from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
 import type { IDatabaseClientService } from "../interfaces/database-client.service";
-import type { ReaderClient, WriterClient } from "../types/database-client.type";
+import type { ReaderClient, WriterClient } from "../types/database-client";
 
 @Injectable()
-export class PrismaClientService implements IDatabaseClientService {
+export class PrismaClientService
+  implements IDatabaseClientService, OnApplicationShutdown
+{
   private writeClient: PrismaClient | null = null;
   private readClient: PrismaClient | null = null;
 
@@ -20,6 +22,18 @@ export class PrismaClientService implements IDatabaseClientService {
   ): Promise<T> {
     const client = this.getReadClient();
     return fn(client);
+  }
+
+  public async onApplicationShutdown(): Promise<void> {
+    if (this.writeClient !== null) {
+      await this.writeClient.$disconnect();
+      this.writeClient = null;
+    }
+
+    if (this.readClient !== null) {
+      await this.readClient.$disconnect();
+      this.readClient = null;
+    }
   }
 
   private getWriteClient(): PrismaClient {

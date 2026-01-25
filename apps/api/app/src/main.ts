@@ -10,6 +10,9 @@ async function bootstrap() {
   /** appインスタンス設定 */
   app.enableCors({ origin: process.env.CLIENT_ORIGIN });
 
+  /** シャットダウンフック有効化 */
+  app.enableShutdownHooks();
+
   /** listening */
   await app.listen(process.env.APP_PORT ?? 8080);
 }

@@ -1,4 +1,4 @@
-import type { ReaderClient, WriterClient } from "../types/database-client.type";
+import type { ReaderClient, WriterClient } from "../types/database-client";
 
 export interface IDatabaseClientService {
   writer<T>(fn: (tx: WriterClient) => Promise<T>): Promise<T>;
