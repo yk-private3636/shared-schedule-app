@@ -11,6 +11,8 @@ model RelationshipCategory {
   user                 User                  @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
   sharingRelationships SharingRelationship[]
 
+  @@index([user_id])
+
   @@map("relationship_categories")
 }
 
