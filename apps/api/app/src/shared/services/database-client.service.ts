@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
 import type { IDatabaseClientService } from "../interfaces/database-client.service";
-import type { ReaderClient, WriterClient } from "../types/database-client.type";
+import type { ReaderClient, WriterClient } from "../types/database-client";
 
 @Injectable()
 export class PrismaClientService implements IDatabaseClientService {
