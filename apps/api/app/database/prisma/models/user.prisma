@@ -9,10 +9,10 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt()
 
-  relationshipCategories RelationshipCategories[]
+  relationshipCategories RelationshipCategory[]
 
-  sharingRelationshipsUser      SharingRelationships[] @relation("SharingRelationshipsUser")
-  sharingRelationshipsShareUser SharingRelationships[] @relation("SharingRelationshipsShareUser")
+  sharingRelationshipsUser      SharingRelationship[] @relation("SharingRelationshipUser")
+  sharingRelationshipsShareUser SharingRelationship[] @relation("SharingRelationshipShareUser")
 
   @@map("users")
 }

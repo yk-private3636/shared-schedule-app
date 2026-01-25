@@ -5,7 +5,7 @@ import { DefaultCategoriesQuery } from "./types/query";
 
 export class CategoriesRepository implements ICategoriesRepository {
   async findByUserId(userId: string, tx: PrismaClient): Promise<Category[]> {
-    const result = await tx.relationshipCategories.findMany({
+    const result = await tx.relationshipCategory.findMany({
       where: {
         user_id: userId,
       },
@@ -17,7 +17,7 @@ export class CategoriesRepository implements ICategoriesRepository {
   }
 
   async findByDefault(tx: PrismaClient): Promise<DefaultCategoriesQuery[]> {
-    const result = await tx.relationshipDefaultCategories.findMany();
+    const result = await tx.relationshipDefaultCategory.findMany();
 
     return result.map((r) => ({ id: r.id, name: r.name, status: r.status }));
   }
