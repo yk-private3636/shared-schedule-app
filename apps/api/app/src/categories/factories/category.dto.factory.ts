@@ -1,4 +1,4 @@
-import { Category } from "../domain/entities/category.entitiy";
+import { Category } from "../domain/entities/category.entity";
 import { CategoryDTO } from "../dto/category.dto";
 import { CategoryTemporalPrefix } from "../types/prefix";
 import { DefaultCategoriesQuery } from "../types/query";

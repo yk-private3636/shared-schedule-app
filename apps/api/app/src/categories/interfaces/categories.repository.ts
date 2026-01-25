@@ -1,4 +1,4 @@
-import { Category } from "../domain/entities/category.entitiy";
+import { Category } from "../domain/entities/category.entity";
 import { DefaultCategoriesQuery } from "../types/query";
 
 export interface ICategoriesRepository {

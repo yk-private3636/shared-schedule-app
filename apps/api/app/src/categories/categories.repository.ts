@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Category } from "./domain/entities/category.entitiy";
+import { Category } from "./domain/entities/category.entity";
 import { ICategoriesRepository } from "./interfaces/categories.repository";
 import { DefaultCategoriesQuery } from "./types/query";
 
