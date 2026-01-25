@@ -28,11 +28,10 @@
       },
       "style": {
         "useImportType": "off"
+      },
+      "correctness": {
+        "useHookAtTopLevel": "off"
       }
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
     }
   },
   "assist": {

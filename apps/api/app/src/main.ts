@@ -2,6 +2,7 @@ import "@/instrumentation";
 
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import { GraphQLFilterError } from "./shared/filters/gql.filter";
 
 async function bootstrap() {
   /** appインスタンス生成 */
@@ -12,6 +13,9 @@ async function bootstrap() {
 
   /** シャットダウンフック有効化 */
   app.enableShutdownHooks();
+
+  /** グローバルフィルター設定 */
+  app.useGlobalFilters(new GraphQLFilterError());
 
   /** listening */
   await app.listen(process.env.APP_PORT ?? 8080);
