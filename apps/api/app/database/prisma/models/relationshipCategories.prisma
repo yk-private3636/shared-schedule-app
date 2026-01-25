@@ -1,4 +1,4 @@
-model RelationshipCategories {
+model RelationshipCategory {
   id      String                     @id @db.Uuid /// カテゴリID
   user_id String                     @db.Uuid /// ユーザーID
   name    String                     @db.VarChar(30) /// カテゴリ名
@@ -8,8 +8,8 @@ model RelationshipCategories {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt()
 
-  user                 User                   @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
-  sharingRelationships SharingRelationships[]
+  user                 User                  @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: NoAction) /// ユーザーID
+  sharingRelationships SharingRelationship[]
 
   @@map("relationship_categories")
 }

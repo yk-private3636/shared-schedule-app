@@ -1,4 +1,4 @@
-model RelationshipDefaultCategories {
+model RelationshipDefaultCategory {
   id     Int                               @id @default(autoincrement()) /// カテゴリID
   name   String                            @db.VarChar(30) /// カテゴリ名
   status RelationshipDefaultCategoryStatus @default(ACTIVE) /// ステータス
