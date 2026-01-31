@@ -3,17 +3,12 @@ import { CategoriesService } from "./categories.service";
 import { CreateCategoryInput } from "./dto/create-category.input";
 import { UpdateCategoryInput } from "./dto/update-category.input";
 import { CategoryGQL } from "./types/gql";
-import { Sub } from "@/authz/decorators/data";
-import { UsersService } from "@/users/users.service";
-import { NotFoundException } from "@nestjs/common";
+import { UserId } from "@/authz/decorators/data";
 import { CategoryGQLFactory } from "./factories/category.gql.factory";
 
 @Resolver(() => CategoryGQL)
 export class CategoriesResolver {
-  constructor(
-    private readonly categoriesService: CategoriesService,
-    private readonly usersService: UsersService,
-  ) {}
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @Mutation(() => CategoryGQL)
   createCategory(
@@ -23,21 +18,9 @@ export class CategoriesResolver {
   }
 
   @Query(() => [CategoryGQL], { name: "categories" })
-  async findAll(@Sub() sub: string): Promise<CategoryGQL[]> {
-    try {
-      const user = await this.usersService.findOneBySub(sub);
-
-      if (user === null) {
-        throw new NotFoundException("User not found");
-      }
-
-      const categories = await this.categoriesService.findAll(user.getId());
-
-      return CategoryGQLFactory.fromCategoriesDTO(categories);
-    } catch (e: unknown) {
-      console.error("Error in findAll categories:", e);
-      throw e;
-    }
+  async findAll(@UserId() userId: string): Promise<CategoryGQL[]> {
+    const categories = await this.categoriesService.findAll(userId);
+    return CategoryGQLFactory.fromCategoriesDTO(categories);
   }
 
   @Query(() => CategoryGQL, { name: "category" })
