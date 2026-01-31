@@ -5,12 +5,19 @@ import { PassportModule } from "@nestjs/passport";
 import { Auth0Service } from "./auth0.service";
 import { TYPES } from "./constants/di";
 import { GqlAuthGuard } from "./gql-auth.guard";
-import { JwtStrategy } from "./jwt.strategy";
+import { PassportService } from "./passport.service";
+import { SharedModule } from "@/shared/shared.module";
+import { UsersModule } from "@/users/users.module";
 
 @Module({
-  imports: [PassportModule.register({ defaultStrategy: "jwt" }), HttpModule],
+  imports: [
+    PassportModule.register({ defaultStrategy: "jwt" }),
+    HttpModule,
+    UsersModule,
+    SharedModule,
+  ],
   providers: [
-    JwtStrategy,
+    PassportService,
     {
       provide: APP_GUARD,
       useClass: GqlAuthGuard,

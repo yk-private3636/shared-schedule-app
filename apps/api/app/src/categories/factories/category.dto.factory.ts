@@ -1,6 +1,6 @@
+import { DEFAULT_CATEGORY_PREFIX } from "../constants/prefix";
 import { Category } from "../domain/entities/category.entity";
 import { CategoryDTO } from "../dto/category.dto";
-import { CategoryTemporalPrefix } from "../types/prefix";
 import { DefaultCategoriesQuery } from "../types/query";
 
 export class CategoryDTOFactory {
@@ -17,10 +17,9 @@ export class CategoryDTOFactory {
   static fromDefaultCategoryQuery(
     category: DefaultCategoriesQuery,
     userId: string,
-    prefix: CategoryTemporalPrefix,
   ): CategoryDTO {
     return new CategoryDTO(
-      `${prefix}${category.id}`,
+      `${DEFAULT_CATEGORY_PREFIX}${category.id}`,
       category.name,
       userId,
       "DEFAULT",

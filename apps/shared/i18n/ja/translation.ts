@@ -1,3 +1,5 @@
+import { scheduler } from "timers/promises";
+
 export const jaTranslation = {
   appTitle: 'TimeConnect',
   welcomeTo: '%{place}へようこそ',
@@ -30,4 +32,8 @@ export const jaTranslation = {
       tryAgainLater: '時間をおいて再度お試しください。',
     },
   },
+  schedule: {
+    addScheduleGroup: 'スケジュールグループを追加',
+    settings: 'スケジュール設定',
+  }
 };
