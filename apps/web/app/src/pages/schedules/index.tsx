@@ -1,14 +1,6 @@
-import {
-  Briefcase,
-  Calendar,
-  Heart,
-  Lock,
-  Plus,
-  Settings,
-  Share2,
-  Users,
-} from "lucide-react";
+import { Calendar, Share2, Users } from "lucide-react";
 import Header from "@/components/Header";
+import TabNavigation from "@/components/TabNavigation";
 
 export default function Schedules() {
   return (
@@ -19,62 +11,7 @@ export default function Schedules() {
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* タブナビゲーション */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 relative">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 pr-14">
-            {/* 家族タブ */}
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition-colors duration-200 whitespace-nowrap"
-            >
-              <Heart size={18} />
-              家族
-            </button>
-
-            {/* 会社タブ */}
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors duration-200 whitespace-nowrap"
-            >
-              <Briefcase size={18} />
-              会社
-            </button>
-
-            {/* 友人タブ */}
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors duration-200 whitespace-nowrap"
-            >
-              <Users size={18} />
-              友人
-            </button>
-
-            {/* プライベートタブ */}
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors duration-200 whitespace-nowrap"
-            >
-              <Lock size={18} />
-              プライベート
-            </button>
-            {/* タブ追加ボタン */}
-            <button
-              type="button"
-              className="flex items-center justify-center w-10 h-10 shrink-0 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200"
-              title="スケジュールグループを追加"
-            >
-              <Plus size={20} />
-            </button>
-          </div>
-
-          {/* 設定ボタン（右下固定） */}
-          <button
-            type="button"
-            className="absolute bottom-1 right-4 flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200 shadow-sm"
-            title="スケジュール設定"
-          >
-            <Settings size={20} />
-          </button>
-        </div>
+        <TabNavigation />
 
         {/* アクション＆カレンダーエリア */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
