@@ -5,7 +5,7 @@ import { i18n } from "shared";
 import Button from "@/components/Button";
 import ErrorIcon from "@/components/ErrorIcon";
 import Loading from "@/components/Loading";
-import { saveUser } from "@/helpers/gql/api/saveUser";
+import { saveUser } from "@/helpers/gql/api/mutation/saveUser";
 import { useAuthStore } from "@/stores/authStore";
 import { useErrMsgStore } from "@/stores/errMsgStore";
 
