@@ -10,36 +10,14 @@ import { CategoryGQLFactory } from "./factories/category.gql.factory";
 export class CategoriesResolver {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @Mutation(() => CategoryGQL)
-  createCategory(
-    @Args("createCategoryInput") createCategoryInput: CreateCategoryInput,
-  ) {
-    return this.categoriesService.create(createCategoryInput);
-  }
-
   @Query(() => [CategoryGQL], { name: "categories" })
   async findAll(@UserId() userId: string): Promise<CategoryGQL[]> {
     const categories = await this.categoriesService.findAll(userId);
     return CategoryGQLFactory.fromCategoriesDTO(categories);
   }
 
-  @Query(() => CategoryGQL, { name: "category" })
-  findOne(@Args("id", { type: () => Int }) id: number) {
-    return this.categoriesService.findOne(id);
-  }
-
-  @Mutation(() => CategoryGQL)
-  updateCategory(
-    @Args("updateCategoryInput") updateCategoryInput: UpdateCategoryInput,
-  ) {
-    return this.categoriesService.update(
-      updateCategoryInput.id,
-      updateCategoryInput,
-    );
-  }
-
-  @Mutation(() => CategoryGQL)
-  removeCategory(@Args("id", { type: () => Int }) id: number) {
-    return this.categoriesService.remove(id);
+  @Query(() => Boolean, { name: "isCategoryCustomized" })
+  async isCustomized(@UserId() userId: string): Promise<boolean> {
+    return this.categoriesService.isCustomized(userId);
   }
 }
