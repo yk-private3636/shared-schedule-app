@@ -35,7 +35,7 @@ export class CategoriesService {
         const defaultCategories = await this.categories.findByDefault(tx);
 
         return defaultCategories.map((c) =>
-          CategoryDTOFactory.fromDefaultCategoryQuery(c, userId, "default-"),
+          CategoryDTOFactory.fromDefaultCategoryQuery(c, userId),
         );
       },
     );
