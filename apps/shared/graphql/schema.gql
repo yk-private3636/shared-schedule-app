@@ -40,8 +40,6 @@ enum RelationshipCategoryStatus {
 }
 
 type Query {
-  users: [UserGQL!]!
-  user(id: Int!): UserGQL!
   categories: [CategoryGQL!]!
   isCategoryCustomized: Boolean!
 }

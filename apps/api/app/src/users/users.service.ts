@@ -19,14 +19,6 @@ export class UsersService {
     private readonly dbClient: IDatabaseClientService,
   ) {}
 
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
   public async findOneBySub(sub: string): Promise<UserDTO | null> {
     const user = await this.dbClient.reader(async (c): Promise<User | null> => {
       return await this.users.findBySub(sub, c);
