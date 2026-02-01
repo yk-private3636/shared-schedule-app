@@ -93,6 +93,7 @@ export default function Schedules() {
 
         {/* カテゴリー設定モーダル */}
         <CategorySettingsModal
+          isInitialSetup={isCategorySettingModal}
           isOpen={isCategorySettingModal}
           items={categoryItems}
           onSelect={handleSelectCategory}

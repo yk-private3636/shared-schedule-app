@@ -7,6 +7,7 @@ export default function CategorySettingsModal(
   pr: Readonly<{
     items: CategoryItem[];
     isOpen: boolean;
+    isInitialSetup: boolean;
     onSelect?: (categoryId: string, status: CategoryItem["status"]) => void;
     onClose: () => void;
     onCancel?: () => void;
@@ -22,13 +23,15 @@ export default function CategorySettingsModal(
             <h2 className="text-xl font-bold text-white">
               {i18n.t("category.settings.title")}
             </h2>
-            <button
-              type="button"
-              className="text-white/80 hover:text-white transition-colors cursor-pointer"
-              onClick={pr.onClose}
-            >
-              <X size={24} />
-            </button>
+            {pr.isInitialSetup ? null : (
+              <button
+                type="button"
+                className="text-white/80 hover:text-white transition-colors cursor-pointer"
+                onClick={pr.onClose}
+              >
+                <X size={24} />
+              </button>
+            )}
           </div>
           <p className="text-white/80 text-sm mt-1">
             {i18n.t("category.settings.description")}
@@ -76,11 +79,13 @@ export default function CategorySettingsModal(
         {/* フッター */}
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
           <div className="flex gap-3">
-            <Button
-              text={i18n.t("common.cancel")}
-              className="flex-1 rounded-xl !bg-none !bg-white !text-gray-700 border border-gray-300 !shadow-none hover:!bg-gray-50"
-              onClick={pr.onCancel ?? pr.onClose}
-            />
+            {pr.isInitialSetup ? null : (
+              <Button
+                text={i18n.t("common.cancel")}
+                className="flex-1 rounded-xl !bg-none !bg-white !text-gray-700 border border-gray-300 !shadow-none hover:!bg-gray-50"
+                onClick={pr.onCancel ?? pr.onClose}
+              />
+            )}
             <Button
               text={i18n.t("common.save")}
               className="flex-1 rounded-xl"
