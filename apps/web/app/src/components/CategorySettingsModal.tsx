@@ -76,13 +76,11 @@ export default function CategorySettingsModal(
         {/* フッター */}
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
           <div className="flex gap-3">
-            <button
-              type="button"
-              className="flex-1 px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-xl font-medium hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+            <Button
+              text={i18n.t("common.cancel")}
+              className="flex-1 rounded-xl !bg-none !bg-white !text-gray-700 border border-gray-300 !shadow-none hover:!bg-gray-50"
               onClick={pr.onCancel ?? pr.onClose}
-            >
-              {i18n.t("common.cancel")}
-            </button>
+            />
             <Button
               text={i18n.t("common.save")}
               className="flex-1 rounded-xl"
