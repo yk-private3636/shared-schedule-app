@@ -1,6 +1,4 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { CreateCategoryInput } from "./dto/create-category.input";
-import { UpdateCategoryInput } from "./dto/update-category.input";
 import { type ICategoriesRepository } from "./interfaces/categories.repository";
 import { TYPES } from "./constants/di";
 import { TYPES as sharedTYPES } from "@/shared/constants/di";
@@ -17,8 +15,15 @@ export class CategoriesService {
     private readonly dbClient: IDatabaseClientService,
   ) {}
 
-  create(createCategoryInput: CreateCategoryInput) {
-    return "This action adds a new category";
+  async isCustomized(userId: string): Promise<boolean> {
+    const categories = await this.dbClient.reader(
+      async (tx): Promise<CategoryDTO[]> => {
+        const userCategories = await this.categories.findByUserId(userId, tx);
+        return userCategories.map((c) => CategoryDTOFactory.fromEntity(c));
+      },
+    );
+
+    return categories.length > 0;
   }
 
   async findAll(userId: string) {
@@ -41,17 +46,5 @@ export class CategoriesService {
     );
 
     return categories;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
-  }
-
-  update(id: number, updateCategoryInput: UpdateCategoryInput) {
-    return `This action updates a #${id} category`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} category`;
   }
 }

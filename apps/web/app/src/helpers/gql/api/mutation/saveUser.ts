@@ -1,5 +1,5 @@
 import { graphql } from "@/types/graphql";
-import { gqlClientFactory } from "../client";
+import { gqlClientFactory } from "../../client";
 
 export async function saveUser(accessToken: string) {
   const client = gqlClientFactory(accessToken);

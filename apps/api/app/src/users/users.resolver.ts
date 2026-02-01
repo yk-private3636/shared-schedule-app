@@ -1,5 +1,5 @@
 import { Inject } from "@nestjs/common";
-import { Args, Context, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Context, Mutation, Resolver } from "@nestjs/graphql";
 import { TYPES } from "@/authz/constants/di";
 import type { IIdpService } from "@/authz/interfaces/idp.service";
 import { UserDTOFactory } from "./factories/user.dto.factory";
@@ -16,39 +16,22 @@ export class UsersResolver {
 
   @Mutation(() => UserGQL)
   async saveUser(@Context() ctx: { req: Request }): Promise<UserGQL> {
-    try {
-      const accessToken = (
-        (ctx.req.headers["authorization"] ?? "") as string
-      ).replace("Bearer ", "");
+    const accessToken = (
+      (ctx.req.headers["authorization"] ?? "") as string
+    ).replace("Bearer ", "");
 
-      const idpUserProfile =
-        await this.idpService.fetchUserProfile(accessToken);
+    const idpUserProfile = await this.idpService.fetchUserProfile(accessToken);
 
-      const saveUserDTO =
-        UserDTOFactory.toSaveDtoFromIdpProfile(idpUserProfile);
+    const saveUserDTO = UserDTOFactory.toSaveDtoFromIdpProfile(idpUserProfile);
 
-      const userDTO = await this.usersService.save(saveUserDTO);
+    const userDTO = await this.usersService.save(saveUserDTO);
 
-      return {
-        id: userDTO.getId(),
-        email: userDTO.getEmail(),
-        familyName: userDTO.getFamilyName(),
-        givenName: userDTO.getGivenName(),
-        status: userDTO.getStatus(),
-      };
-    } catch (err: unknown) {
-      console.error("Error in saveUser resolver:", err);
-      throw err;
-    }
-  }
-
-  @Query(() => [UserGQL], { name: "users" })
-  findAll() {
-    return this.usersService.findAll();
-  }
-
-  @Query(() => UserGQL, { name: "user" })
-  findOne(@Args("id", { type: () => Int }) id: number) {
-    return this.usersService.findOne(id);
+    return {
+      id: userDTO.getId(),
+      email: userDTO.getEmail(),
+      familyName: userDTO.getFamilyName(),
+      givenName: userDTO.getGivenName(),
+      status: userDTO.getStatus(),
+    };
   }
 }

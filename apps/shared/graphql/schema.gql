@@ -40,26 +40,10 @@ enum RelationshipCategoryStatus {
 }
 
 type Query {
-  users: [UserGQL!]!
-  user(id: Int!): UserGQL!
   categories: [CategoryGQL!]!
-  category(id: Int!): CategoryGQL!
+  isCategoryCustomized: Boolean!
 }
 
 type Mutation {
   saveUser: UserGQL!
-  createCategory(createCategoryInput: CreateCategoryInput!): CategoryGQL!
-  updateCategory(updateCategoryInput: UpdateCategoryInput!): CategoryGQL!
-  removeCategory(id: Int!): CategoryGQL!
-}
-
-input CreateCategoryInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateCategoryInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
