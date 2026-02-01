@@ -1,8 +1,16 @@
 import { Check, X } from "lucide-react";
 import { i18n } from "shared";
 import Button from "@/components/Button";
+import { CategoryItem } from "@/types/ui/category";
 
-export default function CategorySettingsModal() {
+export default function CategorySettingsModal(
+  pr: Readonly<{
+    items: CategoryItem[];
+    isOpen: boolean;
+    onClose?: () => void;
+  }>,
+) {
+  if (!pr.isOpen) return null;
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
@@ -14,7 +22,8 @@ export default function CategorySettingsModal() {
             </h2>
             <button
               type="button"
-              className="text-white/80 hover:text-white transition-colors"
+              className="text-white/80 hover:text-white transition-colors cursor-pointer"
+              onClick={pr.onClose}
             >
               <X size={24} />
             </button>
@@ -23,64 +32,44 @@ export default function CategorySettingsModal() {
             {i18n.t("category.settings.description")}
           </p>
         </div>
-
         {/* カテゴリー一覧 */}
         <div className="p-6 max-h-[400px] overflow-y-auto">
           <div className="space-y-3">
-            {/* アクティブなカテゴリー */}
-            <button
-              type="button"
-              className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-blue-500 bg-blue-50 transition-all duration-200"
-            >
-              <span className="font-medium text-blue-700">家族</span>
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-blue-500 text-white">
-                <Check size={16} />
-              </div>
-            </button>
-
-            <button
-              type="button"
-              className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-blue-500 bg-blue-50 transition-all duration-200"
-            >
-              <span className="font-medium text-blue-700">会社</span>
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-blue-500 text-white">
-                <Check size={16} />
-              </div>
-            </button>
-
-            {/* 非アクティブなカテゴリー */}
-            <button
-              type="button"
-              className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-gray-200 bg-gray-50 hover:border-gray-300 transition-all duration-200"
-            >
-              <span className="font-medium text-gray-500">友人</span>
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-200 text-gray-400">
-                <Check size={16} />
-              </div>
-            </button>
-
-            <button
-              type="button"
-              className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-blue-500 bg-blue-50 transition-all duration-200"
-            >
-              <span className="font-medium text-blue-700">プライベート</span>
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-blue-500 text-white">
-                <Check size={16} />
-              </div>
-            </button>
-
-            <button
-              type="button"
-              className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-gray-200 bg-gray-50 hover:border-gray-300 transition-all duration-200"
-            >
-              <span className="font-medium text-gray-500">趣味</span>
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-200 text-gray-400">
-                <Check size={16} />
-              </div>
-            </button>
+            {pr.items.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={
+                  `w-full flex items-center justify-between p-4 rounded-xl transition-all duration-200 ` +
+                  (item.status === "ACTIVE"
+                    ? "border-2 border-blue-500 bg-blue-50"
+                    : "border-2 border-gray-200 bg-gray-50 hover:border-gray-300")
+                }
+              >
+                <span
+                  className={
+                    `font-medium ` +
+                    (item.status === "ACTIVE"
+                      ? "text-blue-700"
+                      : "text-gray-500")
+                  }
+                >
+                  {item.name}
+                </span>
+                <div
+                  className={
+                    `w-6 h-6 rounded-full flex items-center justify-center ` +
+                    (item.status === "ACTIVE"
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200 text-gray-400")
+                  }
+                >
+                  <Check size={16} />
+                </div>
+              </button>
+            ))}
           </div>
         </div>
-
         {/* フッター */}
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
           <div className="flex gap-3">

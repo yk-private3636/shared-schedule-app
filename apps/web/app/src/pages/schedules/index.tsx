@@ -1,18 +1,17 @@
-import { Calendar, Share2, Users, X, Check } from "lucide-react";
+import { Calendar, Share2, Users } from "lucide-react";
 import Header from "@/components/Header";
 import TabNavigation from "@/components/TabNavigation";
 import Button from "@/components/Button";
 import { useEffect, useState } from "react";
 import { getSchedulesPageQuery } from "@/helpers/gql/api/query/schedulesPage";
 import { useAuth0 } from "@auth0/auth0-react";
-import { schedulesPageCategory } from "@/types/query/category";
-import { CategoryTab } from "@/types/ui/category";
+import { CategoryItem, CategoryTab } from "@/types/ui/category";
 import CategorySettingsModal from "@/components/CategorySettingsModal";
 
 export default function Schedules() {
-  const [isCategoryCustomized, setIsCategoryCustomized] =
+  const [isCategorySettingModal, setIsCategorySettingModal] =
     useState<boolean>(false);
-  const [categories, setCategories] = useState<schedulesPageCategory>([]);
+  const [categoryItems, setCategoryItems] = useState<CategoryItem[]>([]);
   const [tabs, setTabs] = useState<CategoryTab[]>([]);
   const { getAccessTokenSilently } = useAuth0();
 
@@ -22,8 +21,14 @@ export default function Schedules() {
         const token = await getAccessTokenSilently();
         const data = await getSchedulesPageQuery(token);
 
-        setIsCategoryCustomized(data.isCategoryCustomized);
-        setCategories(data.categories);
+        setIsCategorySettingModal(!data.isCategoryCustomized);
+        setCategoryItems(
+          data.categories.map((c) => ({
+            id: c.id,
+            name: c.name,
+            status: c.status,
+          })),
+        );
         setTabs(
           data.categories
             .filter((c) => c.status === "ACTIVE")
@@ -37,6 +42,14 @@ export default function Schedules() {
     })();
   }, []);
 
+  function handleOpenCategorySettings() {
+    setIsCategorySettingModal(true);
+  }
+
+  function handleCloseCategorySettings() {
+    setIsCategorySettingModal(false);
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* ヘッダー */}
@@ -44,8 +57,18 @@ export default function Schedules() {
 
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* タブナビゲーション */}
-        <TabNavigation tabs={tabs} />
+        {/* カテゴリータブナビゲーション */}
+        <TabNavigation
+          tabs={tabs}
+          onSettingsClick={handleOpenCategorySettings}
+        />
+
+        {/* カテゴリー設定モーダル */}
+        <CategorySettingsModal
+          isOpen={isCategorySettingModal}
+          items={categoryItems}
+          onClose={handleCloseCategorySettings}
+        />
 
         {/* アクション＆カレンダーエリア */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -143,9 +166,6 @@ export default function Schedules() {
           </div>
         </div>
       </main>
-
-      {/* カテゴリー設定モーダル */}
-      <CategorySettingsModal />
     </div>
   );
 }

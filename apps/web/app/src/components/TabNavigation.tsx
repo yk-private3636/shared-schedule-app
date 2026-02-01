@@ -6,6 +6,7 @@ import { CategoryTab } from "@/types/ui/category";
 export default function TabNavigation(
   pr: Readonly<{
     tabs: CategoryTab[];
+    onSettingsClick: () => void;
   }>,
 ) {
   return (
@@ -16,7 +17,7 @@ export default function TabNavigation(
         ))}
         <button
           type="button"
-          className="group relative flex items-center justify-center w-10 h-10 shrink-0 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200"
+          className="group relative flex items-center justify-center w-10 h-10 shrink-0 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200 cursor-pointer"
           title={i18n.t("schedule.addScheduleGroup")}
         >
           <Plus size={20} />
@@ -25,8 +26,9 @@ export default function TabNavigation(
 
       <button
         type="button"
-        className="absolute bottom-1 right-4 flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200 shadow-sm"
+        className="absolute bottom-1 right-4 flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 hover:text-gray-700 transition-colors duration-200 shadow-sm cursor-pointer"
         title={i18n.t("schedule.settings")}
+        onClick={pr.onSettingsClick}
       >
         <Settings size={20} />
       </button>
