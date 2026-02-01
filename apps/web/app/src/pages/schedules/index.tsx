@@ -10,6 +10,7 @@ import CategorySettingsModal from "@/components/CategorySettingsModal";
 import { RelationshipCategoryStatus } from "@/types/graphql/graphql";
 
 export default function Schedules() {
+  const [isInitialSetup, setIsInitialSetup] = useState<boolean>(false);
   const [isCategorySettingModal, setIsCategorySettingModal] =
     useState<boolean>(false);
   const [initCategories, setInitCategories] = useState<CategoryItem[]>([]);
@@ -23,6 +24,7 @@ export default function Schedules() {
         const token = await getAccessTokenSilently();
         const data = await getSchedulesPageQuery(token);
 
+        setIsInitialSetup(!data.isCategoryCustomized);
         setIsCategorySettingModal(!data.isCategoryCustomized);
         setInitCategories(
           data.categories.map((c) => ({
@@ -95,7 +97,7 @@ export default function Schedules() {
 
         {/* カテゴリー設定モーダル */}
         <CategorySettingsModal
-          isInitialSetup={isCategorySettingModal}
+          isInitialSetup={isInitialSetup}
           isOpen={isCategorySettingModal}
           items={categoryItems}
           onSelect={handleSelectCategory}
