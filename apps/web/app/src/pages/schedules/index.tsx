@@ -7,6 +7,7 @@ import { getSchedulesPageQuery } from "@/helpers/gql/api/query/schedulesPage";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CategoryItem, CategoryTab } from "@/types/ui/category";
 import CategorySettingsModal from "@/components/CategorySettingsModal";
+import { RelationshipCategoryStatus } from "@/types/graphql/graphql";
 
 export default function Schedules() {
   const [isCategorySettingModal, setIsCategorySettingModal] =
@@ -31,7 +32,7 @@ export default function Schedules() {
         );
         setTabs(
           data.categories
-            .filter((c) => c.status === "ACTIVE")
+            .filter((c) => c.status === RelationshipCategoryStatus.Active)
             .map((c, idx) => ({
               id: c.id,
               name: c.name,
@@ -48,6 +49,24 @@ export default function Schedules() {
 
   function handleCloseCategorySettings() {
     setIsCategorySettingModal(false);
+  }
+
+  function handleSelectCategory(
+    categoryId: string,
+    status: CategoryItem["status"],
+  ) {
+    setCategoryItems((prevItems) => {
+      return prevItems.map((item) => {
+        if (item.id === categoryId) {
+          const newStatus =
+            status === "ACTIVE"
+              ? RelationshipCategoryStatus.Inactive
+              : RelationshipCategoryStatus.Active;
+          return { ...item, status: newStatus };
+        }
+        return item;
+      });
+    });
   }
 
   return (
@@ -67,6 +86,7 @@ export default function Schedules() {
         <CategorySettingsModal
           isOpen={isCategorySettingModal}
           items={categoryItems}
+          onSelect={handleSelectCategory}
           onClose={handleCloseCategorySettings}
         />
 

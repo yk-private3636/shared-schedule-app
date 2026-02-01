@@ -7,7 +7,8 @@ export default function CategorySettingsModal(
   pr: Readonly<{
     items: CategoryItem[];
     isOpen: boolean;
-    onClose?: () => void;
+    onSelect?: (categoryId: string, status: CategoryItem["status"]) => void;
+    onClose: () => void;
   }>,
 ) {
   if (!pr.isOpen) return null;
@@ -40,11 +41,12 @@ export default function CategorySettingsModal(
                 key={item.id}
                 type="button"
                 className={
-                  `w-full flex items-center justify-between p-4 rounded-xl transition-all duration-200 ` +
+                  `w-full flex items-center justify-between p-4 rounded-xl transition-all duration-200 cursor-pointer ` +
                   (item.status === "ACTIVE"
                     ? "border-2 border-blue-500 bg-blue-50"
                     : "border-2 border-gray-200 bg-gray-50 hover:border-gray-300")
                 }
+                onClick={() => pr.onSelect?.(item.id, item.status)}
               >
                 <span
                   className={
