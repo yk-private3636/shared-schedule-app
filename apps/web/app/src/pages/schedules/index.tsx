@@ -1,6 +1,7 @@
 import { Calendar, Share2, Users, X, Check } from "lucide-react";
 import Header from "@/components/Header";
 import TabNavigation from "@/components/TabNavigation";
+import Button from "@/components/Button";
 import { useEffect, useState } from "react";
 import { getSchedulesPageQuery } from "@/helpers/gql/api/query/schedulesPage";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -52,13 +53,11 @@ export default function Schedules() {
           <div className="lg:col-span-1 space-y-4">
             {/* 共有コード発行ボタン */}
             <div className="bg-white rounded-2xl shadow-lg p-6">
-              <button
-                type="button"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-xl"
-              >
-                <Share2 size={20} />
-                共有コード発行
-              </button>
+              <Button
+                text="共有コード発行"
+                icon={<Share2 size={20} />}
+                onClick={() => {}}
+              />
               <p className="text-xs text-gray-500 mt-2 text-center">
                 スケジュールを共有するためのコードを発行
               </p>

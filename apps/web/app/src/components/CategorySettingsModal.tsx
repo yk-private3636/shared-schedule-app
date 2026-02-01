@@ -1,5 +1,6 @@
 import { Check, X } from "lucide-react";
 import { i18n } from "shared";
+import Button from "@/components/Button";
 
 export default function CategorySettingsModal() {
   return (
@@ -89,12 +90,11 @@ export default function CategorySettingsModal() {
             >
               {i18n.t("common.cancel")}
             </button>
-            <button
-              type="button"
-              className="flex-1 px-4 py-3 text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-md"
-            >
-              {i18n.t("common.save")}
-            </button>
+            <Button
+              text={i18n.t("common.save")}
+              className="flex-1 rounded-xl"
+              onClick={() => {}}
+            />
           </div>
         </div>
       </div>
