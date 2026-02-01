@@ -1,7 +1,5 @@
-import { Resolver, Query, Mutation, Args, Int } from "@nestjs/graphql";
+import { Resolver, Query } from "@nestjs/graphql";
 import { CategoriesService } from "./categories.service";
-import { CreateCategoryInput } from "./dto/create-category.input";
-import { UpdateCategoryInput } from "./dto/update-category.input";
 import { CategoryGQL } from "./types/gql";
 import { UserId } from "@/authz/decorators/data";
 import { CategoryGQLFactory } from "./factories/category.gql.factory";

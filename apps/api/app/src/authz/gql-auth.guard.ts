@@ -30,7 +30,15 @@ export class GqlAuthGuard extends AuthGuard("jwt") {
       return true;
     }
 
-    await super.canActivate(context);
+    const req = this.getRequest(context);
+
+    if (req["authPromise"]) {
+      await req["authPromise"];
+      return true;
+    }
+
+    req["authPromise"] = super.canActivate(context);
+    await req["authPromise"];
 
     return true;
   }
