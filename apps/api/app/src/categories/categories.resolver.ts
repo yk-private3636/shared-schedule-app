@@ -1,8 +1,9 @@
-import { Resolver, Query } from "@nestjs/graphql";
+import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
 import { CategoriesService } from "./categories.service";
-import { CategoryGQL } from "./types/gql";
+import { CategoryGQL, CreateCategoriesInput } from "./types/gql";
 import { UserId } from "@/authz/decorators/data";
 import { CategoryGQLFactory } from "./factories/category.gql.factory";
+import { CategoryDTOFactory } from "./factories/category.dto.factory";
 
 @Resolver(() => CategoryGQL)
 export class CategoriesResolver {
@@ -17,5 +18,18 @@ export class CategoriesResolver {
   @Query(() => Boolean, { name: "isCategoryCustomized" })
   async isCustomized(@UserId() userId: string): Promise<boolean> {
     return this.categoriesService.isCustomized(userId);
+  }
+
+  @Mutation(() => [CategoryGQL])
+  async createCategories(
+    @Args("createCategoriesInput") input: CreateCategoriesInput,
+    @UserId() userId: string,
+  ): Promise<CategoryGQL[]> {
+    const dto = CategoryDTOFactory.fromCreateCategoriesMutation(
+      userId,
+      input.categories,
+    );
+    const categories = await this.categoriesService.createMany(dto);
+    return CategoryGQLFactory.fromCategoriesDTO(categories);
   }
 }

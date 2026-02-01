@@ -1,4 +1,9 @@
-import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
+import {
+  Field,
+  InputType,
+  ObjectType,
+  registerEnumType,
+} from "@nestjs/graphql";
 import {
   RelationshipCategoryKind,
   RelationshipCategoryStatus,
@@ -12,6 +17,24 @@ export class CategoryGQL {
   name: string; // カテゴリー名
   @Field()
   userId: string; // ユーザーID
+  @Field(() => RelationshipCategoryKind)
+  kind: RelationshipCategoryKind; // カテゴリー種別
+  @Field(() => RelationshipCategoryStatus)
+  status: RelationshipCategoryStatus; // カテゴリーステータス
+}
+
+@InputType()
+export class CreateCategoriesInput {
+  @Field(() => [SyncCategoryGQL])
+  categories: SyncCategoryGQL[];
+}
+
+@InputType()
+export class SyncCategoryGQL {
+  @Field()
+  id: string; // カテゴリーID
+  @Field()
+  name: string; // カテゴリー名
   @Field(() => RelationshipCategoryKind)
   kind: RelationshipCategoryKind; // カテゴリー種別
   @Field(() => RelationshipCategoryStatus)

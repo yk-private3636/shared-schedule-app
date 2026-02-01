@@ -46,4 +46,16 @@ type Query {
 
 type Mutation {
   saveUser: UserGQL!
+  createCategories(createCategoriesInput: CreateCategoriesInput!): [CategoryGQL!]!
+}
+
+input CreateCategoriesInput {
+  categories: [SyncCategoryGQL!]!
+}
+
+input SyncCategoryGQL {
+  id: String!
+  name: String!
+  kind: RelationshipCategoryKind!
+  status: RelationshipCategoryStatus!
 }
