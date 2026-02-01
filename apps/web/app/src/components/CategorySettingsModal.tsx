@@ -9,6 +9,7 @@ export default function CategorySettingsModal(
     isOpen: boolean;
     onSelect?: (categoryId: string, status: CategoryItem["status"]) => void;
     onClose: () => void;
+    onCancel?: () => void;
   }>,
 ) {
   if (!pr.isOpen) return null;
@@ -77,7 +78,8 @@ export default function CategorySettingsModal(
           <div className="flex gap-3">
             <button
               type="button"
-              className="flex-1 px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-xl font-medium hover:bg-gray-50 transition-colors duration-200"
+              className="flex-1 px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-xl font-medium hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+              onClick={pr.onCancel ?? pr.onClose}
             >
               {i18n.t("common.cancel")}
             </button>

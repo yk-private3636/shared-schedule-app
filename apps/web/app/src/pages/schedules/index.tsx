@@ -12,6 +12,7 @@ import { RelationshipCategoryStatus } from "@/types/graphql/graphql";
 export default function Schedules() {
   const [isCategorySettingModal, setIsCategorySettingModal] =
     useState<boolean>(false);
+  const [initCategories, setInitCategories] = useState<CategoryItem[]>([]);
   const [categoryItems, setCategoryItems] = useState<CategoryItem[]>([]);
   const [tabs, setTabs] = useState<CategoryTab[]>([]);
   const { getAccessTokenSilently } = useAuth0();
@@ -23,6 +24,13 @@ export default function Schedules() {
         const data = await getSchedulesPageQuery(token);
 
         setIsCategorySettingModal(!data.isCategoryCustomized);
+        setInitCategories(
+          data.categories.map((c) => ({
+            id: c.id,
+            name: c.name,
+            status: c.status,
+          })),
+        );
         setCategoryItems(
           data.categories.map((c) => ({
             id: c.id,
@@ -49,6 +57,7 @@ export default function Schedules() {
 
   function handleCloseCategorySettings() {
     setIsCategorySettingModal(false);
+    setCategoryItems(initCategories);
   }
 
   function handleSelectCategory(
@@ -88,6 +97,7 @@ export default function Schedules() {
           items={categoryItems}
           onSelect={handleSelectCategory}
           onClose={handleCloseCategorySettings}
+          onCancel={handleCloseCategorySettings}
         />
 
         {/* アクション＆カレンダーエリア */}
