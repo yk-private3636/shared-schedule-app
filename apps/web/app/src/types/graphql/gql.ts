@@ -15,11 +15,11 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n      mutation SaveUser {\n        saveUser {\n          id\n          email\n          givenName\n          familyName\n          status\n        }\n      }\n    ": typeof types.SaveUserDocument,
-    "\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status\n            }\n        }\n    ": typeof types.GetSchedulesPageDocument,
+    "\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status,\n                kind\n            }\n        }\n    ": typeof types.GetSchedulesPageDocument,
 };
 const documents: Documents = {
     "\n      mutation SaveUser {\n        saveUser {\n          id\n          email\n          givenName\n          familyName\n          status\n        }\n      }\n    ": types.SaveUserDocument,
-    "\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status\n            }\n        }\n    ": types.GetSchedulesPageDocument,
+    "\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status,\n                kind\n            }\n        }\n    ": types.GetSchedulesPageDocument,
 };
 
 /**
@@ -43,7 +43,7 @@ export function graphql(source: "\n      mutation SaveUser {\n        saveUser {
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status\n            }\n        }\n    "): (typeof documents)["\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status\n            }\n        }\n    "];
+export function graphql(source: "\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status,\n                kind\n            }\n        }\n    "): (typeof documents)["\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status,\n                kind\n            }\n        }\n    "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

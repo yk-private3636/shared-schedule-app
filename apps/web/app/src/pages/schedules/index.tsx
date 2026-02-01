@@ -29,6 +29,7 @@ export default function Schedules() {
             id: c.id,
             name: c.name,
             status: c.status,
+            kind: c.kind,
           })),
         );
         setCategoryItems(
@@ -36,6 +37,7 @@ export default function Schedules() {
             id: c.id,
             name: c.name,
             status: c.status,
+            kind: c.kind,
           })),
         );
         setTabs(

@@ -10,7 +10,8 @@ export async function getSchedulesPageQuery(accessToken: string) {
             categories {
                 id,
                 name,
-                status
+                status,
+                kind
             }
         }
     `);
