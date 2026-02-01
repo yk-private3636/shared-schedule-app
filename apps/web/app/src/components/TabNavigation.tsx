@@ -1,11 +1,11 @@
 import { Plus, Settings } from "lucide-react";
 import Tab from "./Tab";
 import { i18n } from "shared";
-import { Tab as TabType } from "@/types/ui/category";
+import { CategoryTab } from "@/types/ui/category";
 
 export default function TabNavigation(
   pr: Readonly<{
-    tabs: TabType[];
+    tabs: CategoryTab[];
   }>,
 ) {
   return (

@@ -1,17 +1,18 @@
-import { Calendar, Share2, Users } from "lucide-react";
+import { Calendar, Share2, Users, X, Check } from "lucide-react";
 import Header from "@/components/Header";
 import TabNavigation from "@/components/TabNavigation";
 import { useEffect, useState } from "react";
 import { getSchedulesPageQuery } from "@/helpers/gql/api/query/schedulesPage";
 import { useAuth0 } from "@auth0/auth0-react";
 import { schedulesPageCategory } from "@/types/query/category";
-import { Tab } from "@/types/ui/category";
+import { CategoryTab } from "@/types/ui/category";
+import CategorySettingsModal from "@/components/CategorySettingsModal";
 
 export default function Schedules() {
   const [isCategoryCustomized, setIsCategoryCustomized] =
     useState<boolean>(false);
   const [categories, setCategories] = useState<schedulesPageCategory>([]);
-  const [tabs, setTabs] = useState<Tab[]>([]);
+  const [tabs, setTabs] = useState<CategoryTab[]>([]);
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
@@ -143,6 +144,9 @@ export default function Schedules() {
           </div>
         </div>
       </main>
+
+      {/* カテゴリー設定モーダル */}
+      <CategorySettingsModal />
     </div>
   );
 }
