@@ -8,6 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { CategoryItem, CategoryTab } from "@/types/ui/category";
 import CategorySettingsModal from "@/components/CategorySettingsModal";
 import { RelationshipCategoryStatus } from "@/types/graphql/graphql";
+import { createCategories } from "@/helpers/gql/api/mutation/createCategory";
 
 export default function Schedules() {
   const [isInitialSetup, setIsInitialSetup] = useState<boolean>(false);
@@ -82,6 +83,26 @@ export default function Schedules() {
     });
   }
 
+  async function handleSaveCategorySettings(selectedItems: CategoryItem[]) {
+    try {
+      const token = await getAccessTokenSilently();
+      const res = await createCategories({ categories: selectedItems }, token);
+      setInitCategories(res.createCategories);
+      setTabs(
+        res.createCategories
+          .filter((c) => c.status === RelationshipCategoryStatus.Active)
+          .map((c, idx) => ({
+            id: c.id,
+            name: c.name,
+            isActive: idx === 0,
+          })),
+      );
+      setIsCategorySettingModal(false);
+
+      // TODO: 成功メッセージ表示(エラーメッセージと同じように)
+    } catch (err: unknown) {}
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* ヘッダー */}
@@ -103,6 +124,7 @@ export default function Schedules() {
           onSelect={handleSelectCategory}
           onClose={handleCloseCategorySettings}
           onCancel={handleCloseCategorySettings}
+          onSave={handleSaveCategorySettings}
         />
 
         {/* アクション＆カレンダーエリア */}

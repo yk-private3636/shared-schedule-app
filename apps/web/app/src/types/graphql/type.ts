@@ -6,6 +6,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -24,9 +25,19 @@ export type CategoryGql = {
   userId: Scalars['String']['output'];
 };
 
+export type CreateCategoriesInput = {
+  categories: Array<SyncCategoryGql>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  createCategories: Array<CategoryGql>;
   saveUser: UserGql;
+};
+
+
+export type MutationCreateCategoriesArgs = {
+  createCategoriesInput: CreateCategoriesInput;
 };
 
 export type Query = {
@@ -47,6 +58,13 @@ export enum RelationshipCategoryStatus {
   Archived = 'ARCHIVED',
   Inactive = 'INACTIVE'
 }
+
+export type SyncCategoryGql = {
+  id: Scalars['String']['input'];
+  kind: RelationshipCategoryKind;
+  name: Scalars['String']['input'];
+  status: RelationshipCategoryStatus;
+};
 
 export type UserGql = {
   __typename?: 'UserGQL';
@@ -140,11 +158,13 @@ export type DirectiveResolverFn<TResult = Record<PropertyKey, never>, TParent = 
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CategoryGQL: ResolverTypeWrapper<CategoryGql>;
+  CreateCategoriesInput: CreateCategoriesInput;
   Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
   RelationshipCategoryKind: RelationshipCategoryKind;
   RelationshipCategoryStatus: RelationshipCategoryStatus;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  SyncCategoryGQL: SyncCategoryGql;
   UserGQL: ResolverTypeWrapper<UserGql>;
   UserStatus: UserStatus;
 };
@@ -153,9 +173,11 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   CategoryGQL: CategoryGql;
+  CreateCategoriesInput: CreateCategoriesInput;
   Mutation: Record<PropertyKey, never>;
   Query: Record<PropertyKey, never>;
   String: Scalars['String']['output'];
+  SyncCategoryGQL: SyncCategoryGql;
   UserGQL: UserGql;
 };
 
@@ -168,6 +190,7 @@ export type CategoryGqlResolvers<ContextType = any, ParentType extends Resolvers
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createCategories?: Resolver<Array<ResolversTypes['CategoryGQL']>, ParentType, ContextType, RequireFields<MutationCreateCategoriesArgs, 'createCategoriesInput'>>;
   saveUser?: Resolver<ResolversTypes['UserGQL'], ParentType, ContextType>;
 };
 

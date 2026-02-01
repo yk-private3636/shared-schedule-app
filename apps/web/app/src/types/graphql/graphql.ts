@@ -25,9 +25,19 @@ export type CategoryGql = {
   userId: Scalars['String']['output'];
 };
 
+export type CreateCategoriesInput = {
+  categories: Array<SyncCategoryGql>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  createCategories: Array<CategoryGql>;
   saveUser: UserGql;
+};
+
+
+export type MutationCreateCategoriesArgs = {
+  createCategoriesInput: CreateCategoriesInput;
 };
 
 export type Query = {
@@ -49,6 +59,13 @@ export enum RelationshipCategoryStatus {
   Inactive = 'INACTIVE'
 }
 
+export type SyncCategoryGql = {
+  id: Scalars['String']['input'];
+  kind: RelationshipCategoryKind;
+  name: Scalars['String']['input'];
+  status: RelationshipCategoryStatus;
+};
+
 export type UserGql = {
   __typename?: 'UserGQL';
   email: Scalars['String']['output'];
@@ -66,6 +83,13 @@ export enum UserStatus {
   Withdrawn = 'WITHDRAWN'
 }
 
+export type CreateCategoriesMutationVariables = Exact<{
+  createCategoriesInput: CreateCategoriesInput;
+}>;
+
+
+export type CreateCategoriesMutation = { __typename?: 'Mutation', createCategories: Array<{ __typename?: 'CategoryGQL', id: string, kind: RelationshipCategoryKind, name: string, status: RelationshipCategoryStatus, userId: string }> };
+
 export type SaveUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -77,5 +101,6 @@ export type GetSchedulesPageQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetSchedulesPageQuery = { __typename?: 'Query', isCategoryCustomized: boolean, categories: Array<{ __typename?: 'CategoryGQL', id: string, name: string, status: RelationshipCategoryStatus, kind: RelationshipCategoryKind }> };
 
 
+export const CreateCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createCategories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createCategoriesInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCategoriesInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCategories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createCategoriesInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createCategoriesInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"kind"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<CreateCategoriesMutation, CreateCategoriesMutationVariables>;
 export const SaveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SaveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"saveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"givenName"}},{"kind":"Field","name":{"kind":"Name","value":"familyName"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<SaveUserMutation, SaveUserMutationVariables>;
 export const GetSchedulesPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSchedulesPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isCategoryCustomized"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"kind"}}]}}]}}]} as unknown as DocumentNode<GetSchedulesPageQuery, GetSchedulesPageQueryVariables>;

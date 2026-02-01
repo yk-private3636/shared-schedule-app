@@ -14,10 +14,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n        mutation createCategories($createCategoriesInput: CreateCategoriesInput!) {\n            createCategories(createCategoriesInput: $createCategoriesInput) {\n                id\n                kind\n                name\n                status\n                userId\n            }\n        }\n    ": typeof types.CreateCategoriesDocument,
     "\n      mutation SaveUser {\n        saveUser {\n          id\n          email\n          givenName\n          familyName\n          status\n        }\n      }\n    ": typeof types.SaveUserDocument,
     "\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status,\n                kind\n            }\n        }\n    ": typeof types.GetSchedulesPageDocument,
 };
 const documents: Documents = {
+    "\n        mutation createCategories($createCategoriesInput: CreateCategoriesInput!) {\n            createCategories(createCategoriesInput: $createCategoriesInput) {\n                id\n                kind\n                name\n                status\n                userId\n            }\n        }\n    ": types.CreateCategoriesDocument,
     "\n      mutation SaveUser {\n        saveUser {\n          id\n          email\n          givenName\n          familyName\n          status\n        }\n      }\n    ": types.SaveUserDocument,
     "\n        query GetSchedulesPage {\n            isCategoryCustomized\n            categories {\n                id,\n                name,\n                status,\n                kind\n            }\n        }\n    ": types.GetSchedulesPageDocument,
 };
@@ -36,6 +38,10 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n        mutation createCategories($createCategoriesInput: CreateCategoriesInput!) {\n            createCategories(createCategoriesInput: $createCategoriesInput) {\n                id\n                kind\n                name\n                status\n                userId\n            }\n        }\n    "): (typeof documents)["\n        mutation createCategories($createCategoriesInput: CreateCategoriesInput!) {\n            createCategories(createCategoriesInput: $createCategoriesInput) {\n                id\n                kind\n                name\n                status\n                userId\n            }\n        }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

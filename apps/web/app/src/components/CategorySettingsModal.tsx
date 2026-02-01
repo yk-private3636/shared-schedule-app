@@ -11,6 +11,7 @@ export default function CategorySettingsModal(
     onSelect?: (categoryId: string, status: CategoryItem["status"]) => void;
     onClose: () => void;
     onCancel?: () => void;
+    onSave: (selectedItems: CategoryItem[]) => void;
   }>,
 ) {
   if (!pr.isOpen) return null;
@@ -89,7 +90,7 @@ export default function CategorySettingsModal(
             <Button
               text={i18n.t("common.save")}
               className="flex-1 rounded-xl"
-              onClick={() => {}}
+              onClick={() => pr.onSave(pr.items)}
             />
           </div>
         </div>
