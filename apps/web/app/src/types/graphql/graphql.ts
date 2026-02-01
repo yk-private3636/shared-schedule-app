@@ -25,50 +25,15 @@ export type CategoryGql = {
   userId: Scalars['String']['output'];
 };
 
-export type CreateCategoryInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int']['input'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
-  createCategory: CategoryGql;
-  removeCategory: CategoryGql;
   saveUser: UserGql;
-  updateCategory: CategoryGql;
-};
-
-
-export type MutationCreateCategoryArgs = {
-  createCategoryInput: CreateCategoryInput;
-};
-
-
-export type MutationRemoveCategoryArgs = {
-  id: Scalars['Int']['input'];
-};
-
-
-export type MutationUpdateCategoryArgs = {
-  updateCategoryInput: UpdateCategoryInput;
 };
 
 export type Query = {
   __typename?: 'Query';
   categories: Array<CategoryGql>;
-  category: CategoryGql;
-  user: UserGql;
-  users: Array<UserGql>;
-};
-
-
-export type QueryCategoryArgs = {
-  id: Scalars['Int']['input'];
-};
-
-
-export type QueryUserArgs = {
-  id: Scalars['Int']['input'];
+  isCategoryCustomized: Scalars['Boolean']['output'];
 };
 
 /** The kind of a category. */
@@ -83,12 +48,6 @@ export enum RelationshipCategoryStatus {
   Archived = 'ARCHIVED',
   Inactive = 'INACTIVE'
 }
-
-export type UpdateCategoryInput = {
-  /** Example field (placeholder) */
-  exampleField?: InputMaybe<Scalars['Int']['input']>;
-  id: Scalars['Int']['input'];
-};
 
 export type UserGql = {
   __typename?: 'UserGQL';
@@ -112,5 +71,11 @@ export type SaveUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type SaveUserMutation = { __typename?: 'Mutation', saveUser: { __typename?: 'UserGQL', id: string, email: string, givenName: string, familyName: string, status: UserStatus } };
 
+export type GetSchedulesPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSchedulesPageQuery = { __typename?: 'Query', isCategoryCustomized: boolean, categories: Array<{ __typename?: 'CategoryGQL', id: string, name: string, status: RelationshipCategoryStatus }> };
+
 
 export const SaveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SaveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"saveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"givenName"}},{"kind":"Field","name":{"kind":"Name","value":"familyName"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<SaveUserMutation, SaveUserMutationVariables>;
+export const GetSchedulesPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSchedulesPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isCategoryCustomized"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<GetSchedulesPageQuery, GetSchedulesPageQueryVariables>;
