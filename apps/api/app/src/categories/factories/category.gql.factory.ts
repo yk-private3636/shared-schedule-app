@@ -1,5 +1,5 @@
 import { CategoryDTO } from "../dto/category.dto";
-import { CategoryGQL } from "../types/gql";
+import { CategoryGQL } from "../dto/gql.dto";
 
 export class CategoryGQLFactory {
   static fromCategoriesDTO(ds: CategoryDTO[]): CategoryGQL[] {

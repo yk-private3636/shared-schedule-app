@@ -1,7 +1,7 @@
 import { DEFAULT_CATEGORY_PREFIX } from "../constants/prefix";
 import { Category } from "../domain/entities/category.entity";
 import { CategoryDTO } from "../dto/category.dto";
-import { SyncCategoryGQL } from "../types/gql";
+import { SyncCategoryGQL } from "../dto/gql.dto";
 import { DefaultCategoriesQuery } from "../types/query";
 
 export class CategoryDTOFactory {

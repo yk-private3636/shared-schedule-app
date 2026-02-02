@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
 import { CategoriesService } from "./categories.service";
-import { CategoryGQL, CreateCategoriesInput } from "./types/gql";
 import { UserId } from "@/authz/decorators/data";
 import { CategoryGQLFactory } from "./factories/category.gql.factory";
 import { CategoryDTOFactory } from "./factories/category.dto.factory";
+import { CategoryGQL, CreateCategoriesInput } from "./dto/gql.dto";
 
 @Resolver(() => CategoryGQL)
 export class CategoriesResolver {

@@ -14,7 +14,7 @@ export class UserDTOFactory {
     );
   }
 
-  static toSaveDtoFromIdpProfile(profile: IdpUserProfile): SaveUserDTO {
+  static FromIdpProfileToSaveDto(profile: IdpUserProfile): SaveUserDTO {
     return new SaveUserDTO(
       profile.sub,
       profile.email,

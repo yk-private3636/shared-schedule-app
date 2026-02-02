@@ -3,8 +3,10 @@ import { Context, Mutation, Resolver } from "@nestjs/graphql";
 import { TYPES } from "@/authz/constants/di";
 import type { IIdpService } from "@/authz/interfaces/idp.service";
 import { UserDTOFactory } from "./factories/user.dto.factory";
-import { UserGQL } from "./types/gql";
 import { UsersService } from "./users.service";
+import { UserGQL } from "./dto/gql.dto";
+import { User } from "./domain/entities/user.entity";
+import { UserGqlFactory } from "./factories/user.gql.factory";
 
 @Resolver(() => UserGQL)
 export class UsersResolver {
@@ -22,16 +24,10 @@ export class UsersResolver {
 
     const idpUserProfile = await this.idpService.fetchUserProfile(accessToken);
 
-    const saveUserDTO = UserDTOFactory.toSaveDtoFromIdpProfile(idpUserProfile);
+    const saveUserDTO = UserDTOFactory.FromIdpProfileToSaveDto(idpUserProfile);
 
     const userDTO = await this.usersService.save(saveUserDTO);
 
-    return {
-      id: userDTO.getId(),
-      email: userDTO.getEmail(),
-      familyName: userDTO.getFamilyName(),
-      givenName: userDTO.getGivenName(),
-      status: userDTO.getStatus(),
-    };
+    return UserGqlFactory.fromUserDTO(userDTO);
   }
 }
