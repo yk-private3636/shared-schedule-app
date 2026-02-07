@@ -1,9 +1,0 @@
-# サブネットID
-variable "subnet_id" {
-    type        = string
-}
-
-# ルートテーブルID
-variable "route_table_id" {
-    type        = string
-}
