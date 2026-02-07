@@ -6,7 +6,7 @@ services:
       dockerfile: ./docker/api.dockerfile
       context: ./apps
       target: local
-    image: shared-schedule-api:local
+    image: shared-schedule/api:local
     ports:
       - ${API_PORT:-8080}:8080
     depends_on:
@@ -29,7 +29,7 @@ services:
       dockerfile: ./docker/web.dockerfile
       context: ./apps
       target: local
-    image: shared-schedule-web:local
+    image: shared-schedule/web:local
     ports:
       - ${WEB_PORT:-3000}:3000
     depends_on:
@@ -45,7 +45,7 @@ services:
     build:
       context: ./db
       target: local
-    image: shared-schedule-db:local
+    image: shared-schedule/db:local
     environment:
       POSTGRES_DB: shared-schedule
       POSTGRES_USER: developer
@@ -66,7 +66,7 @@ services:
     build:
       context: ./observability
       target: local
-    image: shared-schedule-observability:local
+    image: shared-schedule/observability:local
     ports:
       - ${OBSERVABILITY_OTLP_PORT:-4318}:4318
       - ${OBSERVABILITY_UI_PORT:-16686}:16686
@@ -75,11 +75,8 @@ services:
     container_name: infra
     build:
       context: ./infra
-    image: shared-schedule-infra:local
+    image: shared-schedule/infra:local
     env_file:
     - ./infra/.env
     volumes:
     - ./infra/src:/home/terraform/infra
-
-# volumes:
-#   shared-schedule-data:
