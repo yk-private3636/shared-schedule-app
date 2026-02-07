@@ -1,8 +1,108 @@
 import { Calendar, Share2, Users } from "lucide-react";
 import Header from "@/components/Header";
 import TabNavigation from "@/components/TabNavigation";
+import Button from "@/components/Button";
+import { useEffect, useState } from "react";
+import { getSchedulesPageQuery } from "@/helpers/gql/api/query/schedulesPage";
+import { useAuth0 } from "@auth0/auth0-react";
+import { CategoryItem, CategoryTab } from "@/types/ui/category";
+import CategorySettingsModal from "@/components/CategorySettingsModal";
+import { RelationshipCategoryStatus } from "@/types/graphql/graphql";
+import { createCategories } from "@/helpers/gql/api/mutation/createCategory";
 
 export default function Schedules() {
+  const [isInitialSetup, setIsInitialSetup] = useState<boolean>(false);
+  const [isCategorySettingModal, setIsCategorySettingModal] =
+    useState<boolean>(false);
+  const [initCategories, setInitCategories] = useState<CategoryItem[]>([]);
+  const [categoryItems, setCategoryItems] = useState<CategoryItem[]>([]);
+  const [tabs, setTabs] = useState<CategoryTab[]>([]);
+  const { getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const token = await getAccessTokenSilently();
+        const data = await getSchedulesPageQuery(token);
+
+        setIsInitialSetup(!data.isCategoryCustomized);
+        setIsCategorySettingModal(!data.isCategoryCustomized);
+        setInitCategories(
+          data.categories.map((c) => ({
+            id: c.id,
+            name: c.name,
+            status: c.status,
+            kind: c.kind,
+          })),
+        );
+        setCategoryItems(
+          data.categories.map((c) => ({
+            id: c.id,
+            name: c.name,
+            status: c.status,
+            kind: c.kind,
+          })),
+        );
+        setTabs(
+          data.categories
+            .filter((c) => c.status === RelationshipCategoryStatus.Active)
+            .map((c, idx) => ({
+              id: c.id,
+              name: c.name,
+              isActive: idx === 0,
+            })),
+        );
+      } catch (err: unknown) {}
+    })();
+  }, []);
+
+  function handleOpenCategorySettings() {
+    setIsCategorySettingModal(true);
+  }
+
+  function handleCloseCategorySettings() {
+    setIsCategorySettingModal(false);
+    setCategoryItems(initCategories);
+  }
+
+  function handleSelectCategory(
+    categoryId: string,
+    status: CategoryItem["status"],
+  ) {
+    setCategoryItems((prevItems) => {
+      return prevItems.map((item) => {
+        if (item.id === categoryId) {
+          const newStatus =
+            status === "ACTIVE"
+              ? RelationshipCategoryStatus.Inactive
+              : RelationshipCategoryStatus.Active;
+          return { ...item, status: newStatus };
+        }
+        return item;
+      });
+    });
+  }
+
+  async function handleSaveCategorySettings(selectedItems: CategoryItem[]) {
+    try {
+      const token = await getAccessTokenSilently();
+      const res = await createCategories({ categories: selectedItems }, token);
+      setInitCategories(res.createCategories);
+      setTabs(
+        res.createCategories
+          .filter((c) => c.status === RelationshipCategoryStatus.Active)
+          .map((c, idx) => ({
+            id: c.id,
+            name: c.name,
+            isActive: idx === 0,
+          })),
+      );
+      setIsCategorySettingModal(false);
+
+      // TODO: 成功メッセージ表示(エラーメッセージと同じように)
+    } catch (err: unknown) {}
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* ヘッダー */}
@@ -10,8 +110,22 @@ export default function Schedules() {
 
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* タブナビゲーション */}
-        <TabNavigation />
+        {/* カテゴリータブナビゲーション */}
+        <TabNavigation
+          tabs={tabs}
+          onSettingsClick={handleOpenCategorySettings}
+        />
+
+        {/* カテゴリー設定モーダル */}
+        <CategorySettingsModal
+          isInitialSetup={isInitialSetup}
+          isOpen={isCategorySettingModal}
+          items={categoryItems}
+          onSelect={handleSelectCategory}
+          onClose={handleCloseCategorySettings}
+          onCancel={handleCloseCategorySettings}
+          onSave={handleSaveCategorySettings}
+        />
 
         {/* アクション＆カレンダーエリア */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -19,13 +133,11 @@ export default function Schedules() {
           <div className="lg:col-span-1 space-y-4">
             {/* 共有コード発行ボタン */}
             <div className="bg-white rounded-2xl shadow-lg p-6">
-              <button
-                type="button"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-xl"
-              >
-                <Share2 size={20} />
-                共有コード発行
-              </button>
+              <Button
+                text="共有コード発行"
+                icon={<Share2 size={20} />}
+                onClick={() => {}}
+              />
               <p className="text-xs text-gray-500 mt-2 text-center">
                 スケジュールを共有するためのコードを発行
               </p>

@@ -5,6 +5,7 @@ import { TYPES as sharedTYPES } from "@/shared/constants/di";
 import { type IDatabaseClientService } from "@/shared/interfaces/database-client.service";
 import { CategoryDTO } from "./dto/category.dto";
 import { CategoryDTOFactory } from "./factories/category.dto.factory";
+import { CategoryEntityFactory } from "./factories/category.entity.factory";
 
 @Injectable()
 export class CategoriesService {
@@ -46,5 +47,15 @@ export class CategoriesService {
     );
 
     return categories;
+  }
+
+  async createMany(ds: CategoryDTO[]): Promise<CategoryDTO[]> {
+    const categories = ds.map((d) => CategoryEntityFactory.fromCategoryDTO(d));
+
+    await this.dbClient.writer(async (tx) => {
+      await this.categories.createMany(categories, tx);
+    });
+
+    return categories.map((c) => CategoryDTOFactory.fromEntity(c));
   }
 }

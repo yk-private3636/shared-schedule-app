@@ -35,5 +35,15 @@ export const jaTranslation = {
   schedule: {
     addScheduleGroup: 'スケジュールグループを追加',
     settings: 'スケジュール設定',
+  },
+  category: {
+    settings: {
+      title: 'カテゴリー設定',
+      description: '表示するカテゴリーを選択してください',
+    },
+  },
+  common: {
+    cancel: 'キャンセル',
+    save: '保存する',
   }
 };

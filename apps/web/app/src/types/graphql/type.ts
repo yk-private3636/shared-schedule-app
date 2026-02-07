@@ -25,50 +25,25 @@ export type CategoryGql = {
   userId: Scalars['String']['output'];
 };
 
-export type CreateCategoryInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int']['input'];
+export type CreateCategoriesInput = {
+  categories: Array<SyncCategoryGql>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createCategory: CategoryGql;
-  removeCategory: CategoryGql;
+  createCategories: Array<CategoryGql>;
   saveUser: UserGql;
-  updateCategory: CategoryGql;
 };
 
 
-export type MutationCreateCategoryArgs = {
-  createCategoryInput: CreateCategoryInput;
-};
-
-
-export type MutationRemoveCategoryArgs = {
-  id: Scalars['Int']['input'];
-};
-
-
-export type MutationUpdateCategoryArgs = {
-  updateCategoryInput: UpdateCategoryInput;
+export type MutationCreateCategoriesArgs = {
+  createCategoriesInput: CreateCategoriesInput;
 };
 
 export type Query = {
   __typename?: 'Query';
   categories: Array<CategoryGql>;
-  category: CategoryGql;
-  user: UserGql;
-  users: Array<UserGql>;
-};
-
-
-export type QueryCategoryArgs = {
-  id: Scalars['Int']['input'];
-};
-
-
-export type QueryUserArgs = {
-  id: Scalars['Int']['input'];
+  isCategoryCustomized: Scalars['Boolean']['output'];
 };
 
 /** The kind of a category. */
@@ -84,10 +59,11 @@ export enum RelationshipCategoryStatus {
   Inactive = 'INACTIVE'
 }
 
-export type UpdateCategoryInput = {
-  /** Example field (placeholder) */
-  exampleField?: InputMaybe<Scalars['Int']['input']>;
-  id: Scalars['Int']['input'];
+export type SyncCategoryGql = {
+  id: Scalars['String']['input'];
+  kind: RelationshipCategoryKind;
+  name: Scalars['String']['input'];
+  status: RelationshipCategoryStatus;
 };
 
 export type UserGql = {
@@ -182,14 +158,13 @@ export type DirectiveResolverFn<TResult = Record<PropertyKey, never>, TParent = 
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CategoryGQL: ResolverTypeWrapper<CategoryGql>;
-  CreateCategoryInput: CreateCategoryInput;
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  CreateCategoriesInput: CreateCategoriesInput;
   Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
   RelationshipCategoryKind: RelationshipCategoryKind;
   RelationshipCategoryStatus: RelationshipCategoryStatus;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  UpdateCategoryInput: UpdateCategoryInput;
+  SyncCategoryGQL: SyncCategoryGql;
   UserGQL: ResolverTypeWrapper<UserGql>;
   UserStatus: UserStatus;
 };
@@ -198,12 +173,11 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   CategoryGQL: CategoryGql;
-  CreateCategoryInput: CreateCategoryInput;
-  Int: Scalars['Int']['output'];
+  CreateCategoriesInput: CreateCategoriesInput;
   Mutation: Record<PropertyKey, never>;
   Query: Record<PropertyKey, never>;
   String: Scalars['String']['output'];
-  UpdateCategoryInput: UpdateCategoryInput;
+  SyncCategoryGQL: SyncCategoryGql;
   UserGQL: UserGql;
 };
 
@@ -216,17 +190,13 @@ export type CategoryGqlResolvers<ContextType = any, ParentType extends Resolvers
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createCategory?: Resolver<ResolversTypes['CategoryGQL'], ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'createCategoryInput'>>;
-  removeCategory?: Resolver<ResolversTypes['CategoryGQL'], ParentType, ContextType, RequireFields<MutationRemoveCategoryArgs, 'id'>>;
+  createCategories?: Resolver<Array<ResolversTypes['CategoryGQL']>, ParentType, ContextType, RequireFields<MutationCreateCategoriesArgs, 'createCategoriesInput'>>;
   saveUser?: Resolver<ResolversTypes['UserGQL'], ParentType, ContextType>;
-  updateCategory?: Resolver<ResolversTypes['CategoryGQL'], ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'updateCategoryInput'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   categories?: Resolver<Array<ResolversTypes['CategoryGQL']>, ParentType, ContextType>;
-  category?: Resolver<ResolversTypes['CategoryGQL'], ParentType, ContextType, RequireFields<QueryCategoryArgs, 'id'>>;
-  user?: Resolver<ResolversTypes['UserGQL'], ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
-  users?: Resolver<Array<ResolversTypes['UserGQL']>, ParentType, ContextType>;
+  isCategoryCustomized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
 };
 
 export type UserGqlResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserGQL'] = ResolversParentTypes['UserGQL']> = {

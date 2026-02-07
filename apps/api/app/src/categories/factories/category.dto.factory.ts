@@ -1,6 +1,7 @@
 import { DEFAULT_CATEGORY_PREFIX } from "../constants/prefix";
 import { Category } from "../domain/entities/category.entity";
 import { CategoryDTO } from "../dto/category.dto";
+import { SyncCategoryGQL } from "../dto/gql.dto";
 import { DefaultCategoriesQuery } from "../types/query";
 
 export class CategoryDTOFactory {
@@ -24,6 +25,22 @@ export class CategoryDTOFactory {
       userId,
       "DEFAULT",
       category.status,
+    );
+  }
+
+  static fromCreateCategoriesMutation(
+    userId: string,
+    categories: SyncCategoryGQL[],
+  ): CategoryDTO[] {
+    return categories.map(
+      (category) =>
+        new CategoryDTO(
+          category.id,
+          category.name,
+          userId,
+          category.kind,
+          category.status,
+        ),
     );
   }
 }
