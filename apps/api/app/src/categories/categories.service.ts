@@ -17,14 +17,17 @@ export class CategoriesService {
   ) {}
 
   async isCustomized(userId: string): Promise<boolean> {
-    const categories = await this.dbClient.reader(
-      async (tx): Promise<CategoryDTO[]> => {
-        const userCategories = await this.categories.findByUserId(userId, tx);
-        return userCategories.map((c) => CategoryDTOFactory.fromEntity(c));
+    const isCustomized = await this.dbClient.reader(
+      async (tx): Promise<boolean> => {
+        const categoriesExist = await this.categories.existsByUserId(
+          userId,
+          tx,
+        );
+        return categoriesExist;
       },
     );
 
-    return categories.length > 0;
+    return isCustomized;
   }
 
   async findAll(userId: string) {
