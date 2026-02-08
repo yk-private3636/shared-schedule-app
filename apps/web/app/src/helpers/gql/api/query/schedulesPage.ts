@@ -6,12 +6,14 @@ export async function getSchedulesPageQuery(accessToken: string) {
 
   const doc = graphql(`
         query GetSchedulesPage {
-            isCategoryCustomized
             categories {
-                id,
-                name,
-                status,
-                kind
+                isCustomized
+                details {
+                    id
+                    name
+                    kind
+                    status
+                }
             }
         }
     `);

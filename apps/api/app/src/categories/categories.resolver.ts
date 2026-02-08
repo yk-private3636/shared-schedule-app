@@ -9,27 +9,23 @@ import { CategoryGQL, CreateCategoriesInput } from "./dto/gql.dto";
 export class CategoriesResolver {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @Query(() => [CategoryGQL], { name: "categories" })
-  async findAll(@UserId() userId: string): Promise<CategoryGQL[]> {
+  @Query(() => CategoryGQL, { name: "categories" })
+  async findAll(@UserId() userId: string): Promise<CategoryGQL> {
     const categories = await this.categoriesService.findAll(userId);
-    return CategoryGQLFactory.fromCategoriesDTO(categories);
+    const isCustomized = await this.categoriesService.isCustomized(userId);
+    return CategoryGQLFactory.fromCategoriesDTO(categories, isCustomized);
   }
 
-  @Query(() => Boolean, { name: "isCategoryCustomized" })
-  async isCustomized(@UserId() userId: string): Promise<boolean> {
-    return this.categoriesService.isCustomized(userId);
-  }
-
-  @Mutation(() => [CategoryGQL])
+  @Mutation(() => CategoryGQL)
   async createCategories(
     @Args("createCategoriesInput") input: CreateCategoriesInput,
     @UserId() userId: string,
-  ): Promise<CategoryGQL[]> {
+  ): Promise<CategoryGQL> {
     const dto = CategoryDTOFactory.fromCreateCategoriesMutation(
       userId,
       input.categories,
     );
     const categories = await this.categoriesService.createMany(dto);
-    return CategoryGQLFactory.fromCategoriesDTO(categories);
+    return CategoryGQLFactory.fromCategoriesDTO(categories, true);
   }
 }

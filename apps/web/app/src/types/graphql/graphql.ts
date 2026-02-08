@@ -16,13 +16,19 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type CategoryGql = {
-  __typename?: 'CategoryGQL';
+export type CategoryDetailGql = {
+  __typename?: 'CategoryDetailGQL';
   id: Scalars['String']['output'];
   kind: RelationshipCategoryKind;
   name: Scalars['String']['output'];
   status: RelationshipCategoryStatus;
   userId: Scalars['String']['output'];
+};
+
+export type CategoryGql = {
+  __typename?: 'CategoryGQL';
+  details: Array<CategoryDetailGql>;
+  isCustomized: Scalars['Boolean']['output'];
 };
 
 export type CreateCategoriesInput = {
@@ -31,7 +37,7 @@ export type CreateCategoriesInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createCategories: Array<CategoryGql>;
+  createCategories: CategoryGql;
   saveUser: UserGql;
 };
 
@@ -42,8 +48,7 @@ export type MutationCreateCategoriesArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  categories: Array<CategoryGql>;
-  isCategoryCustomized: Scalars['Boolean']['output'];
+  categories: CategoryGql;
 };
 
 /** The kind of a category. */
@@ -88,7 +93,7 @@ export type CreateCategoriesMutationVariables = Exact<{
 }>;
 
 
-export type CreateCategoriesMutation = { __typename?: 'Mutation', createCategories: Array<{ __typename?: 'CategoryGQL', id: string, kind: RelationshipCategoryKind, name: string, status: RelationshipCategoryStatus, userId: string }> };
+export type CreateCategoriesMutation = { __typename?: 'Mutation', createCategories: { __typename?: 'CategoryGQL', details: Array<{ __typename?: 'CategoryDetailGQL', id: string, name: string, kind: RelationshipCategoryKind, status: RelationshipCategoryStatus }> } };
 
 export type SaveUserMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -98,9 +103,9 @@ export type SaveUserMutation = { __typename?: 'Mutation', saveUser: { __typename
 export type GetSchedulesPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSchedulesPageQuery = { __typename?: 'Query', isCategoryCustomized: boolean, categories: Array<{ __typename?: 'CategoryGQL', id: string, name: string, status: RelationshipCategoryStatus, kind: RelationshipCategoryKind }> };
+export type GetSchedulesPageQuery = { __typename?: 'Query', categories: { __typename?: 'CategoryGQL', isCustomized: boolean, details: Array<{ __typename?: 'CategoryDetailGQL', id: string, name: string, kind: RelationshipCategoryKind, status: RelationshipCategoryStatus }> } };
 
 
-export const CreateCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createCategories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createCategoriesInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCategoriesInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCategories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createCategoriesInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createCategoriesInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"kind"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<CreateCategoriesMutation, CreateCategoriesMutationVariables>;
+export const CreateCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createCategories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createCategoriesInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCategoriesInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCategories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createCategoriesInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createCategoriesInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"kind"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]}}]} as unknown as DocumentNode<CreateCategoriesMutation, CreateCategoriesMutationVariables>;
 export const SaveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SaveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"saveUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"givenName"}},{"kind":"Field","name":{"kind":"Name","value":"familyName"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<SaveUserMutation, SaveUserMutationVariables>;
-export const GetSchedulesPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSchedulesPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isCategoryCustomized"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"kind"}}]}}]}}]} as unknown as DocumentNode<GetSchedulesPageQuery, GetSchedulesPageQueryVariables>;
+export const GetSchedulesPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSchedulesPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isCustomized"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"kind"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]}}]} as unknown as DocumentNode<GetSchedulesPageQuery, GetSchedulesPageQueryVariables>;
