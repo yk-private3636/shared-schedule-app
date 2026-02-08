@@ -22,6 +22,15 @@ export class CategoriesRepository implements ICategoriesRepository {
     return result.map((r) => ({ id: r.id, name: r.name, status: r.status }));
   }
 
+  async existsByUserId(userId: string, tx: PrismaClient): Promise<boolean> {
+    const category = await tx.relationshipCategory.findFirst({
+      where: { user_id: userId },
+      select: { id: true },
+    });
+
+    return category !== null;
+  }
+
   async createMany(categories: Category[], tx: PrismaClient): Promise<void> {
     const data = categories.map((c) => ({
       id: c.getId(),

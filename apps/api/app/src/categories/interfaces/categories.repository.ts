@@ -4,5 +4,6 @@ import { DefaultCategoriesQuery } from "../types/query";
 export interface ICategoriesRepository {
   findByUserId(userId: string, tx: unknown): Promise<Category[]>;
   findByDefault(tx: unknown): Promise<DefaultCategoriesQuery[]>;
+  existsByUserId(userId: string, tx: unknown): Promise<boolean>;
   createMany(categories: Category[], tx: unknown): Promise<void>;
 }
