@@ -12,6 +12,14 @@ import {
 @ObjectType()
 export class CategoryGQL {
   @Field()
+  isCustomized: boolean; // カスタマイズ済みかどうか
+  @Field(() => [CategoryDetailGQL])
+  details: CategoryDetailGQL[]; // カテゴリー一覧
+}
+
+@ObjectType()
+export class CategoryDetailGQL {
+  @Field()
   id: string; // カテゴリーID
   @Field()
   name: string; // カテゴリー名

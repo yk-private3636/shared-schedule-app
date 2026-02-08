@@ -25,10 +25,10 @@ export default function Schedules() {
         const token = await getAccessTokenSilently();
         const data = await getSchedulesPageQuery(token);
 
-        setIsInitialSetup(!data.isCategoryCustomized);
-        setIsCategorySettingModal(!data.isCategoryCustomized);
+        setIsInitialSetup(!data.categories.isCustomized);
+        setIsCategorySettingModal(!data.categories.isCustomized);
         setInitCategories(
-          data.categories.map((c) => ({
+          data.categories.details.map((c) => ({
             id: c.id,
             name: c.name,
             status: c.status,
@@ -36,7 +36,7 @@ export default function Schedules() {
           })),
         );
         setCategoryItems(
-          data.categories.map((c) => ({
+          data.categories.details.map((c) => ({
             id: c.id,
             name: c.name,
             status: c.status,
@@ -44,7 +44,7 @@ export default function Schedules() {
           })),
         );
         setTabs(
-          data.categories
+          data.categories.details
             .filter((c) => c.status === RelationshipCategoryStatus.Active)
             .map((c, idx) => ({
               id: c.id,
@@ -87,9 +87,9 @@ export default function Schedules() {
     try {
       const token = await getAccessTokenSilently();
       const res = await createCategories({ categories: selectedItems }, token);
-      setInitCategories(res.createCategories);
+      setInitCategories(res.createCategories.details);
       setTabs(
-        res.createCategories
+        res.createCategories.details
           .filter((c) => c.status === RelationshipCategoryStatus.Active)
           .map((c, idx) => ({
             id: c.id,

@@ -19,6 +19,11 @@ enum UserStatus {
 }
 
 type CategoryGQL {
+  isCustomized: Boolean!
+  details: [CategoryDetailGQL!]!
+}
+
+type CategoryDetailGQL {
   id: String!
   name: String!
   userId: String!
@@ -40,13 +45,12 @@ enum RelationshipCategoryStatus {
 }
 
 type Query {
-  categories: [CategoryGQL!]!
-  isCategoryCustomized: Boolean!
+  categories: CategoryGQL!
 }
 
 type Mutation {
   saveUser: UserGQL!
-  createCategories(createCategoriesInput: CreateCategoriesInput!): [CategoryGQL!]!
+  createCategories(createCategoriesInput: CreateCategoriesInput!): CategoryGQL!
 }
 
 input CreateCategoriesInput {

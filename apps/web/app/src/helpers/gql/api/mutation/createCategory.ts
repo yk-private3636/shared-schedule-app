@@ -10,11 +10,12 @@ export async function createCategories(
   const doc = graphql(`
         mutation createCategories($createCategoriesInput: CreateCategoriesInput!) {
             createCategories(createCategoriesInput: $createCategoriesInput) {
-                id
-                kind
-                name
-                status
-                userId
+                details {
+                    id
+                    name
+                    kind
+                    status
+                } 
             }
         }
     `);
