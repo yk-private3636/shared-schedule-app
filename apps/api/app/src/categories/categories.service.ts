@@ -19,18 +19,15 @@ export class CategoriesService {
   async isCustomized(userId: string): Promise<boolean> {
     const isCustomized = await this.dbClient.reader(
       async (tx): Promise<boolean> => {
-        const categoriesExist = await this.categories.existsByUserId(
-          userId,
-          tx,
-        );
-        return categoriesExist;
+        const exists = await this.categories.existsByUserId(userId, tx);
+        return exists;
       },
     );
 
     return isCustomized;
   }
 
-  async findAll(userId: string) {
+  async findAll(userId: string): Promise<CategoryDTO[]> {
     const categories = await this.dbClient.reader(
       async (tx): Promise<CategoryDTO[]> => {
         const userCategories = await this.categories.findByUserId(userId, tx);
